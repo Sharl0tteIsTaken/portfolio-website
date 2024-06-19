@@ -1,0 +1,28 @@
+<div class="terminal-history" id="terminal-history">
+  <div class="terminal-line">
+    <div id="popup-box-history" class="overlay">
+      <div class="popup">
+        <h2>Game log</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="popup-text">
+          <p class="textsize-float">{{ history }}</p>
+        </div>
+      </div>
+    </div>
+    <p class="textsize-float">{{ terminal_lines }}</p>
+  </div>
+  {% if is_winner == "True": %}
+    <div class="textsize-float">
+      player {{ player }} wins this round!
+      Game continues.
+    </div>
+  {% elif is_winner == "draw": %}
+    <div class="textsize-float">
+      draw! 
+      Game continues.
+    </div>
+  {% endif %}
+  <div class="pwd textsize-float">
+    {{ pwd }}
+  </div>
+</div>
