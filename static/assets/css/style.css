@@ -1,0 +1,273 @@
+body {
+    font-size: 1.25rem;
+}
+
+.svg-whitened {
+    filter: invert(86%) sepia(7%) saturate(160%) hue-rotate(202deg) brightness(96%) contrast(89%);
+}
+
+.pacifico-regular {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+.div-in-flex-container-right-align {
+    display:flex;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.font-size-fixed {
+    /* https://stackoverflow.com/questions/42782858/how-to-center-the-text-larger-than-the-container */
+    width: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+/* header.html */
+.navbar {
+    background-color: black !important;
+}
+
+.nav-item {
+    font-size: 1rem;
+}
+
+/* footer.html */
+.copyright-text {
+    font-size: 0.875em;
+}
+
+/* index.html */
+.base-color {
+    background-color: rgba(0,0,0,0.4);
+}
+
+.spacer-top {
+    height:  2vh;
+    /* background: linear-gradient(black, transparent); */
+}
+
+.spacer-between {
+    height:  3vh;
+}
+
+.spacer-bottom {
+    height:  3vh;
+    background: linear-gradient(rgba(0,0,0,0.4), transparent);
+}
+
+/* this the solution from .blob, but it causes footer to misplace,
+    used z-index: -1; in .blob to resolve */
+/* .post-content {
+    position: absolute; 
+} */
+
+.post-block {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    margin-right: 4%;
+    margin-left: 4%;
+}
+
+.post {
+    height: auto; 
+    /* https://www.geeksforgeeks.org/how-to-make-div-height-expand-with-its-content-using-css/ */
+    background-color: #212529 ;
+    padding: 1rem !important; 
+    margin: -12px;
+}
+
+.result-block {
+    display: inline-block;
+    padding: 0rem;
+}
+
+.result-preview {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.code-block {
+    overflow: auto;
+    height: auto;
+    padding: 0.75rem;
+
+}
+
+.code-text {
+    margin-top: 0;
+}
+
+.code-preview {
+    /* cite https://stackoverflow.com/questions/3029422/how-to-auto-resize-an-image-while-maintaining-aspect-ratio */
+    max-width: 100%;
+    max-height: 100%;
+    color: white;
+}
+
+.code-separator {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: white;
+    opacity: 0.75;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+@keyframes rotate {
+    from {
+        rotate: 0deg;
+    }
+    
+    to {
+        rotate: 360deg;
+    }
+}
+
+.blob {
+    /* https://stackoverflow.com/questions/7797708/how-to-keep-the-background-div-appear-desptie-scrolling-vertically */
+    height: 120vmax;
+    aspect-ratio: 1;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: linear-gradient(to right, aquamarine, mediumpurple);
+    animation: rotate 20s infinite;
+    filter: blur(100px);
+    /* opacity: 0.4; */
+    /* https://stackoverflow.com/questions/16898315/how-to-change-the-layer-order-of-divs */
+    z-index: -1;
+}
+
+.carousel-btn {
+    height: 50%;
+    align-items: end;
+    opacity: 1;
+}
+
+
+/* contact.html & about.html */
+.header-bg {
+    position: relative;
+    /* this line of code existence is to remind my self of don't underestimate any part of programming
+    just because it's seems easy doesn't meant in pratice it's still easy 
+    this line of code cause me about 5 hours to debug. 2024/05 */
+    /* padding-top: calc(57px + 8rem); */
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    background: center center / cover no-repeat scroll rgb(108, 117, 125);
+    text-align: center;
+    background-size: cover; 
+    background-position: center; 
+    height: auto; 
+    /* Set the height as per your requirement  */
+}
+
+.photo-credit {
+    font-size: medium;
+    text-align: right;
+    margin-left: auto; 
+    margin-right: 5px;
+    margin-bottom: 3rem;
+}
+
+.page-heading {
+    color: white;
+}
+
+.subheading {
+    font-size: 1.5rem;
+}
+
+ h1, .h1 {
+    margin-top: 0px;
+    margin-bottom: 0.5rem;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 800;
+    line-height: 1.2;
+}
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, p {
+    --bs-body-font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --bs-body-font-size: 1rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.5;
+}
+
+
+h1 {
+    font-size: 3rem;
+}
+
+.form-floating > .form-control, .form-floating > .form-control-plaintext {
+    padding: 1.25rem 0px;
+    height: 4.5rem;
+    line-height: 1.25;
+}
+
+.form-floating input, .form-floating textarea {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+}
+
+.btn {
+    letter-spacing: 0.0625em;
+    text-transform: uppercase !important;
+    --bs-btn-padding-x: 1.75rem;
+    --bs-btn-padding-y: 1rem;
+    --bs-btn-font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --bs-btn-font-size: 0.875rem;
+    --bs-btn-font-weight: 800;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-color: #212529;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: transparent;
+    --bs-btn-border-radius: 0.375rem;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    --bs-btn-disabled-opacity: 0.65;
+    --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+    display: inline-block;
+    font-family: var(--bs-btn-font-family);
+    font-size: var(--bs-btn-font-size);
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    color: var(--bs-btn-color);
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--bs-btn-bg);
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+    transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #0085A1;
+    --bs-btn-border-color: #0085A1;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #007189;
+    --bs-btn-hover-border-color: #006a81;
+    --bs-btn-focus-shadow-rgb: 38, 151, 175;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #006a81;
+    --bs-btn-active-border-color: #006479;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #0085A1;
+    --bs-btn-disabled-border-color: #0085A1;
+}
+
