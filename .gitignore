@@ -15,7 +15,7 @@ Icon
 
 # used to setup environment
 Procfile
-
+settings.json
 # ^^^ -added & named by me.
 
 # Byte-compiled / optimized / DLL files
