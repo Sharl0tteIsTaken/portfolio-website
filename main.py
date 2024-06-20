@@ -1,17 +1,17 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 import os
 
+from demos.showmaker_demo import ShowMaker
 
 # setup flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("APP_SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_DATABASE_URI")
 
-print(os.getenv("Test_key"))
 
 # setup db
 class Base(DeclarativeBase):
@@ -31,9 +31,11 @@ class AllProjectDemo(db.Model):
     apd_id: Mapped[int] = mapped_column(primary_key=True)
     apd_title: Mapped[str] = mapped_column(nullable=False, unique=True)
     apd_desc: Mapped[str] = mapped_column(nullable=False)
-    apd_preview: Mapped[str] = mapped_column(nullable=False) # enter video or image
+    apd_preview: Mapped[str] = mapped_column(nullable=False) # enter video, image or both
     apd_videos: Mapped[str] = mapped_column()
     apd_images: Mapped[str] = mapped_column()
+    apd_isdemo: Mapped[str] = mapped_column(nullable=False) # enter true or false
+    apd_endpoint: Mapped[str] = mapped_column() # enter endpoint for demo
 
 # website routes
 @app.route('/')
@@ -44,7 +46,6 @@ def home():
     if results != []:
         image_locs:dict[int, list] = {}
         first_loc: dict[int, str] = {}
-        # ../static/assets/img/placeholder.jpg
         for project in results:
             locations = project.apd_images.split(", ")
             image_loc = []
@@ -56,13 +57,8 @@ def home():
         image_nums = range(len(image_locs))
     else:
         first_loc = {}
+        image_locs = {}
         image_nums = 0
-    
-    print("======================================")
-    print("first loc", first_loc)
-    print("image locs", image_locs)
-    print("image nums", image_nums)
-    print("======================================")
     return render_template(
         "index.html",
         db_data=db_data,
@@ -82,14 +78,61 @@ def about():
 def contact():
     return render_template("contact.html", msg_sent=False, page="contact")
 
+# MAIL_ADDRESS = os.environ.get("EMAIL_KEY")
+# MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
 
-def get_from_db():
-    
-    return
+# @app.route("/contact", methods=["GET", "POST"])
+# def contact():
+#     if request.method == "POST":
+#         data = request.form
+#         send_email(data["name"], data["email"], data["phone"], data["message"])
+#         return render_template("contact.html", msg_sent=True)
+#     return render_template("contact.html", msg_sent=False)
+#
+#
+# def send_email(name, email, phone, message):
+#     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
+#     with smtplib.SMTP("smtp.gmail.com") as connection:
+#         connection.starttls()
+#         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
+#         connection.sendmail(MAIL_ADDRESS, MAIL_APP_PW, email_message)
 
+@app.route("/demo/tic-tac-toe", methods=['GET','POST'])
+def demo_tic_tac_toe():
+    # TODO: add reset button(to reset ShowMaker)
+    if request.method == "POST":
+        enter = request.form.get('user_input')
+        dk_showmaker.player_input(user_input=enter) # type: ignore
+    result = dk_showmaker.output
+    pwd = dk_showmaker.pwd
+    history = dk_showmaker.history
+    is_winner = str(dk_showmaker._iswinner)
+    player = int(dk_showmaker._current_player) + 1
+    return render_template(
+        'demo.html',
+        terminal_lines=result,
+        pwd=pwd,
+        history=history,
+        is_winner=is_winner,
+        player=player
+        )
 
+@app.route('/demo/tic-tac-toe/input-recieve')
+def demo_tic_tac_toe_input_receive():
+    result = dk_showmaker.output
+    pwd = dk_showmaker.pwd
+    history = dk_showmaker.history
+    is_winner = str(dk_showmaker._iswinner)
+    player = int(dk_showmaker._current_player) + 1
+    return render_template(
+        'cz_terminal.html',
+        terminal_lines=result,
+        pwd=pwd, history=history,
+        is_winner=is_winner,
+        player=player
+        ) # cz stands for customized
 
 if __name__ == "__main__":
-
-    
+    dk_showmaker = ShowMaker()
+    dk_showmaker.new_game()
     app.run(debug=True, port=5000)

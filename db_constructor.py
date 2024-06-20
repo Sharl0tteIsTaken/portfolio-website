@@ -45,9 +45,11 @@ class AllProjectDemo(db.Model):
     apd_id: Mapped[int] = mapped_column(primary_key=True)
     apd_title: Mapped[str] = mapped_column(nullable=False, unique=True)
     apd_desc: Mapped[str] = mapped_column(nullable=False)
-    apd_preview: Mapped[str] = mapped_column(nullable=False) # enter video or image
+    apd_preview: Mapped[str] = mapped_column(nullable=False) # enter video, image or both
     apd_videos: Mapped[str] = mapped_column()
     apd_images: Mapped[str] = mapped_column(String(500))
+    apd_isdemo: Mapped[str] = mapped_column(nullable=False) # enter true or false
+    apd_endpoint: Mapped[str] = mapped_column() # enter endpoint for demo
 
 if db_add_table:
     with app.app_context():
@@ -65,8 +67,11 @@ if db_add_value:
             apd_title = "Tic Tac Toe",
             apd_desc = 'Build a text-based version of the Tic Tac Toe game in the command line. It should be a 2-player game, where one person is "X" and the other plays "O".',
             apd_preview = "video",
-            apd_videos = "Tic-Tac-Toe-Demo.mov",
-            apd_images = "",) # type: ignore
+            apd_videos = "../static/assets/mov/Tic-Tac-Toe.mp4",
+            apd_images = "",
+            apd_isdemo = "true",
+            apd_endpoint = "demo_tic_tac_toe"
+            ) # type: ignore
         db.session.add(data)
         db.session.commit()
         print(f"db with name: {db_name} added value.")

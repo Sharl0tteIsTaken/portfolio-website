@@ -14,14 +14,16 @@
               <!-- TODO: add link to demo -->
                <!-- https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements -->
                <div class="div-in-flex-container-right-align">
-                 <button class="btn btn-outline-secondary btn-lg" title="Demo is not the final product.">
-                   <p class="pacifico-regular font-size-fixed">
-                     demo
-                   </p>
-                 </button>
-                 <button type="button" class="btn btn-outline-secondary btn-lg">
-                   <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github" height="30">
-                 </button>
+                {% if project.apd_isdemo == "true": %}
+                  <button class="btn btn-outline-secondary btn-lg" title="demo is not the final product." onclick="location.href='{{ url_for(project.apd_endpoint) }}'" type="button">
+                    <p class="pacifico-regular font-size-fixed"> 
+                      demo
+                    </p>
+                  </button>
+                {% endif %}
+                <button type="button" class="btn btn-outline-secondary btn-lg">
+                  <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github" height="30">
+                </button>
                </div>
             </div>
             
@@ -39,19 +41,22 @@
           </div>
           <div class="col-xxl-6 result-block">
               <div class="container no-padding">
-                {% if project.apd_preview == "video": %}
+                {% if project.apd_preview == "both": %}
+
+
+                {% elif project.apd_preview == "video": %}
                   <video controls class="d-block w-100">
                     <!-- https://stackoverflow.com/questions/27752500/how-to-have-an-anim-gif-on-a-link-and-play-it-on-hover-and-reset -->
                     <source src="{{ project.apd_videos }}" type="video/mp4" />
                   </video>
                 {% elif project.apd_preview == 'image': %}
                   <!-- TODO: delete all word "example" -->
-                  <div id="carouselExampleIndicators" class="carousel slide">
+                  <div id="carouselIndicators" class="carousel slide">
                     <div class="carousel-indicators">
                       <!-- if somehow someday there's only one preview-image in a project shown add code here.  -->
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" aria-label="Slide 1" class="active" aria-current="true"></button>
                       {% for num in image_nums: %}
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ num + 1 }}" aria-label="Slide {{ num + 2 }}"></button>
+                        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="{{ num + 1 }}" aria-label="Slide {{ num + 2 }}"></button>
                       {% endfor %}
                     </div>
                     
@@ -68,11 +73,11 @@
                         {% endfor %}
                       {% endif %}
                     </div>
-                    <button class="carousel-control-prev carousel-btn" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <button class="carousel-control-prev carousel-btn" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next carousel-btn" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <button class="carousel-control-next carousel-btn" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
                     </button>
