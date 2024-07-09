@@ -3,15 +3,20 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-import os
+import os, smtplib
 
 from demos.showmaker_demo import ShowMaker
+# TODO: check import orders
+
+
+# setup from environmental variables
+EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
 # setup flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("APP_SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_DATABASE_URI")
-
 
 # setup db
 class Base(DeclarativeBase):
@@ -75,28 +80,26 @@ def about():
     return render_template("about.html", page="about")
 
 
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    return render_template("contact.html", msg_sent=False, page="contact")
-
-# MAIL_ADDRESS = os.environ.get("EMAIL_KEY")
-# MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
-
 # @app.route("/contact", methods=["GET", "POST"])
 # def contact():
-#     if request.method == "POST":
-#         data = request.form
-#         send_email(data["name"], data["email"], data["phone"], data["message"])
-#         return render_template("contact.html", msg_sent=True)
-#     return render_template("contact.html", msg_sent=False)
-#
-#
-# def send_email(name, email, phone, message):
-#     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
-#     with smtplib.SMTP("smtp.gmail.com") as connection:
-#         connection.starttls()
-#         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
-#         connection.sendmail(MAIL_ADDRESS, MAIL_APP_PW, email_message)
+#     return render_template("contact.html", msg_sent=False, page="contact")
+
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        data = request.form
+        send_email(data["name"], data["email"], data["message"]) # TODO: check form fields match with website
+        return render_template("contact.html", msg_sent=True)
+    return render_template("contact.html", msg_sent=False, page="contact")
+
+
+def send_email(name, email, message):
+    email_message = f"Subject:Message from site.\n\n{message}\n\nby {name}.\nEmail: {email}"
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()
+        connection.login(user=EMAIL_ADDRESS, password=EMAIL_PASSWORD) # type: ignore
+        connection.sendmail(from_addr=EMAIL_ADDRESS, to_addrs=EMAIL_ADDRESS, msg=email_message) # type: ignore
 
 @app.route("/demo/tic-tac-toe", methods=['GET','POST'])
 def demo_tic_tac_toe():
