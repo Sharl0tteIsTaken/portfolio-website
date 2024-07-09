@@ -14,14 +14,14 @@
               <!-- TODO: add link to demo -->
                <!-- https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements -->
                <div class="div-in-flex-container-right-align">
-                {% if project.apd_isdemo == "true": %}
-                  <button class="btn btn-outline-secondary btn-lg" title="demo is not the final product." onclick="location.href='{{ url_for(project.apd_endpoint) }}'" type="button">
+                {% if project.apd_is_demo == "true": %}
+                  <button class="btn btn-outline-secondary btn-lg" type="button" title="demo is not the final product." onclick="location.href='{{ url_for(project.apd_demo_ep) }}'">
                     <p class="pacifico-regular font-size-fixed"> 
                       demo
                     </p>
                   </button>
                 {% endif %}
-                <button type="button" class="btn btn-outline-secondary btn-lg">
+                <button class="btn btn-outline-secondary btn-lg" type="button" title="checkout actual code on github." onclick="location.href='{{ project.apd_github_link }}'">
                   <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github" height="30">
                 </button>
                </div>

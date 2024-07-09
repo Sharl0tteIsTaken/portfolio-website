@@ -47,9 +47,10 @@ class AllProjectDemo(db.Model):
     apd_desc: Mapped[str] = mapped_column(nullable=False)
     apd_preview: Mapped[str] = mapped_column(nullable=False) # enter video, image or both
     apd_videos: Mapped[str] = mapped_column()
-    apd_images: Mapped[str] = mapped_column(String(500))
-    apd_isdemo: Mapped[str] = mapped_column(nullable=False) # enter true or false
-    apd_endpoint: Mapped[str] = mapped_column() # enter endpoint for demo
+    apd_images: Mapped[str] = mapped_column()
+    apd_is_demo: Mapped[str] = mapped_column(nullable=False) # enter true or false
+    apd_demo_ep: Mapped[str] = mapped_column() # enter endpoint for demo, use at index.html
+    apd_github_link: Mapped[str] = mapped_column(nullable=False)
 
 if db_add_table:
     with app.app_context():
@@ -69,8 +70,9 @@ if db_add_value:
             apd_preview = "video",
             apd_videos = "../static/assets/mov/Tic-Tac-Toe.mp4",
             apd_images = "",
-            apd_isdemo = "true",
-            apd_endpoint = "demo_tic_tac_toe"
+            apd_is_demo = "true",
+            apd_demo_ep = "demo_tic_tac_toe",
+            apd_github_link = "https://github.com/Sharl0tteIsTaken/tic-tac-toe",
             ) # type: ignore
         db.session.add(data)
         db.session.commit()

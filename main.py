@@ -34,8 +34,9 @@ class AllProjectDemo(db.Model):
     apd_preview: Mapped[str] = mapped_column(nullable=False) # enter video, image or both
     apd_videos: Mapped[str] = mapped_column()
     apd_images: Mapped[str] = mapped_column()
-    apd_isdemo: Mapped[str] = mapped_column(nullable=False) # enter true or false
-    apd_endpoint: Mapped[str] = mapped_column() # enter endpoint for demo
+    apd_is_demo: Mapped[str] = mapped_column(nullable=False) # enter true or false
+    apd_demo_ep: Mapped[str] = mapped_column() # enter endpoint for demo, use at index.html
+    apd_github_link: Mapped[str] = mapped_column(nullable=False)
 
 # website routes
 @app.route('/')
@@ -109,7 +110,7 @@ def demo_tic_tac_toe():
     is_winner = str(dk_showmaker._iswinner)
     player = int(dk_showmaker._current_player) + 1
     return render_template(
-        'demo.html',
+        'demo-tic_tac_toe.html',
         terminal_lines=result,
         pwd=pwd,
         history=history,
@@ -125,7 +126,7 @@ def demo_tic_tac_toe_input_receive():
     is_winner = str(dk_showmaker._iswinner)
     player = int(dk_showmaker._current_player) + 1
     return render_template(
-        'cz_terminal.html',
+        'demo-cz_terminal.html',
         terminal_lines=result,
         pwd=pwd, history=history,
         is_winner=is_winner,
