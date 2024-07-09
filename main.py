@@ -7,6 +7,8 @@ import os, smtplib
 
 from demos.showmaker_demo import ShowMaker
 # TODO: check import orders
+# TODO: delete unused image in static/assects
+
 
 
 # setup from environmental variables

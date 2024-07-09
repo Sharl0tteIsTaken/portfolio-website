@@ -11,7 +11,6 @@
           <div class="col-xxl-6 code-block">
             <div class="d-flex flex-row">
               <h1 class="display-4 fw-bold lh-1 text-white justify-content-end">{{ project.apd_title }}</h1>
-              <!-- TODO: add link to demo -->
                <!-- https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements -->
                <div class="div-in-flex-container-right-align">
                 {% if project.apd_is_demo == "true": %}
@@ -35,7 +34,6 @@
             <div class="mx-auto code-text">
               <p class="code-preview">
                 {{ project.apd_desc }}
-                <!-- TODO: add disclaimer: demo and completed project have different code!  -->
               </p>
             </div>
           </div>
@@ -50,7 +48,6 @@
                     <source src="{{ project.apd_videos }}" type="video/mp4" />
                   </video>
                 {% elif project.apd_preview == 'image': %}
-                  <!-- TODO: delete all word "example" -->
                   <div id="carouselIndicators" class="carousel slide">
                     <div class="carousel-indicators">
                       <!-- if somehow someday there's only one preview-image in a project shown add code here.  -->
@@ -59,8 +56,6 @@
                         <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="{{ num + 1 }}" aria-label="Slide {{ num + 2 }}"></button>
                       {% endfor %}
                     </div>
-                    
-                    <!-- TODO: set image from db, project_video -->
                     <div class="carousel-inner">
                       {% if first_loc != "": %}
                         <div class="carousel-item active" data-bs-interval="6000">
