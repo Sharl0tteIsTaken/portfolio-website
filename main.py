@@ -47,7 +47,6 @@ class AllProjectDemo(db.Model):
 @app.route('/')
 def home():
     db_data = db.session.execute(db.select(AllProjectDemo)).scalars().all()
-    
     results = db.session.execute(db.select(AllProjectDemo).where(AllProjectDemo.apd_preview == 'image')).scalars().all()
     if results != []:
         image_locs:dict[int, list] = {}
@@ -74,32 +73,17 @@ def home():
         page="home"
         )
 
-
 @app.route("/about")
 def about():
     return render_template("about.html", page="about")
-
-
-# @app.route("/contact", methods=["GET", "POST"])
-# def contact():
-#     return render_template("contact.html", msg_sent=False, page="contact")
-
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
         data = request.form
-        send_email(data["name"], data["email"], data["message"]) # TODO: check form fields match with website
+        send_email(data["name"], data["email"], data["message"])
         return render_template("contact.html", msg_sent=True)
     return render_template("contact.html", msg_sent=False, page="contact")
-
-
-def send_email(name, email, message):
-    email_message = f"Subject:Message from site.\n\n{message}\n\nby {name}.\nEmail: {email}"
-    with smtplib.SMTP("smtp.gmail.com") as connection:
-        connection.starttls()
-        connection.login(user=EMAIL_ADDRESS, password=EMAIL_PASSWORD) # type: ignore
-        connection.sendmail(from_addr=EMAIL_ADDRESS, to_addrs=EMAIL_ADDRESS, msg=email_message) # type: ignore
 
 @app.route("/demo/tic-tac-toe", methods=['GET','POST'])
 def demo_tic_tac_toe():
@@ -135,6 +119,15 @@ def demo_tic_tac_toe_input_receive():
         is_winner=is_winner,
         player=player
         ) # cz stands for customized
+
+# other functions
+def send_email(name, email, message):
+    email_message = f"Subject:Message from site.\n\n{message}\n\nby {name}.\nEmail: {email}"
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()
+        connection.login(user=EMAIL_ADDRESS, password=EMAIL_PASSWORD) # type: ignore
+        connection.sendmail(from_addr=EMAIL_ADDRESS, to_addrs=EMAIL_ADDRESS, msg=email_message) # type: ignore
+
 
 if __name__ == "__main__":
     dk_showmaker = ShowMaker()
