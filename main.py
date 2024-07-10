@@ -91,6 +91,7 @@ def contact():
 def gate_tic_tac_toe():
     print("restart showmaker with __init__.")
     dk_showmaker.__init__()
+    dk_showmaker.new_game()
     return redirect(url_for('demo_tic_tac_toe'))
 
 @app.route("/demo/tic-tac-toe", methods=['GET','POST'])
