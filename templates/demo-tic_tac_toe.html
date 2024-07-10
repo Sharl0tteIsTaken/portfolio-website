@@ -60,15 +60,14 @@
           <p class="textsize-float">{{ terminal_lines }}</p>
         </div>
         {% if is_winner == "True": %}
-          <!-- 
-            this part of code is a attempt of trying to get popup to show after there's a winner,
-            but javascript is difficult to dealt with so I just use a message in a div instead.
-          -->
           <div class="textsize-float">
             player {{ player }} wins this round!
             Game continues.
           </div>
-          
+          <!-- 
+            this part of code is a attempt of trying to get popup to show after there's a winner,
+            but javascript is difficult to dealt with so I just use a message in a div instead.
+          -->
           <!-- following code is commented since with it present message won't show -->
           <!-- <div id="game-end-popup"  class="overlay">
             <div class="popup">
@@ -84,7 +83,6 @@
             draw! 
             Game continues.
           </div>
-          
         {% endif %}
         <div class="pwd textsize-float">
           {{ pwd }}

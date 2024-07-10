@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, redirect, request, url_for
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -87,11 +87,19 @@ def contact():
         return render_template("contact.html", msg_sent=True)
     return render_template("contact.html", msg_sent=False, page="contact")
 
+@app.route("/gate/tic-tac-toe")
+def gate_tic_tac_toe():
+    print("restart showmaker with __init__.")
+    dk_showmaker.__init__()
+    return redirect(url_for('demo_tic_tac_toe'))
+
 @app.route("/demo/tic-tac-toe", methods=['GET','POST'])
 def demo_tic_tac_toe():
+    print("in demo")
     # TODO: add reset button(to reset ShowMaker)
     if request.method == "POST":
         enter = request.form.get('user_input')
+        print("user input: ", enter)
         dk_showmaker.player_input(user_input=enter) # type: ignore
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
@@ -107,8 +115,9 @@ def demo_tic_tac_toe():
         player=player
         )
 
-@app.route('/demo/tic-tac-toe/input-recieve')
+@app.route('/demo/tic-tac-toe/input-receive')
 def demo_tic_tac_toe_input_receive():
+    print("in input receive")
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
     history = dk_showmaker.history
