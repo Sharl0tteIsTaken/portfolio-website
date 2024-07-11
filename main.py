@@ -6,8 +6,8 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 import os, smtplib
 
 from demos.showmaker_demo import ShowMaker
-# TODO: check import orders
-# TODO: delete unused image in static/assects
+# TODO: [last] check import orders
+# TODO: [last] delete unused image in static/assects
 
 
 
@@ -89,7 +89,6 @@ def contact():
 
 @app.route("/gate/tic-tac-toe")
 def gate_tic_tac_toe():
-    # TODO: check if gate work properly.
     dk_showmaker.__init__()
     dk_showmaker.new_game()
     return redirect(url_for('demo_tic_tac_toe'))
