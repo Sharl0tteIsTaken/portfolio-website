@@ -21,7 +21,7 @@
                   </button>
                 {% endif %}
                 <button class="btn btn-outline-secondary btn-lg" type="button" title="checkout actual code on github." onclick="location.href='{{ project.apd_github_link }}'">
-                  <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github" height="30">
+                  <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents link to the project on github." height="30">
                 </button>
                </div>
             </div>
@@ -59,11 +59,11 @@
                     <div class="carousel-inner">
                       {% if first_loc != "": %}
                         <div class="carousel-item active" data-bs-interval="6000">
-                          <img src="{{ first_loc[project.apd_id] }}" class="d-block w-100" alt="a image of preview code">
+                          <img src="{{ first_loc[project.apd_id] }}" class="d-block w-100" alt="a image of preview code.">
                         </div>
                         {% for loc in image_locs[project.apd_id] %}
                           <div class="carousel-item" data-bs-interval="6000">
-                            <img src="{{ loc }}" class="d-block w-100" alt="a image of preview code">
+                            <img src="{{ loc }}" class="d-block w-100" alt="a image of preview code.">
                           </div>
                         {% endfor %}
                       {% endif %}

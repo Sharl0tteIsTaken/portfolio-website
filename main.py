@@ -89,18 +89,15 @@ def contact():
 
 @app.route("/gate/tic-tac-toe")
 def gate_tic_tac_toe():
-    print("restart showmaker with __init__.")
+    # TODO: check if gate work properly.
     dk_showmaker.__init__()
     dk_showmaker.new_game()
     return redirect(url_for('demo_tic_tac_toe'))
 
 @app.route("/demo/tic-tac-toe", methods=['GET','POST'])
 def demo_tic_tac_toe():
-    print("in demo")
-    # TODO: add reset button(to reset ShowMaker)
     if request.method == "POST":
         enter = request.form.get('user_input')
-        print("user input: ", enter)
         dk_showmaker.player_input(user_input=enter) # type: ignore
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
@@ -118,7 +115,6 @@ def demo_tic_tac_toe():
 
 @app.route('/demo/tic-tac-toe/input-receive')
 def demo_tic_tac_toe_input_receive():
-    print("in input receive")
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
     history = dk_showmaker.history
