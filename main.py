@@ -9,7 +9,7 @@ from demo_tic_tac_toe.showmaker_demo import ShowMaker
 from demo_morse_code_converter.converter import Converter
 # TODO: [last] check import orders
 # TODO: [last] delete unused image in static/assects
-
+# TODO: [last] get readme to be project thought process note from Obsidian, and add usage and known bugs(if time permits)
 
 
 # setup from environmental variables

@@ -3,14 +3,14 @@
 # LETTER_SPACE = ' '
 # WORD_SPACE = ' / '
 
-from string import ascii_lowercase, digits, punctuation
+from string import ascii_letters, digits, punctuation
 
 from demo_morse_code_converter.convert_tables import ConvertTables
 
 exclude = r'''#%*<>[\]^`{|}~'''
 for letter in exclude:
     punctuation = punctuation.replace(letter, "")
-include_words = ascii_lowercase + digits + punctuation
+include_words = ascii_letters + digits + punctuation
 
 
 class Converter:

@@ -16,10 +16,12 @@ Icon
 # used to setup environment
 Procfile
 settings.json
+db_constructor.py
 # ^^^ -added & named by me.
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*/__pycache__/
 *.py[cod]
 *$py.class
 
