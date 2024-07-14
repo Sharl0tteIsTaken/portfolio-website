@@ -5,7 +5,8 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 import os, smtplib
 
-from demos.showmaker_demo import ShowMaker
+from demo_tic_tac_toe.showmaker_demo import ShowMaker
+from demo_morse_code_converter.converter import Converter
 # TODO: [last] check import orders
 # TODO: [last] delete unused image in static/assects
 
@@ -120,13 +121,36 @@ def demo_tic_tac_toe_input_receive():
     is_winner = str(dk_showmaker._iswinner)
     player = int(dk_showmaker._current_player) + 1
     return render_template(
-        'demo-cz_terminal.html',
+        'demo-cz_terminal-tic_tac_toe.html',
         terminal_lines=result,
         pwd=pwd, history=history,
         is_winner=is_winner,
         player=player
         ) # cz stands for customized
+    
+@app.route("/gate/morse-code-converter")
+def gate_morse_code_converter():
+    converter.history = ""
+    return redirect(url_for('demo_morse_code_converter'))
+    
+@app.route('/demo/morse-code-converter', methods=['GET','POST'])
+def demo_morse_code_converter():
+    if request.method == "POST":
+        enter = request.form.get('user_input')
+        converter.history += enter + "\n" # type: ignore
+        converter.history += converter.convert(user_input=enter) + "\n" # type: ignore
+    return render_template(
+        'demo-morse_code_converter.html',
+        terminal_lines=converter.history,
+        )
 
+@app.route('/demo/morse-code-converter/input-recieve')
+def demo_morse_code_converter_input_receive():
+    return render_template(
+        'demo-cz_terminal-morse_code_converter.html',
+        terminal_lines=converter.history,
+        ) # cz stands for customized
+    
 # other functions
 def send_email(name, email, message):
     email_message = f"Subject:Message from site.\n\n{message}\n\nby {name}.\nEmail: {email}"
@@ -139,4 +163,5 @@ def send_email(name, email, message):
 if __name__ == "__main__":
     dk_showmaker = ShowMaker()
     dk_showmaker.new_game()
+    converter = Converter()
     app.run(debug=True, port=5000)

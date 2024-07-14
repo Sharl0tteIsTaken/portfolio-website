@@ -1,0 +1,9 @@
+{
+    "default": {
+        "dot": ".",
+        "dash": "-",
+        "code_space": " ",
+        "letter_space": "   ",
+        "word_space": "       "
+    }
+}
