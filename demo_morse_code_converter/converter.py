@@ -1,16 +1,22 @@
-# test case to match: https://morsecode.world/international/translator.html
-# CODE_SPACE = ''
-# LETTER_SPACE = ' '
-# WORD_SPACE = ' / '
+"""
+A modified version of morse code converter for website demo purpose.
+"""
+
 
 from string import ascii_letters, digits, punctuation
+from typing import Literal
 
 from demo_morse_code_converter.convert_tables import ConvertTables
 
-exclude = r'''#%*<>[\]^`{|}~'''
-for letter in exclude:
-    punctuation = punctuation.replace(letter, "")
-include_words = ascii_letters + digits + punctuation
+EXCLUDE = r'''#%*<>[\]^`{|}~'''
+for symbols in EXCLUDE:
+    SYMBOLS = punctuation.replace(symbols, "")
+INCLUDE_WORDS = ascii_letters + digits + SYMBOLS
+
+type MorseCode = Literal[
+    "dot", "dash", "code_space", "letter_space", "word_space"
+    ]
+type MorseValue = str
 
 
 class Converter:
@@ -19,115 +25,137 @@ class Converter:
     """
     def __init__(self) -> None:
         """
-        Parameters
-        ----------
-            dot (str): short mark, dot or di: one time unit long. Defaults to ConvertTables.dot.
-            dash (str): long mark, dash or dah: three time units long. Defaults to ConvertTables.dash.
-            code_space (str): inter-element gap between the dits and dahs within a character: one unit long. Defaults to ConvertTables.CODE_SPACE.
-            letter_space (str): short gap (between letters): three time units long. Defaults to ConvertTables.LETTER_SPACE.
-            word_space (str): medium gap (between words): seven time units long. Defaults to ConvertTables.WORD_SPACE.
+        Explanation
+        -----------
+        dot (dot or dit): short mark, one time unit long.
+        dash (dash or dah): long mark, three time units long.
+        code_space: inter-element gap between the dits and dahs within
+            a character, one time unit long.
+        letter_space: short gap between letters, three time units long.
+        word_space: medium gap between words, seven time units long.
         """
         self.dot = ConvertTables.dot
         self.dash = ConvertTables.dash
         self.code_space = ConvertTables.code_space
         self.letter_space = ConvertTables.letter_space
         self.word_space = ConvertTables.word_space
-        
+
         # for demo only
         self.history = ""
-        
-        self.codes = self.morsecode_regulator()
-        
-    def morsecode_regulator(self) -> dict[str, str]:
-        '''
-        check if any value in convert table(3 dictionaries: letters, numbers, punctuations) is not
-        acceptable codes(2 strings: dot, dash),
-        - if any: raise error with message contain code in convert table that will causes error
-        - if not: merge letter, numbers and punctuations from convert table into a single dictionary
-        
-        Returns:
-            dict[str, str]: concatenated convert tables, code are all suitable for the following steps.
-        '''
-        def unpack_dict(**kwargs:dict) -> str:
-            """
-            take error message from Converter.code_regulator() when ConvertTables contain unsupported code,
-            returns formatted string contain the letter, position, morse code of error.
 
-            Returns:
-                str: formatted string contain the letter, position, morse code of error
+        self.codes = self.morsecode_regulator()
+
+    def morsecode_regulator(self) -> dict[str, str]:
+        """
+        Check if any value in convert table(3 dictionaries: letters,
+        numbers, punctuations) is not acceptable codes(dot or dash)
+        - if any: raise error with message contain key-value pair in
+            convert table that will causes error.
+        - if not: merge letter, numbers and punctuations from convert
+            table into a single dictionary.
+
+        Returns
+        -------
+        dict[str, str]
+            Concatenated convert tables, morse code key-value pairs are
+            all suitable for the following steps.
+        """
+        def unpack_dict(**kwargs: dict) -> str:
             """
-            # cite: https://gaurav-patil21.medium.com/use-of-double-asterisk-in-python-962e83b63768
+            Take error message from Converter.morsecode_regulator() when
+            ConvertTables contain unsupported code, returns formatted
+            string contain the letter, position, morse code caused the
+            error.
+
+            Returns
+            -------
+            str
+                The letter, position, and which morse code caused the
+                error.
+            """
             unpacked = ''
-            for letter in kwargs:
-                for position in kwargs[letter].keys():
-                    unpacked = unpacked + f"at letter: '{letter}', position(left to right): {position}, unacceptable: '{kwargs[letter][position]}'" + '\n'
+            for letter in kwargs:  # pylint: disable=consider-using-dict-items
+                for position in kwargs[letter]:
+                    unpacked = unpacked + (
+                        f"at letter: '{letter}', "
+                        f"position(left to right): {position}, "
+                        f"unacceptable: '{kwargs[letter][position]}'" + '\n'
+                        )
             return unpacked
-        
-        codes = ConvertTables.letters | ConvertTables.numbers | ConvertTables.punctuations
+
+        codes = (
+            ConvertTables.letters
+            | ConvertTables.numbers
+            | ConvertTables.punctuations
+            )
         unacceptable = {}
-        # cite: https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression-in-python/26853961#26853961
         for key in codes:
             error_place = {}
             for idx, letter in enumerate(codes[key]):
                 if letter != self.dot and letter != self.dash:
                     error_place[idx+1] = letter
-            if error_place != {}:
+            if error_place:
                 unacceptable[key] = error_place
-        if unacceptable != {}:
-            raise ValueError(f"the morse code convert tables contain values unacceptable for convertion, acceptable: dot='{self.dot}', dash='{self.dash}'\
-                \nall unacceptable:\n{unpack_dict(**unacceptable)}")
+        if unacceptable:
+            raise ValueError(
+                "the morse code convert tables contain values unacceptable for"
+                f"convertion, acceptable: dot='{self.dot}', dash='{self.dash}'"
+                f"nall unacceptable:\n{unpack_dict(**unacceptable)}"
+                )
         return codes
-    
-    def update_configs(self, *, configs:dict[str, str] | None) -> None:
+
+    def update_configs(
+        self, *, configs: dict[MorseCode, MorseValue] | None
+    ) -> None:
         """
-        configures the output morse code with nearly every aspect of the code.
-        
-        configs should only take argument pass in by Organizer.commands()
-        
+        Configures the output morse code with nearly every aspect of the
+        code. Configs should only take argument pass in by
+        Organizer.commands().
+
         Parameters
         ----------
-        
-        configs(dict[str, str]):
-            dot (str): short mark, dot or di: one time unit long. Defaults to ConvertTables.dot.
-            dash (str): long mark, dash or dah: three time units long. Defaults to ConvertTables.dash.
-            code_space (str): inter-element gap between the dits and dahs within a character: one unit long. Defaults to ConvertTables.CODE_SPACE.
-            letter_space (str): short gap (between letters): three time units long. Defaults to ConvertTables.LETTER_SPACE.
-            word_space (str): medium gap (between words): seven time units long. Defaults to ConvertTables.WORD_SPACE.
+        configs: dict[MorseCode, MorseValue] | None
+            The morse code value to use.
         """
         if configs is None:
             return
-        
+
         for key, val in self.codes.items():
-            self.codes[key] = val.replace(self.dot, configs['dot']).replace(self.dash, configs['dash'])
-        
+            temp = val.replace(self.dot, configs['dot'])
+            self.codes[key] = temp.replace(self.dash, configs['dash'])
+
         self.dot = configs['dot']
         self.dash = configs['dash']
         self.code_space = configs['code_space']
         self.letter_space = configs['letter_space']
         self.word_space = configs['word_space']
 
-    def convert(self, user_input:str) -> str:
+    def convert(self, user_input: str) -> str:
         """
-        takes user input and convert it into morse code.
-        
-        Args:
-            user_input (str): a text wanted to convert
+        Takes user input and convert it into morse code.
 
-        Returns:
-            str: converted string
+        Parameters
+        ----------
+        user_input: str
+            Text to convert into morse code.
+
+        Returns
+        -------
+        str
+            String converted to morse code.
         """
         output = ''
         for letter in user_input:
             if letter == '\r':
                 continue
-            elif letter == '\n':
+            if letter == '\n':
                 output += '\n'
             elif letter == ' ':
                 output = output.rstrip(self.letter_space) + self.word_space
-            elif letter in include_words:
+            elif letter in INCLUDE_WORDS:
                 code = list(self.codes[letter.upper()])
-                output = output + self.code_space.join(code) + self.letter_space
+                code_space = self.code_space.join(code)
+                output = output + code_space + self.letter_space
             else:
                 output += f'(invalid_letter:{letter})'
         return output.rstrip(self.letter_space)
-        

@@ -1,7 +1,0 @@
-{
-    "terminal.integrated.env.windows": {
-        "PYTHONPATH": "${workspaceFolder}"
-        // cite: https://blog.kyomind.tw/vscode-pythonpath/
-    },
-    "python.envFile": "${workspaceFolder}/.env"
-}

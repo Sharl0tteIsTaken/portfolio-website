@@ -1,72 +1,96 @@
-from flask import Flask, render_template, redirect, request, url_for
-from flask_bootstrap import Bootstrap5
+"""
+The source code of the server.
+"""
+
+import os
+import smtplib
+
+from flask import Flask, redirect, render_template, request, url_for
+from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped, note]
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-import os, smtplib
-
-from demo_tic_tac_toe.showmaker_demo import ShowMaker
 from demo_morse_code_converter.converter import Converter
-# TODO: [last] check import orders
-# TODO: [last] delete unused image in static/assects
-# TODO: [last] get readme to be project thought process note from Obsidian, and add usage and known bugs(if time permits)
+from demo_tic_tac_toe.showmaker_demo import ShowMaker
 
+# ---------------------------------------------------------------------
 
-# setup from environmental variables
-EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+MAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+APP_KEY = os.getenv("APP_SECRET_KEY")
+SQL_DB_URI = os.getenv("SQL_DB_URI")
+
+assert isinstance(MAIL_ADDRESS, str), f"Environment variable {MAIL_ADDRESS=}"
+assert isinstance(MAIL_PASSWORD, str), f"Environment variable {MAIL_PASSWORD=}"
+assert isinstance(APP_KEY, str), f"Environment variable {APP_KEY=}"
+assert isinstance(SQL_DB_URI, str), f"Environment variable {SQL_DB_URI=}"
+
 
 # setup flask
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get("APP_SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_DATABASE_URI")
+app.config['SECRET_KEY'] = APP_KEY
+app.config["SQLALCHEMY_DATABASE_URI"] = SQL_DB_URI
 
-# setup db
+
 class Base(DeclarativeBase):
-  pass
+    """Base model for SQLAlchemy."""
+
+
 db = SQLAlchemy(model_class=Base)
 
 # init db & bootstrap
 db.init_app(app)
 Bootstrap5(app)
 
+
 # db table
-class AllProjectDemo(db.Model):
-    '''
+class AllProjectDemo(db.Model):  # type: ignore[name-defined]
+    """
     Subclass db.Model to define a model class.
-    The model will generate a table name by converting the CamelCase class name to snake_case.
-    '''
+    The model will generate a table name by converting the CamelCase
+    class name to snake_case.
+    """
     apd_id: Mapped[int] = mapped_column(primary_key=True)
     apd_title: Mapped[str] = mapped_column(nullable=False, unique=True)
     apd_desc: Mapped[str] = mapped_column(nullable=False)
-    apd_preview: Mapped[str] = mapped_column(nullable=False) # enter video, image or both
+
+    # value hint (apd_preview): video, image or both
+    apd_preview: Mapped[str] = mapped_column(nullable=False)
     apd_videos: Mapped[str] = mapped_column()
     apd_images: Mapped[str] = mapped_column()
-    apd_is_demo: Mapped[str] = mapped_column(nullable=False) # enter true or false
-    apd_demo_ep: Mapped[str] = mapped_column() # enter endpoint for demo, use at index.html
+
+    # value (apd_is_demo): True or False
+    apd_is_demo: Mapped[str] = mapped_column(nullable=False)
+
+    # value (apd_demo_ep): endpoint for demo, use at index.html
+    apd_demo_ep: Mapped[str] = mapped_column()
     apd_github_link: Mapped[str] = mapped_column(nullable=False)
+
 
 # website routes
 @app.route('/')
-def home():
+def home() -> str:
+    """The home page of website."""
     db_data = db.session.execute(db.select(AllProjectDemo)).scalars().all()
-    results = db.session.execute(db.select(AllProjectDemo).where(AllProjectDemo.apd_preview == 'image')).scalars().all()
+    results = db.session.execute(
+        db.select(AllProjectDemo).where(AllProjectDemo.apd_preview == 'image')
+        ).scalars().all()
     if results != []:
-        image_locs:dict[int, list] = {}
+        image_locs: dict[int, list] = {}
         first_loc: dict[int, str] = {}
         for project in results:
             locations = project.apd_images.split(", ")
             image_loc = []
             for loc in locations:
                 image_loc.append(loc)
-            first_loc[project.apd_id] = image_loc[0] # type: ignore
+            first_loc[project.apd_id] = image_loc[0]
             del image_loc[0]
             image_locs[project.apd_id] = image_loc
         image_nums = range(len(image_locs))
     else:
         first_loc = {}
         image_locs = {}
-        image_nums = 0
+        image_nums = range(0)
     return render_template(
         "index.html",
         db_data=db_data,
@@ -76,34 +100,47 @@ def home():
         page="home"
         )
 
+
 @app.route("/about")
 def about():
+    """The about page of website."""
     return render_template("about.html", page="about")
+
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
+    """The contact page of website."""
     if request.method == "POST":
         data = request.form
         send_email(data["name"], data["email"], data["message"])
         return render_template("contact.html", msg_sent=True)
     return render_template("contact.html", msg_sent=False, page="contact")
 
+
 @app.route("/gate/tic-tac-toe")
 def gate_tic_tac_toe():
-    dk_showmaker.__init__()
+    """
+    The page to redirect to tic tac toe demo.
+    This also resets the demo.
+    """
+    dk_showmaker.initiate()  # pylint: disable=possibly-used-before-assignment
     dk_showmaker.new_game()
     return redirect(url_for('demo_tic_tac_toe'))
 
-@app.route("/demo/tic-tac-toe", methods=['GET','POST'])
+
+@app.route("/demo/tic-tac-toe", methods=['GET', 'POST'])
 def demo_tic_tac_toe():
+    """The page with tic tac toe demo."""
     if request.method == "POST":
         enter = request.form.get('user_input')
-        dk_showmaker.player_input(user_input=enter) # type: ignore
+        dk_showmaker.player_input(
+            user_input=enter  # type: ignore[reportArgumentType]
+            )
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
     history = dk_showmaker.history
-    is_winner = str(dk_showmaker._iswinner)
-    player = int(dk_showmaker._current_player) + 1
+    is_winner = str(dk_showmaker.iswinner)
+    player = int(dk_showmaker.current_player) + 1
     return render_template(
         'demo-tic_tac_toe.html',
         terminal_lines=result,
@@ -113,51 +150,86 @@ def demo_tic_tac_toe():
         player=player
         )
 
+
 @app.route('/demo/tic-tac-toe/input-receive')
 def demo_tic_tac_toe_input_receive():
+    """The page to receive user input on tic tac toe demo."""
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
     history = dk_showmaker.history
-    is_winner = str(dk_showmaker._iswinner)
-    player = int(dk_showmaker._current_player) + 1
+    is_winner = str(dk_showmaker.iswinner)
+    player = int(dk_showmaker.current_player) + 1
     return render_template(
         'demo-cz_terminal-tic_tac_toe.html',
         terminal_lines=result,
         pwd=pwd, history=history,
         is_winner=is_winner,
         player=player
-        ) # cz stands for customized
-    
+        )  # cz stands for customized
+
+
 @app.route("/gate/morse-code-converter")
 def gate_morse_code_converter():
-    converter.history = ""
+    """
+    The page to redirect to morse code converter demo.
+    This also resets the demo.
+    """
+    converter.history = ""  # pylint: disable=possibly-used-before-assignment
     return redirect(url_for('demo_morse_code_converter'))
-    
-@app.route('/demo/morse-code-converter', methods=['GET','POST'])
+
+
+@app.route('/demo/morse-code-converter', methods=['GET', 'POST'])
 def demo_morse_code_converter():
+    """The page with morse code converter demo."""
     if request.method == "POST":
         enter = request.form.get('user_input')
-        converter.history += enter + "\n" # type: ignore
-        converter.history += converter.convert(user_input=enter) + "\n" # type: ignore
+        converter.history += enter + "\n"  # type: ignore[reportArgumentType]
+        converter.history += converter.convert(
+            user_input=enter  # type: ignore[reportArgumentType]
+            ) + "\n"
     return render_template(
         'demo-morse_code_converter.html',
         terminal_lines=converter.history,
         )
 
+
 @app.route('/demo/morse-code-converter/input-recieve')
 def demo_morse_code_converter_input_receive():
+    """The page to receive user input on morse code converter demo."""
     return render_template(
         'demo-cz_terminal-morse_code_converter.html',
         terminal_lines=converter.history,
-        ) # cz stands for customized
-    
+        )  # cz stands for customized
+
+
 # other functions
-def send_email(name, email, message):
-    email_message = f"Subject:Message from site.\n\n{message}\n\nby {name}.\nEmail: {email}"
+def send_email(name: str, email: str, message: str) -> None:
+    """
+    Use my email address to send emails to myself, so there is no need
+    to valid user input on this.
+
+    Parameters
+    ----------
+    name: str
+        The name of the user who sent the email.
+    email: str
+        The email address of the user who sent the email.
+    message: str
+        The message as the email body.
+    """
+    email_message = (
+        f"Subject:Message from site.\n\n{message}"
+        f"\n\nby {name}.\nEmail: {email}"
+    )
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
-        connection.login(user=EMAIL_ADDRESS, password=EMAIL_PASSWORD) # type: ignore
-        connection.sendmail(from_addr=EMAIL_ADDRESS, to_addrs=EMAIL_ADDRESS, msg=email_message) # type: ignore
+        connection.login(
+            user=MAIL_ADDRESS, password=MAIL_PASSWORD  # type: ignore
+            )
+        connection.sendmail(
+            from_addr=MAIL_ADDRESS, to_addrs=MAIL_ADDRESS,  # type: ignore
+            msg=email_message
+            )
 
 
 if __name__ == "__main__":
