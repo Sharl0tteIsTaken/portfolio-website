@@ -5,22 +5,23 @@
   <div class="blob"></div>
   <div class="spacer-top"></div>
   <div class="post-content">
-    {% for project in db_data: %}
+    {% for project in db_data[::-1]: %}
       <div class="post-block bg-dark">
         <div class="post row rounded-4 shadow-lg">
           <div class="col-xxl-6 code-block">
             <div class="d-flex flex-row h1-div-home">
-              <h1 class="display-4 fw-bold lh-1 text-white">{{ project.apd_title }}</h1>
+              <h1 class="display-4 fw-bold lh-1 text-white">{{ project.title }}</h1>
                <!-- https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements -->
                <div class="div-in-flex-container-right-align">
-                {% if project.apd_is_demo == "true": %}
-                  <button class="btn btn-outline-secondary btn-lg" type="button" title="demo is not the final product." onclick="location.href='{{ url_for(project.apd_demo_ep) }}'">
-                    <p class="pacifico-regular font-size-fixed"> 
-                      demo
-                    </p>
-                  </button>
+                {% if project.is_demo == "true": %}
+                <button class="btn btn-outline-secondary btn-lg" type="button" title="Check out a demo of the project." onclick="location.href='{{ url_for(project.demo_ep) }}'">
+                  <p class="pacifico-regular font-size-fixed"> 
+                    demo
+                  </p>
+                </button>
                 {% endif %}
-                <button class="btn btn-outline-secondary btn-lg" type="button" title="checkout actual code on github." onclick="location.href='{{ project.apd_github_link }}'">
+                <!-- TODO: make this open on a new tab -->
+                <button class="btn btn-outline-secondary btn-lg" type="button" title="Check out the source code on github." onclick="location.href='{{ project.gh_link }}'">
                   <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents link to the project on github." height="30">
                 </button>
                </div>
@@ -33,21 +34,24 @@
 
             <div class="mx-auto code-text">
               <p class="code-preview">
-                {{ project.apd_desc }}
+                {% if language == "Eng": %}
+                  {{ project.desc_eng | safe }}
+                  {{ project.keyword_eng }}
+                {% elif language == "ZhTw": %}
+                  {{ project.desc_zhtw | safe }}
+                  {{ project.keyword_zhtw }}
+                {% endif %}
               </p>
             </div>
           </div>
           <div class="col-xxl-6 result-block">
               <div class="container no-padding">
-                {% if project.apd_preview == "both": %}
-
-
-                {% elif project.apd_preview == "video": %}
+                {% if project.preview_type == "video": %}
                   <video controls class="d-block w-100">
                     <!-- https://stackoverflow.com/questions/27752500/how-to-have-an-anim-gif-on-a-link-and-play-it-on-hover-and-reset -->
-                    <source src="{{ project.apd_videos }}" type="video/mp4" />
+                    <source src="{{ project.preview_video }}" type="video/mp4" />
                   </video>
-                {% elif project.apd_preview == 'image': %}
+                {% elif project.preview_type == 'image': %}
                   <div id="carouselIndicators" class="carousel slide">
                     <div class="carousel-indicators">
                       <!-- if somehow someday there's only one preview-image in a project shown add code here.  -->
@@ -59,9 +63,9 @@
                     <div class="carousel-inner">
                       {% if first_loc != "": %}
                         <div class="carousel-item active" data-bs-interval="6000">
-                          <img src="{{ first_loc[project.apd_id] }}" class="d-block w-100" alt="a image of preview code.">
+                          <img src="{{ first_loc[project.info_id] }}" class="d-block w-100" alt="a image of preview code.">
                         </div>
-                        {% for loc in image_locs[project.apd_id] %}
+                        {% for loc in image_locs[project.info_id] %}
                           <div class="carousel-item" data-bs-interval="6000">
                             <img src="{{ loc }}" class="d-block w-100" alt="a image of preview code.">
                           </div>

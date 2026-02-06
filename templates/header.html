@@ -17,18 +17,12 @@
   
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Portfolio</a>
+      <a class="navbar-brand" href="{{ url_for('home') }}">Portfolio</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbar-header">
         <ul class="nav justify-content-end">
-          <li class="nav-item">
-            <a href="{{ url_for('home') }}" class="nav-link text-white">
-              <img src="../static/assets/svg/house-door.svg" class="svg-whitened" alt="a line draw image of house, represents a button link to the home page on website." height="30">
-              Home
-            </a>
-          </li>
           <li class="nav-item">
             <a href="{{ url_for('about') }}" class="nav-link text-white">
               <img src="../static/assets/svg/person-vcard.svg" class="svg-whitened" alt="a line draw image of business card, represents a button link to the about page on website." height="30">
@@ -45,6 +39,20 @@
             <a href="https://github.com/Sharl0tteIsTaken" class="nav-link text-white">
               <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents a button link to websit owner's profile on github." height="30">
               Github
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('switch_language') }}" class="nav-link text-white">
+              {% if language == "Eng": %}
+                <img src="../static/assets/svg/lang-eng.svg" class="svg-whitened" alt="# TODO: add alt text" height="30">
+              {% elif language == "ZhTw": %}
+              <img src="../static/assets/svg/lang-zhtw.svg" class="svg-whitened" alt="# TODO: add alt text" height="30">
+              {% else %}
+              <p>
+                nothing here
+                '{{ language }}'
+              </p>
+              {% endif %}
             </a>
           </li>
         </ul>

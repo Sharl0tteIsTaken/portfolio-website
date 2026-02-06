@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g mask="url(#a)" fill="currentColor">
+    <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2z"/>
+  </g>
+  <mask id="a">
+    <path fill="#fff" d="M0 0h16v16H0z"/>
+    <path d="m4.5 6.7-.435 1.286h-1.11l1.862-5h1.284l1.854 5H6.788L6.353 6.7zm1.634-.736-.679-2.022h-.049l-.679 2.022z"/>
+    <path d="M7 6a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"/>
+  </mask>
+  <path d="M5 7a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"/>
+  <text style="white-space:pre;fill:#000;font-family:&quot;Noto Sans TC&quot;;font-size:8px;font-weight:1000" x="6.5" y="13.5">文</text>
+</svg>
