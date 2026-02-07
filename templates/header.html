@@ -9,13 +9,13 @@
     <!-- google font:Pacifico -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Delius&family=Noto+Sans+TC:wght@100..900&family=Pacifico&family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
   </head>
 
   <!-- TODO: [after] portfolio inspriation to tweak this -->
   <!-- 'this' is the .navbar-brand and home on navbar -->
   
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ language }}">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{ url_for('home') }}">Portfolio</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,14 +43,15 @@
           </li>
           <li class="nav-item">
             <a href="{{ url_for('switch_language') }}" class="nav-link text-white">
-              {% if language == "Eng": %}
+              {% if language == "English": %}
                 <img src="../static/assets/svg/lang-eng.svg" class="svg-whitened" alt="# TODO: add alt text" height="30">
-              {% elif language == "ZhTw": %}
+              {% elif language == "Traditional-Chinese": %}
               <img src="../static/assets/svg/lang-zhtw.svg" class="svg-whitened" alt="# TODO: add alt text" height="30">
               {% else %}
               <p>
                 nothing here
                 '{{ language }}'
+                # TODO: remove this
               </p>
               {% endif %}
             </a>
@@ -60,4 +61,4 @@
     </div>
   </nav>
 
-  <body>
+  <body lang="{{ language }}">

@@ -6,45 +6,54 @@
   <div class="spacer-top"></div>
   <div class="post-content">
     {% for project in db_data[::-1]: %}
-      <div class="post-block bg-dark">
+      <div class="wrap-block bg-dark">
         <div class="post row rounded-4 shadow-lg">
-          <div class="col-xxl-6 code-block">
+          <div class="col-xxl-6 post-block">
             <div class="d-flex flex-row h1-div-home">
-              <h1 class="display-4 fw-bold lh-1 text-white">{{ project.title }}</h1>
+              <h1 class="display-4 fw-bold lh-1 text-white title" lang="English">{{ project.title }}</h1>
                <!-- https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements -->
-               <div class="div-in-flex-container-right-align">
+               <div class="flex-wrap div-in-flex-container-right-align">
                 {% if project.is_demo == "true": %}
-                <button class="btn btn-outline-secondary btn-lg" type="button" title="Check out a demo of the project." onclick="location.href='{{ url_for(project.demo_ep) }}'">
-                  <p class="pacifico-regular font-size-fixed"> 
+                <button class="btn btn-outline-secondary btn-lg" lang="Not-Applicable" type="button" title="Check out a demo of the project." onclick="location.href='{{ url_for(project.demo_ep) }}'">
+                  <p class="fancy-font-letter font-size-fixed"> 
                     demo
                   </p>
                 </button>
                 {% endif %}
                 <!-- TODO: make this open on a new tab -->
-                <button class="btn btn-outline-secondary btn-lg" type="button" title="Check out the source code on github." onclick="location.href='{{ project.gh_link }}'">
+                <button class="btn btn-outline-secondary btn-lg" lang="Not-Applicable" type="button" title="Check out the source code on github." onclick="location.href='{{ project.gh_link }}'">
                   <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents link to the project on github." height="30">
                 </button>
                </div>
             </div>
-            
-            
-            <!-- <br style="color: white;"> -->
-            
-            <hr class="code-separator">
-
-            <div class="mx-auto code-text">
-              <p class="code-preview">
-                {% if language == "Eng": %}
-                  {{ project.desc_eng | safe }}
-                  {{ project.keyword_eng }}
-                {% elif language == "ZhTw": %}
-                  {{ project.desc_zhtw | safe }}
-                  {{ project.keyword_zhtw }}
-                {% endif %}
-              </p>
+            <div class="flex-row fancy-font-number text-end last-edit-date" lang="Not-Applicable">
+              - {{ project.gh_date }}
+            </div>
+            <hr class="title-separator">
+            <div class="mx-auto post-text">
+              {% if project.preview_type != 'none': %}
+                <p class="description">
+                  {{ project.description.get(language) | safe }}
+                </p>
+              {% endif %}
+              <div class="d-flex flex-row align-items-end">
+                <div class="row align-items-end">
+                  {% for desc in project.keywords.get(language): %}
+                    <div class="col keyword-block">
+                      <button type="button" class="btn btn-outline-info keyword-text" lang="Traditional-Chinese" disabled>{{ desc }}</button>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-xxl-6 result-block">
+
+          {% if project.preview_type == 'none': %}
+            <p class="col-xxl-6 description post-only-text">
+              {{ project.description.get(language) | safe }}
+            </p>
+          {% else %}
+            <div class="col-xxl-6 result-block">
               <div class="container no-padding">
                 {% if project.preview_type == "video": %}
                   <video controls class="d-block w-100">
@@ -83,7 +92,8 @@
                   </div>
                 {% endif %}
               </div>
-          </div>
+            </div>
+          {% endif %}
         </div>
       </div>
       <div class="spacer-between"></div>

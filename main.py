@@ -17,9 +17,10 @@ from demo_tic_tac_toe.showmaker_demo import ShowMaker
 
 # ---------------------------------------------------------------------
 
-type LanguageCode = Literal["Eng", "ZhTw"]
+type Languages = Literal["English", "Traditional-Chinese"]
+type Description = dict[Languages, str]
+type Keyword = dict[Languages, list[str]]
 
-LANGUAGES: list[LanguageCode] = ["Eng", "ZhTw"]
 MAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 APP_KEY = os.getenv("APP_SECRET_KEY")
@@ -52,13 +53,11 @@ class Project(Base):  # type: ignore[name-defined]
     __tablename__ = "Project"
     info_id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(nullable=False, unique=True)
-    desc_eng: Mapped[str] = mapped_column(nullable=False)
-    desc_zhtw: Mapped[str] = mapped_column(nullable=False)
-    keyword_eng: Mapped[list] = mapped_column(JSON, nullable=False)
-    keyword_zhtw: Mapped[list] = mapped_column(JSON, nullable=False)
+    description: Mapped[Description] = mapped_column(JSON, nullable=False)
+    keywords: Mapped[Keyword] = mapped_column(JSON, nullable=False)
 
-    # value hint (preview_type): video, image, both, or none
-    preview_type: Mapped[str] = mapped_column(nullable=True)
+    # value hint (preview_type): 'video', 'image', 'both', or none
+    preview_type: Mapped[str] = mapped_column(nullable=False)
     preview_video: Mapped[str] = mapped_column(nullable=True)
     preview_image: Mapped[str] = mapped_column(nullable=True)
 
@@ -72,11 +71,15 @@ class Project(Base):  # type: ignore[name-defined]
 
 
 class Current():
-    language: LanguageCode = "Eng"
+    language: Languages = "English"
     endpoint: str = "home"
 
     def switch_language(self):
-        self.language = "Eng" if self.language == "ZhTw" else "ZhTw"
+        self.language = (
+            "Traditional-Chinese"
+            if self.language == "English"
+            else "English"
+            )
 
     def switch_endpoint(self):
         if request.endpoint != "switch_language":

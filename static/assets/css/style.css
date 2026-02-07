@@ -1,18 +1,43 @@
 body {
     font-size: 1.25rem;
+    --normal-font-weight: 400;
+    --extra-font-weight: 600;
+    --heavy-font-weight: 800;
 }
 
 .svg-whitened {
     filter: invert(86%) sepia(7%) saturate(160%) hue-rotate(202deg) brightness(96%) contrast(89%);
+    /* filter: brightness(0) saturate(100%) invert(73%) sepia(66%) saturate(497%) hue-rotate(138deg) brightness(87%) contrast(90%); */
 }
 
-.pacifico-regular {
-    font-family: "Pacifico", cursive;
-    font-weight: 400;
-    font-style: normal;
-    font-size: x-large;
-    color: white;
-    text-transform: lowercase
+.fancy-font-letter {
+    font-family: "Pacifico", cursive !important;
+    font-weight: var(--normal-font-weight) !important;
+    font-style: normal !important;
+    font-size: x-large !important;
+    color: white !important;
+    text-transform: lowercase !important;
+}
+
+.fancy-font-number {
+    font-family: "Delius", cursive !important;
+    font-weight: var(--normal-font-weight) !important;
+    color: white !important;
+    font-style: normal !important;
+}
+
+*:lang(English) {
+    font-family: "Playwrite NZ Basic", cursive !important;
+    font-optical-sizing: auto !important;
+    font-weight: var(--normal-font-weight) !important;
+    font-style: normal !important;
+}
+
+*:lang(Traditional-Chinese) {
+    font-family: "Noto Sans TC", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: var(--normal-font-weight) !important;
+    font-style: normal !important;
 }
 
 .font-size-fixed {
@@ -26,9 +51,10 @@ body {
 }
 
 .div-in-flex-container-right-align {
-    display:flex;
+    display: flex;
     margin-left: auto;
     margin-right: 0;
+    padding-left: 2rem;
 }
 
 
@@ -76,7 +102,7 @@ body {
     position: absolute; 
 } */
 
-.post-block {
+.wrap-block {
     margin-top: 1rem;
     margin-bottom: 0;
     margin-right: 4%;
@@ -91,6 +117,59 @@ body {
     margin: -12px;
 }
 
+.last-edit-date {
+    padding-right: 0.25rem;
+}
+
+.post-block {
+    overflow: auto;
+    height: auto;
+    padding: 0.75rem;
+    padding-bottom: 0.35rem;
+}
+
+.title {
+    line-height: 1.5 !important;
+    margin-right: -2rem;
+}
+
+.title-separator {
+    margin-top: 0rem;
+    margin-bottom: 0.5rem;
+    color: white;
+    opacity: 0.75;
+}
+
+.post-text {
+    margin-top: 0;
+    /* display: flex;
+    flex-flow: column;
+    height: 100%; */
+}
+
+.post-only-text {
+    padding-top: 1rem;
+}
+
+.description {
+    /* cite https://stackoverflow.com/questions/3029422/how-to-auto-resize-an-image-while-maintaining-aspect-ratio */
+    max-width: 100%;
+    max-height: 100%;
+    color: white;
+}
+
+.keyword-block {
+    padding: 2px !important;
+    padding-bottom: 0px !important;
+}
+
+.keyword-text {
+    font-weight: var(--heavy-font-weight) !important;
+    font-size: 16px !important;
+    white-space: nowrap;
+    padding: 1rem 1rem !important;
+}
+
 .result-block {
     display: inline-block;
     padding: 0rem;
@@ -99,31 +178,6 @@ body {
 .result-preview {
     max-width: 100%;
     max-height: 100%;
-}
-
-.code-block {
-    overflow: auto;
-    height: auto;
-    padding: 0.75rem;
-
-}
-
-.code-text {
-    margin-top: 0;
-}
-
-.code-preview {
-    /* cite https://stackoverflow.com/questions/3029422/how-to-auto-resize-an-image-while-maintaining-aspect-ratio */
-    max-width: 100%;
-    max-height: 100%;
-    color: white;
-}
-
-.code-separator {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: white;
-    opacity: 0.75;
 }
 
 .no-padding {
@@ -201,13 +255,13 @@ body {
     margin-top: 0;
     margin-bottom: 0;
     font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: 800;
+    font-weight: var(--heavy-font-weight);
     line-height: 1.2;
 }
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, p {
     --bs-body-font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --bs-body-font-size: 1rem;
-    --bs-body-font-weight: 400;
+    --bs-body-font-weight: var(--normal-font-weight);
     --bs-body-line-height: 1.5;
 }
 
@@ -241,7 +295,7 @@ textarea.form-control {
     --bs-btn-padding-y: 1rem;
     --bs-btn-font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
     --bs-btn-font-size: 0.875rem;
-    --bs-btn-font-weight: 800;
+    --bs-btn-font-weight: var(--heavy-font-weight);
     --bs-btn-line-height: 1.5;
     --bs-btn-color: #212529;
     --bs-btn-bg: transparent;
@@ -254,7 +308,7 @@ textarea.form-control {
     --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
     display: inline-block;
     font-family: var(--bs-btn-font-family);
-    font-size: var(--bs-btn-font-size);
+    font-size: var(--extra-font-weight);
     font-weight: var(--bs-btn-font-weight);
     line-height: var(--bs-btn-line-height);
     color: var(--bs-btn-color);
