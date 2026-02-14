@@ -9,18 +9,24 @@
     <div class="row">
       <div class="page-heading">
         {% if msg_sent: %}
-        <h1 class="custom-h1-size">Successfully sent your message</h1>
+        <h1>Successfully sent your message</h1>
         {% else: %}
-        <h1 class="custom-h1-size">Contact Me</h1>
+        <h1 class="contact-h1">{{ static_data.title.get(current.language) }}</h1>
         {% endif %}
-        <span class="subheading">Have questions? I have answers.</span>
       </div>
     </div>
   </div>
 </header>
 <!-- photo credit -->
-<div class="photo-credit">
-  Photo by <a href="https://unsplash.com/@lobostudiohamburg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">LoboStudio Hamburg</a> on <a href="https://unsplash.com/photos/red-telephone-booth-beside-road-bepwY8khinw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+<div class="photo-credit" lang="English">
+  Photo by 
+  <a href="https://unsplash.com/@lobostudiohamburg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+    LoboStudio Hamburg
+  </a>
+  on
+  <a href="https://unsplash.com/photos/red-telephone-booth-beside-road-bepwY8khinw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+  Unsplash
+  </a>
 </div>
 
 <!-- Main Content-->
@@ -29,8 +35,7 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <p>
-          Want to get in touch? Fill out the form below to send me a message and
-          I will get back to you as soon as possible!
+          {{ static_data.description.get(current.language) }}
         </p>
         <div class="my-5">
           <!-- * * * * * * * * * * * * * * *-->
@@ -47,10 +52,10 @@
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Enter your name"
+                placeholder=""
                 required
               />
-              <label for="name">Name</label>
+              <label for="name">{{ static_data.form_name.get(current.language) }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -58,21 +63,21 @@
                 id="email"
                 name="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder=""
                 required
               />
-              <label for="email">Email address</label>
+              <label for="email">{{ static_data.form_mail.get(current.language) }}</label>
             </div>
             <div class="form-floating">
               <textarea
                 class="form-control"
                 id="message"
                 name="message"
-                placeholder="Enter your message"
+                placeholder=""
                 required
                 style="height: 12rem"
               ></textarea>
-              <label for="message">Message</label>
+              <label for="message">{{ static_data.form_msg.get(current.language) }}</label>
             </div>
             <br />
             <button
@@ -80,7 +85,7 @@
               id="submitButton"
               type="submit"
             >
-              Sent
+              {{ static_data.form_sent.get(current.language) }}
             </button>
           </form>
         </div>

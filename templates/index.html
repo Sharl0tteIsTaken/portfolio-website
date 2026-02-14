@@ -1,44 +1,42 @@
 {% include "header.html" %}
 
-<div class="base-color">
-  <!-- blob -->
-  <div class="blob"></div>
+<div">
+  <div class="base-color"></div>
   <div class="spacer-top"></div>
   <div class="post-content">
-    {% for project in db_data[::-1]: %}
+    {% for project in project_data[::-1]: %}
       <div class="wrap-block bg-dark">
         <div class="post row rounded-4 shadow-lg">
-          <div class="col-xxl-6 post-block">
+          <div class="col-xxl-6 d-flex flex-column post-block">
             <div class="d-flex flex-row h1-div-home">
               <h1 class="display-4 fw-bold lh-1 text-white title" lang="English">{{ project.title }}</h1>
                <!-- https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements -->
                <div class="flex-wrap div-in-flex-container-right-align">
                 {% if project.is_demo == "true": %}
-                <button class="btn btn-outline-secondary btn-lg" lang="Not-Applicable" type="button" title="Check out a demo of the project." onclick="location.href='{{ url_for(project.demo_ep) }}'">
+                <a class="btn btn-outline-secondary btn-lg" target="_blank" lang="Not-Applicable" title="{{ current.demo_title.get(current.language) }}" href="{{ url_for(project.demo_ep) }}">
                   <p class="fancy-font-letter font-size-fixed"> 
                     demo
                   </p>
-                </button>
+                </a>
                 {% endif %}
-                <!-- TODO: make this open on a new tab -->
-                <button class="btn btn-outline-secondary btn-lg" lang="Not-Applicable" type="button" title="Check out the source code on github." onclick="location.href='{{ project.gh_link }}'">
+                <a class="btn btn-outline-secondary btn-lg" target="_blank" lang="Not-Applicable" title="{{ current.gh_title.get(current.language) }}" href="{{ project.gh_link }}">
                   <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents link to the project on github." height="30">
-                </button>
+                </a>
                </div>
             </div>
             <div class="flex-row fancy-font-number text-end last-edit-date" lang="Not-Applicable">
               - {{ project.gh_date }}
             </div>
             <hr class="title-separator">
-            <div class="mx-auto post-text">
+            <div class="flex-grow-1 d-flex flex-column post-text">
               {% if project.preview_type != 'none': %}
                 <p class="description">
-                  {{ project.description.get(language) | safe }}
+                  {{ project.description.get(current.language) | safe }}
                 </p>
               {% endif %}
-              <div class="d-flex flex-row align-items-end">
+              <div class="d-flex mt-auto">
                 <div class="row align-items-end">
-                  {% for desc in project.keywords.get(language): %}
+                  {% for desc in project.keywords.get(current.language): %}
                     <div class="col keyword-block">
                       <button type="button" class="btn btn-outline-info keyword-text" lang="Traditional-Chinese" disabled>{{ desc }}</button>
                     </div>
@@ -50,7 +48,7 @@
 
           {% if project.preview_type == 'none': %}
             <p class="col-xxl-6 description post-only-text">
-              {{ project.description.get(language) | safe }}
+              {{ project.description.get(current.language) | safe }}
             </p>
           {% else %}
             <div class="col-xxl-6 result-block">

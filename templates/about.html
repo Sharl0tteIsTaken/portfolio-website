@@ -8,15 +8,22 @@
   <div class="container header-text-center custom-bg-container">
     <div class="row">
       <div class="page-heading">
-        <h1 class="custom-h1-size">About Me</h1>
-        <span class="subheading">This is what I do.</span>
+        <h1>{{ static_data.title.get(current.language) }}</h1>
+        <span class="subheading">{{ static_data.description.get(current.language) }}</span>
       </div>
     </div>
   </div>
 </header>
 <!-- photo credit -->
-<div class="photo-credit">
-Photo by <a href="https://unsplash.com/@alegria55?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Jonathan Alegria</a> on <a href="https://unsplash.com/photos/gray-clouds-with-water-reflection-7owZVIYfyqM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+<div class="photo-credit" lang="English">
+  Photo by 
+  <a href="https://unsplash.com/@alegria55?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+    Jonathan Alegria
+  </a>
+  on
+  <a href="https://unsplash.com/photos/gray-clouds-with-water-reflection-7owZVIYfyqM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+    Unsplash
+  </a>
 </div>
 
 <!-- Main Content-->
@@ -24,27 +31,17 @@ Photo by <a href="https://unsplash.com/@alegria55?utm_content=creditCopyText&utm
   <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
-          nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis
-          sit soluta odio, adipisci quas excepturi maxime quae totam ducimus
-          consectetur?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
-          praesentium recusandae illo eaque architecto error, repellendus iusto
-          reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in
-          officia voluptas voluptatibus, minus!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
-          consequuntur magnam, excepturi aliquid ex itaque esse est vero natus
-          quae optio aperiam soluta voluptatibus corporis atque iste neque sit
-          tempora!
-        </p>
+        {% for paragraph in static_data.paragraphs.get(current.language): %}
+          <p>
+            {{ paragraph.format_map(effect) | safe }}
+          </p>
+        {% endfor %}
       </div>
     </div>
   </div>
+  <script src="../static/assets/scripts/magic.js" defer></script>
 </main>
+
+<!-- TODO: add GitHub languages % -->
 
 {% include "footer.html" %}

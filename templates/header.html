@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current.language }}">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,54 +11,65 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Delius&family=Noto+Sans+TC:wght@100..900&family=Pacifico&family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
   </head>
-
-  <!-- TODO: [after] portfolio inspriation to tweak this -->
-  <!-- 'this' is the .navbar-brand and home on navbar -->
-  
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ language }}">
+  <!-- TODO: add favicon -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ current.language }}">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{{ url_for('home') }}">Portfolio</a>
+      <a class="navbar-brand d-flex" href="{{ url_for('home') }}" lang="English">
+        <img width="34" class="brand-image" src="https://avatars.githubusercontent.com/u/166942861?v=4" alt="@Sharl0tteIsTaken" />
+        <div class="header-text header-title-text">Sharl0tteIsTaken</div>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbar-header">
-        <ul class="nav justify-content-end">
-          <li class="nav-item">
-            <a href="{{ url_for('about') }}" class="nav-link text-white">
-              <img src="../static/assets/svg/person-vcard.svg" class="svg-whitened" alt="a line draw image of business card, represents a button link to the about page on website." height="30">
-              About
-            </a>
+        <ul class="nav justify-content-end" id="hover-container">
+          <div class="dropdown hover-frame">
+            <div class="hover-frame-size" aria-hidden="true"></div>
+            <div class="hover-content">
+              <button class="nav-link btn-secondary dropdown-toggle text-white about-button d-flex" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../static/assets/svg/person-vcard.svg" class="svg-whitened" alt="a line draw image of business card, represents a dropdown button to show all the about pages on website." height="30">
+                <div class="header-text header-button-text">{{ current.navbar_about.get(current.language) }}</div>
+              </button>
+              <ul class="dropdown-menu">
+                {% for text, href in current.navbar_about_dropdown.get(current.language).items(): %}
+                <li><a class="dropdown-item" href="{{ href }}">{{ text }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <li class="nav-item hover-frame">
+            <div class="hover-frame-size" aria-hidden="true"></div>
+            <div class="hover-content">
+              <a href="{{ url_for('contact') }}" class="nav-link d-flex text-white">
+                <img src="../static/assets/svg/envelope-paper.svg" class="svg-whitened" alt="a line draw image of envelope, represents a button link to the contact page on website." height="30">
+                  <div class="header-text header-button-text">{{ current.navbar_contact.get(current.language) }}</div>
+              </a>
+            </div>
           </li>
-          <li class="nav-item">
-            <a href="{{ url_for('contact') }}" class="nav-link text-white">
-              <img src="../static/assets/svg/envelope-paper.svg" class="svg-whitened" alt="a line draw image of envelope, represents a button link to the contact page on website." height="30">
-              Contact
-            </a>
+          <li class="nav-item hover-frame">
+            <div class="hover-frame-size" aria-hidden="true"></div>
+            <div class="hover-content">
+              <a href="https://github.com/Sharl0tteIsTaken" class="nav-link d-flex text-white">
+                <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents a button link to websit owner's profile on github." height="30">
+                  <div class="header-text header-button-text">Github</div>
+              </a>
+            </div>
           </li>
-          <li class="nav-item">
-            <a href="https://github.com/Sharl0tteIsTaken" class="nav-link text-white">
-              <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents a button link to websit owner's profile on github." height="30">
-              Github
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url_for('switch_language') }}" class="nav-link text-white">
-              {% if language == "English": %}
-                <img src="../static/assets/svg/lang-eng.svg" class="svg-whitened" alt="# TODO: add alt text" height="30">
-              {% elif language == "Traditional-Chinese": %}
-              <img src="../static/assets/svg/lang-zhtw.svg" class="svg-whitened" alt="# TODO: add alt text" height="30">
-              {% else %}
-              <p>
-                nothing here
-                '{{ language }}'
-                # TODO: remove this
-              </p>
-              {% endif %}
-            </a>
+          <li class="nav-item hover-frame">
+            <div class="hover-frame-size" aria-hidden="true"></div>
+            <div class="hover-content">
+              <a href="{{ url_for('switch_language') }}" class="nav-link text-white">
+                {% if current.language == "English": %}
+                  <img src="../static/assets/svg/lang-eng.svg" class="svg-whitened" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="30">
+                {% elif current.language == "Traditional-Chinese": %}
+                  <img src="../static/assets/svg/lang-zhtw.svg" class="svg-whitened" alt="a line draw image of google translation app, represents a button to switch the language from Traditional Chinese to English." height="30">
+                {% endif %}
+              </a>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <body lang="{{ language }}">
+  <body lang="{{ current.language }}">

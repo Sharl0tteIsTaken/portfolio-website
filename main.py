@@ -4,22 +4,19 @@ The source code of the server.
 
 import os
 import smtplib
-from typing import Literal
+from resource.classes import AboutText, Base, ContactText, Current, Project
 
 from flask import Flask, redirect, render_template, request, url_for
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped, note]
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import JSON
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from demo_morse_code_converter.converter import Converter
 from demo_tic_tac_toe.showmaker_demo import ShowMaker
 
 # ---------------------------------------------------------------------
-
-type Languages = Literal["English", "Traditional-Chinese"]
-type Description = dict[Languages, str]
-type Keyword = dict[Languages, list[str]]
+# TODO: add list of tools
+# example http://www.google.com/s2/favicons?domain=
+# https://clampcss.com/css-filter.html
 
 MAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
@@ -31,11 +28,6 @@ assert isinstance(MAIL_PASSWORD, str), f"Environment variable {MAIL_PASSWORD=}"
 assert isinstance(APP_KEY, str), f"Environment variable {APP_KEY=}"
 assert isinstance(SQL_DB_URI, str), f"Environment variable {SQL_DB_URI=}"
 
-
-class Base(DeclarativeBase):
-    """Base model for SQLAlchemy."""
-
-
 # setup flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = APP_KEY
@@ -43,92 +35,45 @@ app.config["SQLALCHEMY_DATABASE_URI"] = SQL_DB_URI
 db = SQLAlchemy(model_class=Base)
 
 
-# db table
-class Project(Base):  # type: ignore[name-defined]
-    """
-    Subclass db.Model to define a model class.
-    The model will generate a table name by converting the CamelCase
-    class name to snake_case.
-    """
-    __tablename__ = "Project"
-    info_id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(nullable=False, unique=True)
-    description: Mapped[Description] = mapped_column(JSON, nullable=False)
-    keywords: Mapped[Keyword] = mapped_column(JSON, nullable=False)
-
-    # value hint (preview_type): 'video', 'image', 'both', or none
-    preview_type: Mapped[str] = mapped_column(nullable=False)
-    preview_video: Mapped[str] = mapped_column(nullable=True)
-    preview_image: Mapped[str] = mapped_column(nullable=True)
-
-    # value (is_demo): True or False
-    is_demo: Mapped[str] = mapped_column(nullable=False)
-
-    # value (demo_ep): endpoint for demo, use at index.html
-    demo_ep: Mapped[str] = mapped_column(nullable=True)
-    gh_link: Mapped[str] = mapped_column(nullable=False)
-    gh_date: Mapped[str] = mapped_column(nullable=False)
-
-
-class Current():
-    language: Languages = "English"
-    endpoint: str = "home"
-
-    def switch_language(self):
-        self.language = (
-            "Traditional-Chinese"
-            if self.language == "English"
-            else "English"
-            )
-
-    def switch_endpoint(self):
-        if request.endpoint != "switch_language":
-            self.endpoint = request.endpoint  # pyright: ignore
-
-
 # website routes
 @app.route('/')
 def home() -> str:
     """The home page of website."""
-    db_data = db.session.execute(db.select(Project)).scalars().all()
-    results = db.session.execute(
-        db.select(Project).where(Project.preview_type == 'image')
-        ).scalars().all()
-    if results != []:
-        image_locs: dict[int, list] = {}
-        first_loc: dict[int, str] = {}
-        for project in results:
-            locations = project.preview_image.split(", ")
-            image_loc = []
-            for loc in locations:
-                image_loc.append(loc)
-            first_loc[project.info_id] = image_loc[0]
-            del image_loc[0]
-            image_locs[project.info_id] = image_loc
-        image_nums = range(len(image_locs))
-    else:
-        first_loc = {}
-        image_locs = {}
-        image_nums = range(0)
+    # pylint: disable-next=possibly-used-before-assignment
+    current.switch_endpoint()
+    project_data = db.session.execute(db.select(Project)).scalars().all()
+
     return render_template(
         "index.html",
-        # pylint: disable-next=possibly-used-before-assignment
-        language=current.language,
-        db_data=db_data,
-        first_loc=first_loc,
-        image_locs=image_locs,
-        image_nums=image_nums,
+        current=current,
+        project_data=project_data,
         page="home"
         )
 
 
-@app.route("/about")
-def about():
+@app.route("/about/<title>")
+def about(title: str):
     """The about page of website."""
     current.switch_endpoint()
+    current.record_title(title)
+    static_data = db.session.execute(
+        db.select(AboutText).where(AboutText.info_name == title)
+        ).scalar()
+
+    tags_whole = render_template("magic-star.html", current=current)
+    tags_former, tags_latter = tags_whole.split(
+        current.effect_placeholder_spliter
+        )
+    effect = {
+        current.effect_placeholder_former: tags_former,
+        current.effect_placeholder_latter: tags_latter,
+    }
+
     return render_template(
         "about.html",
-        language=current.language,
+        current=current,
+        static_data=static_data,
+        effect=effect,
         page="about")
 
 
@@ -136,13 +81,15 @@ def about():
 def contact():
     """The contact page of website."""
     current.switch_endpoint()
+    static_data = db.session.execute(db.select(ContactText)).scalar()
     if request.method == "POST":
         data = request.form
         send_email(data["name"], data["email"], data["message"])
         return render_template("contact.html", msg_sent=True)
     return render_template(
         "contact.html",
-        language=current.language,
+        current=current,
+        static_data=static_data,
         msg_sent=False,
         page="contact"
         )
@@ -152,6 +99,13 @@ def contact():
 def switch_language():
     current.switch_endpoint()
     current.switch_language()
+    if current.endpoint == "about":
+        return redirect(
+            url_for(
+                current.endpoint,
+                title=current.title
+            ),
+        )
     return redirect(url_for(
         current.endpoint  # pyright: ignore[reportArgumentType]
         ))

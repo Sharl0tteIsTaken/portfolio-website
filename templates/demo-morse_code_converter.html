@@ -139,52 +139,6 @@ spaces(seven) in between two word(test and msg) is `medium gap`
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <!-- cite: https://www.youtube.com/watch?v=ATEGpAb8GWI&ab_channel=Pingcode -->
-    <script type="text/javascript">
-      $(document).ready(function() {
-        const InputForm = document.getElementById("input-form")
-        const Terminal = document.getElementById("terminal-history")
-        InputForm.onsubmit = function(event) {
-          event.preventDefault();
-          fetch("{{ url_for('demo_morse_code_converter') }}", {
-            method: "GET"
-          })
-          .then(() => {
-            fetch("{{ url_for('demo_morse_code_converter_input_receive') }}", {
-              method: "GET"
-            })
-            .then(response => {
-              return response.text();
-            })
-            .then(html =>{
-              Terminal.innerHTML = html;
-            })
-            .then(InputForm.reset())
-          })
-        }
-      });
-
-      // must have the line below so server will get value enter by user(??)
-      $(document).ready(function() {
-        $('form').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-              type: 'POST',
-              url: '{{ url_for("demo_morse_code_converter") }}',
-              data: $('form').serialize(),
-              success: function() {
-                $('user_input').val('');
-              }
-            });
-        });
-      });
-      
-      // cite: https://stackoverflow.com/questions/8934088/how-to-make-enter-key-in-a-textarea-submit-a-form 
-      $("#user_input").keypress(function (e) {
-        if(e.which === 13 && !e.shiftKey) {
-          e.preventDefault();
-          $(this).closest("form").submit();
-        }
-      });
-    </script>
+    <script src="../static/assets/scripts/demo-morse_code_converter.js" defer></script>
   </body>
 </html>

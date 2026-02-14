@@ -88,7 +88,6 @@ class ShowMaker():
         """
         Setup new game with greet text and shows grid.
         """
-        self.initiate()
         self._setup_new_game()
         self._show_grid()
         self.pwd = (
@@ -108,6 +107,8 @@ class ShowMaker():
         user_input: str
             The user input.
         """
+        if self.iswinner:
+            self.new_game()
         self.iswinner = False
         self.pwd = (
             f'player {int(self.current_player)+1}'
@@ -294,7 +295,7 @@ class ShowMaker():
             con = [con]  # type: ignore
         self.history = (
             f'player {int(self.current_player)+1}'
-            f'({symbols[self.current_player]}) wins with position: '
+            f'({symbols[self.current_player]}) wins last round with position: '
             )
         if isinstance(con[0], list):
             for wc in con:
@@ -340,4 +341,3 @@ class ShowMaker():
         self.history += f" player 2(O):  {self._p2_score}" + "\n"
         self.history += '~'*17 + "\n"
         self._round = self._round + 1
-        self.new_game()
