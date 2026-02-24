@@ -9,7 +9,7 @@ document.getElementById("hover-container").onmousemove = e => {
   };
 }
 
-window.addEventListener('load', () => {
+function syncFrameSize() {
   for(frame of document.getElementsByClassName('hover-frame')) {
     var totalWidth = 0, maxHeight = 0;
     var content = frame.querySelector('.hover-content').children
@@ -23,4 +23,5 @@ window.addEventListener('load', () => {
     sizer.style.width = `${totalWidth}px`;
     sizer.style.height = `${maxHeight}px`;
   };
-});
+};
+window.addEventListener('load', syncFrameSize);
