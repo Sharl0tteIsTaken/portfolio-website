@@ -67,7 +67,7 @@ class ContactText(Base):
 class Current():
     language: Languages = "English"
     endpoint: str = "home"
-    title: str = "Website"
+    title: str = "website"
 
     navbar_about: dict[Languages, str] = {
         "English": "About",
