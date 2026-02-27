@@ -236,4 +236,8 @@ dk_showmaker = ShowMaker()
 dk_showmaker.new_game()
 converter = Converter()
 current = Current()
-app.run(port=10000, host="0.0.0.0")
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)  # local
+else:
+    app.run(port=10000, host="0.0.0.0")  # on Render
