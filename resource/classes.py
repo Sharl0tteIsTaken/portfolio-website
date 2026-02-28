@@ -102,6 +102,10 @@ class Current():
     effect_placeholder_spliter = "<split>"
     effect_placeholder_latter = "</magic-star>"
 
+    def __init__(self) -> None:
+        self.lang_byte = self.get_lang_byte()
+        self.lang_ratio = self.get_lang_ratio()
+
     def switch_language(self):
         self.language = (
             "Traditional-Chinese"
@@ -115,3 +119,57 @@ class Current():
 
     def record_title(self, title: str):
         self.title = title
+
+    def get_lang_byte(self) -> str:
+        """
+        Get the number of each language in bytes of code from this
+        repository on GitHub.
+
+        Returns
+        -------
+        str
+            A Json string, contain key-value pair with programming
+            langugage as key and number of bytes of code. With value
+            like ``{"HTML":31078,"Python":29948,...}``.
+        """
+        import requests
+        SCHEME = "https://api.github.com"
+        ENDPOINT = "/repos/Sharl0tteIsTaken/portfolio-website/languages"
+        URL = SCHEME + ENDPOINT
+
+        HEADERS = {
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+
+        response = requests.get(URL, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        return response.text
+
+    def get_lang_ratio(self) -> dict[str, float]:
+        """
+        Convert Json string to dictionary. The main purpose is convert
+        the number bytes of code for each language (on GitHub
+        repository) into their respective ratios.
+
+        Returns
+        -------
+        dict[str, float]
+            Languages and their bytes of code ratios. With value like:
+            ``{'HTML': 0.367, 'Python': 0.352, ...}``.
+        """
+        import json
+        languages: dict[str, int] = json.loads(self.lang_byte)
+        total_bytes = sum(languages.values())
+        ratio = {
+            lang: round(bytes/total_bytes, 3)
+            for lang, bytes in languages.items()
+            }
+
+        total_amount = sum(ratio.values())
+        if total_amount != 1:
+            missing = round(1 - total_amount, 3)
+            max_var = max(ratio, key=ratio.get)  # type: ignore
+            ratio[max_var] = ratio[max_var] + missing
+        return ratio

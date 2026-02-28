@@ -2,40 +2,21 @@
   <div class="github-languages-figure">
     <h2 class="github-languages-title">Website Languages</h2>
     <div class="percentage-bar">
-      <span class="language-color-HTML" style="width: 36.7%;"></span> <!-- TODO: make this auto-gen by flask -->
-      <span class="language-color-Python" style="width: 35.2%;"></span>
-      <span class="language-color-CSS" style="width: 23.4%;"></span>
-      <span class="language-color-JavaScript" style="width: 4.7%;"></span>
+      <!-- The following is the method that generates the fewest static type check warnings. See source code for more infoamtion. -->
+      {% for language, ratio in current.lang_ratio.items(): %}
+        <span class="language-color-{{ language }}" style="width: {{ ratio * 100 }}%;"></span>
+      {% endfor %}
     </div>
     <ul class="bar-legend-box">
-      <li class="legend-bound-box">
-        <a class="bar-legend" href="/Sharl0tteIsTaken/portfolio-website/search?l=html"> <!-- TODO: make this auto-gen by flask -->
-          <img class="legend-icon language-color-HTML" src="../static/assets/svg/legend-icon.svg" alt="A dot image to represents the color of text in legend of figure.">
-          <span class="legend-text">HTML</span> <!-- TODO: make this auto-gen by flask -->
-          <span>36.7%</span> <!-- TODO: make this auto-gen by flask -->
-        </a>
-      </li>
-      <li class="legend-bound-box">
-        <a class="bar-legend" href="/Sharl0tteIsTaken/portfolio-website/search?l=python">
-          <img class="legend-icon language-color-Python" src="../static/assets/svg/legend-icon.svg" alt="A dot image to represents the color of text in legend of figure.">
-          <span class="legend-text">Python</span>
-          <span>35.2%</span>
-        </a>
-      </li>
-      <li class="legend-bound-box">
-        <a class="bar-legend" href="/Sharl0tteIsTaken/portfolio-website/search?l=css">
-          <img class="legend-icon language-color-CSS" src="../static/assets/svg/legend-icon.svg" alt="A dot image to represents the color of text in legend of figure.">
-          <span class="legend-text">CSS</span>
-          <span>23.4%</span>
-        </a>
-      </li>
-      <li class="legend-bound-box">
-        <a class="bar-legend" href="/Sharl0tteIsTaken/portfolio-website/search?l=javascript">
-          <img class="legend-icon language-color-JavaScript" src="../static/assets/svg/legend-icon.svg" alt="A dot image to represents the color of text in legend of figure.">
-          <span class="legend-text">JavaScript</span>
-          <span>4.7%</span>
-        </a>
-      </li>
+      {% for language, ratio in current.lang_ratio.items(): %}
+        <li class="legend-bound-box">
+          <a class="bar-legend" href="https://github.com/Sharl0tteIsTaken/portfolio-website/search?l={{ language }}">
+            <img class="legend-icon language-color-{{ language }}" src="../static/assets/svg/legend-icon.svg" alt="A dot image to represents the color of text in legend of figure.">
+            <span class="legend-text">{{ language }}</span>
+            <span>{{ ratio * 100 }}%</span>
+          </a>
+        </li>
+      {% endfor %}
     </ul>
   </div>
 </div>
