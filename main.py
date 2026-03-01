@@ -7,7 +7,7 @@ import smtplib
 from resource.classes import AboutText, Base, ContactText, Current, Project
 
 from flask import Flask, redirect, render_template, request, url_for
-from flask_bootstrap import Bootstrap  # type: ignore[import-untyped, note]
+from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped, note]
 from flask_sqlalchemy import SQLAlchemy
 
 from demo_morse_code_converter.converter import Converter
@@ -230,7 +230,7 @@ def send_email(name: str, email: str, message: str) -> None:
 
 # init db & bootstrap
 db.init_app(app)
-Bootstrap(app)
+Bootstrap5(app)
 
 dk_showmaker = ShowMaker()
 dk_showmaker.new_game()
