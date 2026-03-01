@@ -104,7 +104,7 @@ class Current():
 
     def __init__(self) -> None:
         self.lang_byte = self.get_lang_byte()
-        self.lang_ratio = self.get_lang_ratio()
+        self.lang_percentage = self.get_lang_percentage()
 
     def switch_language(self):
         self.language = (
@@ -147,29 +147,35 @@ class Current():
         response.raise_for_status()
         return response.text
 
-    def get_lang_ratio(self) -> dict[str, float]:
+    def get_lang_percentage(self) -> dict[str, float]:
         """
         Convert Json string to dictionary. The main purpose is convert
         the number bytes of code for each language (on GitHub
-        repository) into their respective ratios.
+        repository) into their respective percentages.
 
         Returns
         -------
         dict[str, float]
-            Languages and their bytes of code ratios. With value like:
-            ``{'HTML': 0.367, 'Python': 0.352, ...}``.
+            Languages and their bytes of code percentages. With value
+            like: ``{'HTML': 36.7, 'Python': 35.2, ...}``.
         """
         import json
         languages: dict[str, int] = json.loads(self.lang_byte)
+        max_percentage = 100  # 100 or 1 (reprsent: 100% or 1/1)
+        round_decimal = 1  # 1 or 3
+
         total_bytes = sum(languages.values())
-        ratio = {
-            lang: round(bytes/total_bytes, 3)
-            for lang, bytes in languages.items()
+        lang_percentage = {
+            lang: round((max_percentage * byte) / total_bytes, round_decimal)
+            for lang, byte in languages.items()
             }
 
-        total_amount = sum(ratio.values())
-        if total_amount != 1:
-            missing = round(1 - total_amount, 3)
-            max_var = max(ratio, key=ratio.get)  # type: ignore
-            ratio[max_var] = ratio[max_var] + missing
-        return ratio
+        total_percentage = sum(lang_percentage.values())
+        if total_percentage != max_percentage:
+            max_var = max(languages, key=languages.get)  # type: ignore
+            missing = max_percentage - total_percentage
+            lang_percentage[max_var] = round(
+                (lang_percentage[max_var] + missing), round_decimal
+                )
+
+        return lang_percentage
