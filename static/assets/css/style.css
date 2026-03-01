@@ -113,6 +113,11 @@ footer {
     margin: 0rem !important;
 }
 
+.favicon-credit {
+    text-align: center;
+    font-size: 10px;
+}
+
 /* index.html */
 .h1-div-home {
     align-items: center;
