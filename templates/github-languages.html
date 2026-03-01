@@ -1,0 +1,22 @@
+<div class="github-languages-block" lang="Not-Applicable">
+  <div class="github-languages-figure">
+    <h2 class="github-languages-title">Website Languages</h2>
+    <div class="percentage-bar">
+      <!-- The following is the method that generates the fewest static type check warnings. See source code for more infoamtion. -->
+      {% for language, percentage in current.lang_percentage.items(): %}
+        <span class="language-color-{{ language }}" style="width: {{ percentage }}%;"></span>
+      {% endfor %}
+    </div>
+    <ul class="bar-legend-box">
+      {% for language, percentage in current.lang_percentage.items(): %}
+        <li class="legend-bound-box">
+          <a class="bar-legend" href="https://github.com/Sharl0tteIsTaken/portfolio-website/search?l={{ language }}">
+            <img class="legend-icon language-color-{{ language }}" src="../static/assets/svg/legend-icon.svg" alt="A dot image to represents the color of text in legend of figure.">
+            <span class="legend-text">{{ language }}</span>
+            <span>{{ percentage }}%</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

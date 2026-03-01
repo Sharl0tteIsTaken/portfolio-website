@@ -72,6 +72,7 @@ def about(title: str):
     return render_template(
         "about.html",
         current=current,
+        title=title,
         static_data=static_data,
         effect=effect,
         page="about")

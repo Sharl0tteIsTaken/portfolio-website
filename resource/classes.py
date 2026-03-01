@@ -67,7 +67,7 @@ class ContactText(Base):
 class Current():
     language: Languages = "English"
     endpoint: str = "home"
-    title: str = "Website"
+    title: str = "website"
 
     navbar_about: dict[Languages, str] = {
         "English": "About",
@@ -102,6 +102,10 @@ class Current():
     effect_placeholder_spliter = "<split>"
     effect_placeholder_latter = "</magic-star>"
 
+    def __init__(self) -> None:
+        self.lang_byte = self.get_lang_byte()
+        self.lang_percentage = self.get_lang_percentage()
+
     def switch_language(self):
         self.language = (
             "Traditional-Chinese"
@@ -115,3 +119,63 @@ class Current():
 
     def record_title(self, title: str):
         self.title = title
+
+    def get_lang_byte(self) -> str:
+        """
+        Get the number of each language in bytes of code from this
+        repository on GitHub.
+
+        Returns
+        -------
+        str
+            A Json string, contain key-value pair with programming
+            langugage as key and number of bytes of code. With value
+            like ``{"HTML":31078,"Python":29948,...}``.
+        """
+        import requests
+        SCHEME = "https://api.github.com"
+        ENDPOINT = "/repos/Sharl0tteIsTaken/portfolio-website/languages"
+        URL = SCHEME + ENDPOINT
+
+        HEADERS = {
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+
+        response = requests.get(URL, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        return response.text
+
+    def get_lang_percentage(self) -> dict[str, float]:
+        """
+        Convert Json string to dictionary. The main purpose is convert
+        the number bytes of code for each language (on GitHub
+        repository) into their respective percentages.
+
+        Returns
+        -------
+        dict[str, float]
+            Languages and their bytes of code percentages. With value
+            like: ``{'HTML': 36.7, 'Python': 35.2, ...}``.
+        """
+        import json
+        languages: dict[str, int] = json.loads(self.lang_byte)
+        max_percentage = 100  # 100 or 1 (reprsent: 100% or 1/1)
+        round_decimal = 1  # 1 or 3
+
+        total_bytes = sum(languages.values())
+        lang_percentage = {
+            lang: round((max_percentage * byte) / total_bytes, round_decimal)
+            for lang, byte in languages.items()
+            }
+
+        total_percentage = sum(lang_percentage.values())
+        if total_percentage != max_percentage:
+            max_var = max(languages, key=languages.get)  # type: ignore
+            missing = max_percentage - total_percentage
+            lang_percentage[max_var] = round(
+                (lang_percentage[max_var] + missing), round_decimal
+                )
+
+        return lang_percentage

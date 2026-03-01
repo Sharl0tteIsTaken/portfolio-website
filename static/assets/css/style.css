@@ -526,3 +526,103 @@ p > .magic > .magic-text {
 .brand-image {
     border-radius: 50%;
 }
+
+/* About - github languages */
+.github-languages-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: -24px;
+    margin-bottom: 24px; */
+}
+
+.github-languages-figure {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 240px;
+    padding: 16px 0px;
+
+}
+
+.github-languages-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2328;
+    margin-top: 0px;
+    margin-bottom: 16px;
+}
+
+.percentage-bar {
+    background-color: #d1d9e0;
+    border-radius: 0.375rem;
+    height: 8px;
+    display: flex;
+    overflow: hidden;
+    gap: .125rem;
+    margin-bottom: 8px;
+}
+
+.bar-legend-box {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.legend-bound-box {
+    display: inline;
+}
+
+.bar-legend {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    color: #59636e;
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 16px;
+}
+
+.legend-icon {
+    vertical-align: text-bottom;
+    fill: currentColor;
+    display: inline-block;
+    overflow: visible;
+    margin-right: 8px;
+}
+
+.legend-text {
+    color: #1f2328;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+span.language-color-HTML {
+    background-color: #e34c26;
+}
+img.language-color-HTML {
+    filter: brightness(0) saturate(100%) invert(37%) sepia(61%) saturate(1599%) hue-rotate(343deg) brightness(90%) contrast(97%);
+}
+
+span.language-color-Python {
+    background-color: #3572A5;
+}
+img.language-color-Python {
+    filter: brightness(0) saturate(100%) invert(39%) sepia(62%) saturate(486%) hue-rotate(165deg) brightness(92%) contrast(94%);
+
+}
+
+span.language-color-CSS {
+    background-color: #663399;
+}
+img.language-color-CSS {
+    filter: brightness(0) saturate(100%) invert(24%) sepia(16%) saturate(5198%) hue-rotate(244deg) brightness(97%) contrast(98%);
+
+}
+
+span.language-color-JavaScript {
+    background-color: #f1e05a;
+}
+img.language-color-JavaScript {
+    filter: brightness(0) saturate(100%) invert(79%) sepia(95%) saturate(303%) hue-rotate(352deg) brightness(96%) contrast(97%);
+}
