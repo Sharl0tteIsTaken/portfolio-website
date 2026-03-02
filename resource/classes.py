@@ -2,8 +2,10 @@
 Some Python classes used by the server, including classes for database
 and a class used to record and store website information.
 """
+import json
 from typing import Literal
 
+import requests
 from flask import request
 from sqlalchemy import JSON
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -15,6 +17,14 @@ type Items = dict[Languages, list[str]]
 
 HREF_WEBSITE = "/about/website"
 HREF_AUTHOR = "/about/author"
+SCHEME = "https://api.github.com"
+ENDPOINT = "/repos/Sharl0tteIsTaken/portfolio-website/languages"
+URL = SCHEME + ENDPOINT
+HEADERS = {
+    "Accept": "application/vnd.github+json",
+    "Content-Type": "application/json",
+    "X-GitHub-Api-Version": "2022-11-28",
+}
 
 
 class Base(DeclarativeBase):
@@ -101,7 +111,7 @@ class Current():
     }
     gh_title: dict[Languages, str] = {
         "English": "Check out the source code on Github",
-        "Traditional-Chinese": "去GitHub上看看程式碼",
+        "Traditional-Chinese": "去GitHub上看看程式吧",
     }
 
     star_effect_amount: int = 2
@@ -161,17 +171,6 @@ class Current():
             langugage as key and number of bytes of code. With value
             like ``{"HTML":31078,"Python":29948,...}``.
         """
-        import requests
-        SCHEME = "https://api.github.com"
-        ENDPOINT = "/repos/Sharl0tteIsTaken/portfolio-website/languages"
-        URL = SCHEME + ENDPOINT
-
-        HEADERS = {
-            "Accept": "application/vnd.github+json",
-            "Content-Type": "application/json",
-            "X-GitHub-Api-Version": "2022-11-28",
-        }
-
         response = requests.get(URL, headers=HEADERS, timeout=10)
         response.raise_for_status()
         return response.text
@@ -188,7 +187,6 @@ class Current():
             Languages and their bytes of code percentages. With value
             like: ``{'HTML': 36.7, 'Python': 35.2, ...}``.
         """
-        import json
         languages: dict[str, int] = json.loads(self.lang_byte)
         max_percentage = 100  # 100 or 1 (reprsent: 100% or 1/1)
         round_decimal = 1  # 1 or 3

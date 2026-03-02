@@ -241,6 +241,8 @@ converter = Converter()
 current = Current()
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)  # local
+    # local
+    app.run(debug=True, port=5000)
 else:
-    app.run(port=10000, host="0.0.0.0")  # on Render
+    # on Render
+    app.run(port=10000, host="0.0.0.0")
