@@ -40,7 +40,6 @@ db = SQLAlchemy(model_class=Base)
 @app.route('/')
 def home() -> str:
     """The home page of website."""
-    # pylint: disable-next=possibly-used-before-assignment
     current.switch_endpoint()
     project_data = db.session.execute(db.select(Project)).scalars().all()
 
@@ -113,7 +112,7 @@ def switch_language() -> ResponseReturnValue:
             ),
         )
     return redirect(url_for(
-        current.endpoint  # pyright: ignore[reportArgumentType]
+        current.endpoint
         ))
 
 
@@ -123,7 +122,6 @@ def gate_tic_tac_toe() -> ResponseReturnValue:
     The page to redirect to tic tac toe demo.
     This also resets the demo.
     """
-    # pylint: disable-next=possibly-used-before-assignment
     dk_showmaker.initiate()
     dk_showmaker.new_game()
     return redirect(url_for('demo_tic_tac_toe'))
@@ -133,9 +131,9 @@ def gate_tic_tac_toe() -> ResponseReturnValue:
 def demo_tic_tac_toe() -> str:
     """The page with tic tac toe demo."""
     if request.method == "POST":
-        enter = request.form.get('user_input')
+        enter = request.form.get('user_input') or ""
         dk_showmaker.player_input(
-            user_input=enter  # type: ignore[reportArgumentType]
+            user_input=enter
             )
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
@@ -175,7 +173,7 @@ def gate_morse_code_converter() -> ResponseReturnValue:
     The page to redirect to morse code converter demo.
     This also resets the demo.
     """
-    converter.history = ""  # pylint: disable=possibly-used-before-assignment
+    converter.history = ""
     return redirect(url_for('demo_morse_code_converter'))
 
 
@@ -183,10 +181,10 @@ def gate_morse_code_converter() -> ResponseReturnValue:
 def demo_morse_code_converter() -> str:
     """The page with morse code converter demo."""
     if request.method == "POST":
-        enter = request.form.get('user_input')
-        converter.history += enter + "\n"  # type: ignore[reportArgumentType]
+        enter = request.form.get('user_input') or ""
+        converter.history += enter + "\n"
         converter.history += converter.convert(
-            user_input=enter  # type: ignore[reportArgumentType]
+            user_input=enter
             ) + "\n"
     return render_template(
         'demo-morse_code_converter.html',

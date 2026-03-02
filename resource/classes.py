@@ -8,7 +8,7 @@ from flask import request
 from sqlalchemy import JSON
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-
+# ---------------------------------------------------------------------
 type Languages = Literal["English", "Traditional-Chinese"]
 type Desc = dict[Languages, str]
 type Items = dict[Languages, list[str]]
@@ -17,12 +17,12 @@ HREF_WEBSITE = "/about/website"
 HREF_AUTHOR = "/about/author"
 
 
-class Base(DeclarativeBase):  # pylint: disable=[too-few-public-methods]
+class Base(DeclarativeBase):
     """base model for SQLAlchemy."""
 
 
 # db table
-class Project(Base):  # pylint: disable=[too-few-public-methods]
+class Project(Base):
     """The structure of a table in the database."""
     __tablename__ = "Project"
     info_id: Mapped[int] = mapped_column(primary_key=True)
@@ -131,8 +131,11 @@ class Current():
         This needs to be added to each function that switches URLs, but
         this does not include demos.
         """
-        if request.endpoint != "switch_language":
-            self.endpoint = request.endpoint  # pyright: ignore
+        if (
+            request.endpoint != "switch_language"
+            and isinstance(request.endpoint, str)
+        ):
+            self.endpoint = request.endpoint
 
     def record_title(self, title: str) -> None:
         """
