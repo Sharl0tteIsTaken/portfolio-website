@@ -7,6 +7,7 @@ import smtplib
 from resource.classes import AboutText, Base, ContactText, Current, Project
 
 from flask import Flask, redirect, render_template, request, url_for
+from flask.typing import ResponseReturnValue
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped, note]
 from flask_sqlalchemy import SQLAlchemy
 
@@ -52,7 +53,7 @@ def home() -> str:
 
 
 @app.route("/about/<title>")
-def about(title: str):
+def about(title: str) -> str:
     """The about page of website."""
     current.switch_endpoint()
     current.record_title(title)
@@ -79,7 +80,7 @@ def about(title: str):
 
 
 @app.route("/contact", methods=["GET", "POST"])
-def contact():
+def contact() -> str:
     """The contact page of website."""
     current.switch_endpoint()
     static_data = db.session.execute(db.select(ContactText)).scalar()
@@ -97,7 +98,7 @@ def contact():
 
 
 @app.route("/switch-language")
-def switch_language():
+def switch_language() -> ResponseReturnValue:
     """
     Switch website display language between Traditional Chinese and
     English.
@@ -117,7 +118,7 @@ def switch_language():
 
 
 @app.route("/gate/tic-tac-toe")
-def gate_tic_tac_toe():
+def gate_tic_tac_toe() -> ResponseReturnValue:
     """
     The page to redirect to tic tac toe demo.
     This also resets the demo.
@@ -129,7 +130,7 @@ def gate_tic_tac_toe():
 
 
 @app.route("/demo/tic-tac-toe", methods=['GET', 'POST'])
-def demo_tic_tac_toe():
+def demo_tic_tac_toe() -> str:
     """The page with tic tac toe demo."""
     if request.method == "POST":
         enter = request.form.get('user_input')
@@ -152,7 +153,7 @@ def demo_tic_tac_toe():
 
 
 @app.route('/demo/tic-tac-toe/input-receive')
-def demo_tic_tac_toe_input_receive():
+def demo_tic_tac_toe_input_receive() -> str:
     """The page to receive user input on tic tac toe demo."""
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
@@ -169,7 +170,7 @@ def demo_tic_tac_toe_input_receive():
 
 
 @app.route("/gate/morse-code-converter")
-def gate_morse_code_converter():
+def gate_morse_code_converter() -> ResponseReturnValue:
     """
     The page to redirect to morse code converter demo.
     This also resets the demo.
@@ -179,7 +180,7 @@ def gate_morse_code_converter():
 
 
 @app.route('/demo/morse-code-converter', methods=['GET', 'POST'])
-def demo_morse_code_converter():
+def demo_morse_code_converter() -> str:
     """The page with morse code converter demo."""
     if request.method == "POST":
         enter = request.form.get('user_input')
@@ -194,7 +195,7 @@ def demo_morse_code_converter():
 
 
 @app.route('/demo/morse-code-converter/input-recieve')
-def demo_morse_code_converter_input_receive():
+def demo_morse_code_converter_input_receive() -> str:
     """The page to receive user input on morse code converter demo."""
     return render_template(
         'demo-cz_terminal-morse_code_converter.html',

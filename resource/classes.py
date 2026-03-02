@@ -113,7 +113,7 @@ class Current():
         self.lang_byte = self.get_lang_byte()
         self.lang_percentage = self.get_lang_percentage()
 
-    def switch_language(self):
+    def switch_language(self) -> None:
         """
         Switch website display language between Traditional Chinese and
         English.
@@ -124,7 +124,7 @@ class Current():
             else "English"
             )
 
-    def switch_endpoint(self):
+    def switch_endpoint(self) -> None:
         """
         Save the endpoint as class attribute before switching language.
 
@@ -134,7 +134,7 @@ class Current():
         if request.endpoint != "switch_language":
             self.endpoint = request.endpoint  # pyright: ignore
 
-    def record_title(self, title: str):
+    def record_title(self, title: str) -> None:
         """
         Save the website title as class attribute. This is only needed
         for the About page, because it has an additional parameter.

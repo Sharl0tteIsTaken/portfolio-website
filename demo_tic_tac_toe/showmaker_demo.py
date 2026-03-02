@@ -36,7 +36,7 @@ class ShowMaker():
         # this only for the demo
         self.output = ""
         self.input_required = False
-        self.history = ""
+        self.history: str = ""
 
         # for the type checkers
         self.pwd = ""
