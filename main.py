@@ -98,6 +98,10 @@ def contact():
 
 @app.route("/switch-language")
 def switch_language():
+    """
+    Switch website display language between Traditional Chinese and
+    English.
+    """
     current.switch_endpoint()
     current.switch_language()
     if current.endpoint == "about":

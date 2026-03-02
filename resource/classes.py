@@ -1,3 +1,7 @@
+"""
+Some Python classes used by the server, including classes for database
+and a class used to record and store website information.
+"""
 from typing import Literal
 
 from flask import request
@@ -19,11 +23,7 @@ class Base(DeclarativeBase):  # pylint: disable=[too-few-public-methods]
 
 # db table
 class Project(Base):  # pylint: disable=[too-few-public-methods]
-    """
-    Subclass db.Model to define a model class.
-    The model will generate a table name by converting the CamelCase
-    class name to snake_case.
-    """
+    """The structure of a table in the database."""
     __tablename__ = "Project"
     info_id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(nullable=False, unique=True)
@@ -45,6 +45,7 @@ class Project(Base):  # pylint: disable=[too-few-public-methods]
 
 
 class AboutText(Base):
+    """The structure of a table in the database."""
     __tablename__ = "AboutText"
     info_id: Mapped[int] = mapped_column(primary_key=True)
     info_name: Mapped[str] = mapped_column(nullable=False, unique=True)
@@ -54,6 +55,7 @@ class AboutText(Base):
 
 
 class ContactText(Base):
+    """The structure of a table in the database."""
     __tablename__ = "ContactText"
     info_id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[Desc] = mapped_column(JSON, nullable=False)
@@ -65,6 +67,11 @@ class ContactText(Base):
 
 
 class Current():
+    """
+    The current state of the website, also used to store some static
+    assets and keep track of every important information about the
+    website.
+    """
     language: Languages = "English"
     endpoint: str = "home"
     title: str = "website"
@@ -107,6 +114,10 @@ class Current():
         self.lang_percentage = self.get_lang_percentage()
 
     def switch_language(self):
+        """
+        Switch website display language between Traditional Chinese and
+        English.
+        """
         self.language = (
             "Traditional-Chinese"
             if self.language == "English"
@@ -114,10 +125,25 @@ class Current():
             )
 
     def switch_endpoint(self):
+        """
+        Save the endpoint as class attribute before switching language.
+
+        This needs to be added to each function that switches URLs, but
+        this does not include demos.
+        """
         if request.endpoint != "switch_language":
             self.endpoint = request.endpoint  # pyright: ignore
 
     def record_title(self, title: str):
+        """
+        Save the website title as class attribute. This is only needed
+        for the About page, because it has an additional parameter.
+
+        Parameters
+        ----------
+        title: str
+            The title of the website.
+        """
         self.title = title
 
     def get_lang_byte(self) -> str:
