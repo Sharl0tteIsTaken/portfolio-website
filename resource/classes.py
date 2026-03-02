@@ -1,29 +1,39 @@
+"""
+Some Python classes used by the server, including classes for database
+and a class used to record and store website information.
+"""
+import json
 from typing import Literal
 
+import requests
 from flask import request
 from sqlalchemy import JSON
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-
+# ---------------------------------------------------------------------
 type Languages = Literal["English", "Traditional-Chinese"]
 type Desc = dict[Languages, str]
 type Items = dict[Languages, list[str]]
 
 HREF_WEBSITE = "/about/website"
 HREF_AUTHOR = "/about/author"
+SCHEME = "https://api.github.com"
+ENDPOINT = "/repos/Sharl0tteIsTaken/portfolio-website/languages"
+URL = SCHEME + ENDPOINT
+HEADERS = {
+    "Accept": "application/vnd.github+json",
+    "Content-Type": "application/json",
+    "X-GitHub-Api-Version": "2022-11-28",
+}
 
 
-class Base(DeclarativeBase):  # pylint: disable=[too-few-public-methods]
+class Base(DeclarativeBase):
     """base model for SQLAlchemy."""
 
 
 # db table
-class Project(Base):  # pylint: disable=[too-few-public-methods]
-    """
-    Subclass db.Model to define a model class.
-    The model will generate a table name by converting the CamelCase
-    class name to snake_case.
-    """
+class Project(Base):
+    """The structure of a table in the database."""
     __tablename__ = "Project"
     info_id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(nullable=False, unique=True)
@@ -45,6 +55,7 @@ class Project(Base):  # pylint: disable=[too-few-public-methods]
 
 
 class AboutText(Base):
+    """The structure of a table in the database."""
     __tablename__ = "AboutText"
     info_id: Mapped[int] = mapped_column(primary_key=True)
     info_name: Mapped[str] = mapped_column(nullable=False, unique=True)
@@ -54,6 +65,7 @@ class AboutText(Base):
 
 
 class ContactText(Base):
+    """The structure of a table in the database."""
     __tablename__ = "ContactText"
     info_id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[Desc] = mapped_column(JSON, nullable=False)
@@ -65,6 +77,11 @@ class ContactText(Base):
 
 
 class Current():
+    """
+    The current state of the website, also used to store some static
+    assets and keep track of every important information about the
+    website.
+    """
     language: Languages = "English"
     endpoint: str = "home"
     title: str = "website"
@@ -94,7 +111,7 @@ class Current():
     }
     gh_title: dict[Languages, str] = {
         "English": "Check out the source code on Github",
-        "Traditional-Chinese": "去GitHub上看看程式碼",
+        "Traditional-Chinese": "去GitHub上看看程式吧",
     }
 
     star_effect_amount: int = 2
@@ -106,18 +123,40 @@ class Current():
         self.lang_byte = self.get_lang_byte()
         self.lang_percentage = self.get_lang_percentage()
 
-    def switch_language(self):
+    def switch_language(self) -> None:
+        """
+        Switch website display language between Traditional Chinese and
+        English.
+        """
         self.language = (
             "Traditional-Chinese"
             if self.language == "English"
             else "English"
             )
 
-    def switch_endpoint(self):
-        if request.endpoint != "switch_language":
-            self.endpoint = request.endpoint  # pyright: ignore
+    def switch_endpoint(self) -> None:
+        """
+        Save the endpoint as class attribute before switching language.
 
-    def record_title(self, title: str):
+        This needs to be added to each function that switches URLs, but
+        this does not include demos.
+        """
+        if (
+            request.endpoint != "switch_language"
+            and isinstance(request.endpoint, str)
+        ):
+            self.endpoint = request.endpoint
+
+    def record_title(self, title: str) -> None:
+        """
+        Save the website title as class attribute. This is only needed
+        for the About page, because it has an additional parameter.
+
+        Parameters
+        ----------
+        title: str
+            The title of the website.
+        """
         self.title = title
 
     def get_lang_byte(self) -> str:
@@ -132,17 +171,6 @@ class Current():
             langugage as key and number of bytes of code. With value
             like ``{"HTML":31078,"Python":29948,...}``.
         """
-        import requests
-        SCHEME = "https://api.github.com"
-        ENDPOINT = "/repos/Sharl0tteIsTaken/portfolio-website/languages"
-        URL = SCHEME + ENDPOINT
-
-        HEADERS = {
-            "Accept": "application/vnd.github+json",
-            "Content-Type": "application/json",
-            "X-GitHub-Api-Version": "2022-11-28",
-        }
-
         response = requests.get(URL, headers=HEADERS, timeout=10)
         response.raise_for_status()
         return response.text
@@ -159,7 +187,6 @@ class Current():
             Languages and their bytes of code percentages. With value
             like: ``{'HTML': 36.7, 'Python': 35.2, ...}``.
         """
-        import json
         languages: dict[str, int] = json.loads(self.lang_byte)
         max_percentage = 100  # 100 or 1 (reprsent: 100% or 1/1)
         round_decimal = 1  # 1 or 3
