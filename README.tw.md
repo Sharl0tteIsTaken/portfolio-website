@@ -14,7 +14,7 @@
 
 #### 在 [<img width="20" src="https://avatars.githubusercontent.com/u/37713493?s=48&v=4" alt="@firstcontributions" />](https://github.com/firstcontributions) [**firstcontributions/first-contributions**](https://github.com/firstcontributions/first-contributions) (該計畫旨在簡化和指導初學者進行首次貢獻的方式) 貢獻
 - 審查 PR [#106718](https://github.com/firstcontributions/first-contributions/pull/106718)，此 PR 提出了改進繁體中文翻譯 `README.zh-tw.md` 的更改。
-- 提出 PR [#106342](https://github.com/firstcontributions/first-contributions/pull/106342) 以修復 README 文件中的一個錯誤，該錯誤是在 HTML `<pre>` 標籤內使用符號 `<` 會導致該符號以及符號 `>` 之間的所有內容都被視為 HTML 標籤而不可見。
+- 提出 PR [#106342](https://github.com/firstcontributions/first-contributions/pull/106342) 以修復 README 文件中的一個錯誤，該錯誤是在 HTML `<pre>` 標籤內使用符號 `<` 和 `>` 會導致它們之間的所有文字以及這兩個符號都被視為一個 HTML 標籤而不可見。
 - 提出 issue [#107627](https://github.com/firstcontributions/first-contributions/issues/107627) 為每位初學者創造更多機會在 GitHub 上做出他們的第一次貢獻。
 
 ## 個人專案
