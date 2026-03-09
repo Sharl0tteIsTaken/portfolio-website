@@ -3,6 +3,7 @@ Some Python classes used by the server, including classes for database
 and a class used to record and store website information.
 """
 import json
+import os
 from typing import Literal
 
 import requests
@@ -15,16 +16,21 @@ type Languages = Literal["English", "Traditional-Chinese"]
 type Desc = dict[Languages, str]
 type Items = dict[Languages, list[str]]
 
+ERRMSG = "Environment variable `{var}` don't exist, check `.env` file."
 HREF_WEBSITE = "/about/website"
 HREF_AUTHOR = "/about/author"
-SCHEME = "https://api.github.com"
-ENDPOINT = "/repos/Sharl0tteIsTaken/portfolio-website/languages"
-URL = SCHEME + ENDPOINT
 HEADERS = {
     "Accept": "application/vnd.github+json",
     "Content-Type": "application/json",
     "X-GitHub-Api-Version": "2022-11-28",
 }
+
+ENDPOINT: str = os.getenv("ENDPOINT") or ""
+NAME: str = os.getenv("NAME") or ""
+TOKEN: str = os.getenv("TOKEN") or ""
+assert ENDPOINT != "", ERRMSG.format(var="ENDPOINT")
+assert NAME != "", ERRMSG.format(var="NAME")
+assert TOKEN != "", ERRMSG.format(var="TOKEN")
 
 
 class Base(DeclarativeBase):
@@ -171,7 +177,9 @@ class Current():
             langugage as key and number of bytes of code. With value
             like ``{"HTML":31078,"Python":29948,...}``.
         """
-        response = requests.get(URL, headers=HEADERS, timeout=10)
+        response = requests.get(
+            ENDPOINT, auth=(NAME, TOKEN), headers=HEADERS, timeout=10
+            )
         response.raise_for_status()
         return response.text
 
