@@ -631,3 +631,27 @@ span.language-color-JavaScript {
 img.language-color-JavaScript {
     filter: brightness(0) saturate(100%) invert(79%) sepia(95%) saturate(303%) hue-rotate(352deg) brightness(96%) contrast(97%);
 }
+
+
+.tools-favicon {
+    vertical-align: initial;
+}
+
+.tools-href {
+    text-decoration: none;
+}
+
+code {
+    white-space: break-spaces;
+    background-color: #818b981f;
+    border-radius: 6px;
+    margin: 0;
+    padding: .2em .4em;
+    font-size: 85%;
+    font-family: monospace !important;
+    color: #d63384;
+}
+
+dt {
+    font-weight: var(--normal-font-weight);
+}

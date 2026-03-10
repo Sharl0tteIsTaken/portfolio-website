@@ -31,11 +31,16 @@
   <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
-        {% for paragraph in static_data.paragraphs.get(current.language): %}
-          <p>
-            {{ paragraph.format_map(effect) | safe }}
-          </p>
-        {% endfor %}
+        {% if title != "tools": %}
+          {% for paragraph in static_data.paragraphs.get(current.language): %}
+            <p>
+              {{ paragraph.format_map(effect) | safe }}
+            </p>
+          {% endfor %}
+
+        {% else: %}
+          {% include "tools.html" %}
+        {% endif %}
       </div>
     </div>
   </div>

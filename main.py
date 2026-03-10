@@ -1,7 +1,7 @@
 """
 The source code of the server.
 """
-
+import json
 import os
 import smtplib
 from resource.classes import AboutText, Base, ContactText, Current, Project
@@ -69,9 +69,14 @@ def about(title: str) -> str:
         current.effect_placeholder_latter: tags_latter,
     }
 
+    # temporarily stored in a json file, should be preserved in repo
+    with open("content.json") as file:
+        content = json.load(file)
+
     return render_template(
         "about.html",
         current=current,
+        content=content,
         title=title,
         static_data=static_data,
         effect=effect,
