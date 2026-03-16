@@ -71,6 +71,15 @@ class AboutText(Base):
     paragraphs: Mapped[Items] = mapped_column(JSON, nullable=False)
 
 
+class AboutImage(Base):
+    """The structure of a table in the database."""
+    __tablename__ = "AboutImage"
+    info_id: Mapped[int] = mapped_column(primary_key=True)
+    info_name: Mapped[str] = mapped_column(nullable=False, unique=True)
+    fname: Mapped[str] = mapped_column(nullable=False, unique=True)
+    attribute: Mapped[str] = mapped_column(nullable=False, unique=True)
+
+
 class ContactText(Base):
     """The structure of a table in the database."""
     __tablename__ = "ContactText"
