@@ -1,5 +1,6 @@
 body {
     font-size: 1.25rem;
+    line-height: 33px;
     --normal-font-weight: 400;
     --extra-font-weight: 600;
     --heavy-font-weight: 800;
@@ -8,12 +9,25 @@ body {
     --purple: rgb(135, 0, 170);
     --violet: rgb(142, 27, 222);
     --pink: rgb(232, 18, 97);
+
+    --text-shadow-1px-black:
+        -1px -1px 0 black,
+         1px -1px 0 black,
+        -1px  1px 0 black,
+         1px  1px 0 black;
 }
 
 body::-webkit-scrollbar {
-    /* width: 8px;
-    height: 8px; */
-    display: none;
+    width: 3px;
+    display: initial;
+}
+
+body::-webkit-scrollbar-thumb {
+background-color: rgb(0 0 0); 
+}
+
+body::-webkit-scrollbar-thumb:hover {
+background-color: rgba(0, 0, 0, 0.75);
 }
 
 
@@ -100,6 +114,7 @@ body::-webkit-scrollbar {
 /* footer.html */
 .copyright-text {
     font-size: 0.875em;
+    margin: 0.5rem 0rem;
 }
 
 .border-bottom {
@@ -293,10 +308,12 @@ footer {
 
 .page-heading {
     color: white;
+    text-shadow: var(--text-shadow-1px-black);
 }
 
 .subheading {
     font-size: 1.5rem;
+    text-shadow: var(--text-shadow-1px-black);
 }
 
  h1, .h1 {
@@ -310,7 +327,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, p {
     --bs-body-font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --bs-body-font-size: 1rem;
     --bs-body-font-weight: var(--normal-font-weight);
-    --bs-body-line-height: 1.5;
+    --bs-body-line-height: 1.65;  /* this is for all texts */
 }
 
 
@@ -385,10 +402,6 @@ textarea.form-control {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #0085A1;
     --bs-btn-disabled-border-color: #0085A1;
-}
-
-.contact-h1 {
-    padding-top: 1.25rem;
 }
 
 

@@ -3,7 +3,9 @@ The source code of the server.
 """
 import os
 import smtplib
-from resource.classes import AboutText, Base, ContactText, Current, Project
+from resource.classes import (
+    AboutImage, AboutText, Base, ContactText, Current, Project
+    )
 
 from flask import Flask, redirect, render_template, request, url_for
 from flask.typing import ResponseReturnValue
@@ -65,12 +67,16 @@ def about(title: str) -> str:
         current.effect_placeholder_latter: tags_latter,
     }
 
+    background = db.session.execute(
+        db.select(AboutImage).where(AboutImage.info_name == title)
+        ).scalar()
 
     return render_template(
         "about.html",
         current=current,
         title=title,
         static_data=static_data,
+        background=background,
         effect=effect,
         page="about")
 
