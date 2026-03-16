@@ -25,3 +25,4 @@ function syncFrameSize() {
   };
 };
 window.addEventListener('load', syncFrameSize);
+window.addEventListener('resize', syncFrameSize);
