@@ -1,7 +1,6 @@
 """
 The source code of the server.
 """
-
 import os
 import smtplib
 from resource.classes import AboutText, Base, ContactText, Current, Project
@@ -15,9 +14,6 @@ from demo_morse_code_converter.converter import Converter
 from demo_tic_tac_toe.showmaker_demo import ShowMaker
 
 # ---------------------------------------------------------------------
-# TODO: add list of tools
-# example http://www.google.com/s2/favicons?domain=
-# https://clampcss.com/css-filter.html
 
 MAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
@@ -68,6 +64,7 @@ def about(title: str) -> str:
         current.effect_placeholder_former: tags_former,
         current.effect_placeholder_latter: tags_latter,
     }
+
 
     return render_template(
         "about.html",

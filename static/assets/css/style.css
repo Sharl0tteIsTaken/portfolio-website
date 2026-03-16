@@ -93,6 +93,10 @@ body::-webkit-scrollbar {
     margin-top: 0.75rem;
 }
 
+.dropdown-menu {
+    min-width: auto;
+}
+
 /* footer.html */
 .copyright-text {
     font-size: 0.875em;
@@ -111,11 +115,6 @@ footer {
     padding: 1.5rem;
     background-color: white;
     margin: 0rem !important;
-}
-
-.favicon-credit {
-    text-align: center;
-    font-size: 10px;
 }
 
 /* index.html */
@@ -630,4 +629,55 @@ span.language-color-JavaScript {
 }
 img.language-color-JavaScript {
     filter: brightness(0) saturate(100%) invert(79%) sepia(95%) saturate(303%) hue-rotate(352deg) brightness(96%) contrast(97%);
+}
+
+
+
+
+.category-description {
+    margin-left: 2rem;
+    font-weight: var(--normal-font-weight);
+}
+
+.tool-title {
+    margin-left: 2rem;
+    margin-top: 8px;
+}
+
+.tool-href {
+    text-decoration: none;
+    font-weight: var(--normal-font-weight);
+}
+
+.tool-favicon {
+    vertical-align: initial;
+}
+
+.tool-description {
+    margin-left: 1rem;
+    margin-bottom: 0px;
+    border-left: 3.2px solid #d1d9e0;
+    padding-left: 0.85rem;
+    font-weight: var(--normal-font-weight);
+}
+
+.tool-use-case {
+    font-size: 18px;
+    font-style: italic;
+    margin-left: 3rem;
+    margin-bottom: 0px;
+}
+
+.tool-use-case > img {
+    margin-bottom: 4px;
+}
+
+code {
+    white-space: break-spaces;
+    background-color: #818b981f;
+    border-radius: 6px;
+    margin: 0;
+    padding: .2em .4em;
+    font-family: monospace !important;
+    color: #d63384;
 }

@@ -1,0 +1,31 @@
+{% for category in static_data.paragraphs: %}
+  <dl lang="Not-Applicable">
+    <h3>
+      {{ category.get("title").get(current.language) }}
+    </h3>
+    <dt class="category-description">
+      {{ category.get('description').get(current.language) }}
+    </dt>
+    {% for tool in category.get('tools'): %}
+      <dt class="tool-title">
+        <a href="{{ tool.get('href') }}" class="tool-href">
+          {% if tool.get('favicon'): %}
+            <img class="tool-favicon" src="{{ tool.get('favicon') }}" width="20" alt="The website icon.">
+          {% else: %}
+            <img class="tool-favicon" src="http://www.google.com/s2/favicons?sz=48&domain={{ tool.get('href') }}" width="20" alt="The website icon.">
+          {% endif %}
+          
+          {{ tool.get('title') }}
+        </a>
+        <blockquote class="tool-description">
+          {{ tool.get('description').get(current.language) | safe }}
+        </blockquote>
+        <dd class="tool-use-case">
+          {% if tool.get('use-case'): %}
+            {{ tool.get('use-case').get(current.language) | safe }}
+          {% endif %}
+        </dd>
+      </dt>
+    {% endfor %}
+  </dl>
+{% endfor %}

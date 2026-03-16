@@ -19,6 +19,7 @@ type Items = dict[Languages, list[str]]
 ERRMSG = "Environment variable `{var}` don't exist, check `.env` file."
 HREF_WEBSITE = "/about/website"
 HREF_AUTHOR = "/about/author"
+HREF_TOOLS = "/about/tools"
 HEADERS = {
     "Accept": "application/vnd.github+json",
     "Content-Type": "application/json",
@@ -98,12 +99,14 @@ class Current():
     }
     navbar_about_dropdown: dict[Languages, dict[str, str]] = {
             "English": {
-                "The website": HREF_WEBSITE,
-                "Sharl0tteIsTaken": HREF_AUTHOR,
+                "The Website": HREF_WEBSITE,
+                "The Author": HREF_AUTHOR,
+                "The Tools": HREF_TOOLS,
                 },
             "Traditional-Chinese": {
                 "網站簡介": HREF_WEBSITE,
                 "我": HREF_AUTHOR,
+                "使用工具": HREF_TOOLS,
                 }
         }
     navbar_contact: dict[Languages, str] = {
