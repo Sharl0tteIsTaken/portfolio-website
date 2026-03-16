@@ -1,0 +1,264 @@
+[
+    {
+        "title": {
+            "English": "Framework",
+            "Traditional-Chinese": "框架"
+        },
+        "description": {
+            "English": "The framework and package this website built on top of. Not going to mention all packages here, only notable ones.",
+            "Traditional-Chinese": "本網站所基於的框架和函式庫。就不一一列舉所有函式庫了，只介紹幾個比較重要的。"
+        },
+        "tools": [
+            {
+                "title": "Flask",
+                "href": "https://flask.palletsprojects.com/en/stable/",
+                "description": {
+                    "English": "Flask is a lightweight web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.",
+                    "Traditional-Chinese": "Flask 是一個輕量級的網路應用框架。它的設計宗旨是讓使用者能夠快速輕鬆地入門，同時又能擴展到複雜的應用場景。"
+                }
+            },
+            {
+                "title": "Bootstrap",
+                "href": "https://getbootstrap.com/docs/5.3/examples/",
+                "description": {
+                    "English": "Quickly get a project started with any of our examples ranging from using parts of the framework to custom components and layouts.",
+                    "Traditional-Chinese": "藉助 Bootstrap 的各種範例快速啟動專案，這些範例涵蓋了使用部分的框架、自訂元件和排版等各個方面。"
+                }
+            }
+        ]
+    },
+    {
+        "title": {
+            "English": "Database",
+            "Traditional-Chinese": "資料庫"
+        },
+        "description": {
+            "English": "A container for storing data, allowing users to perform operations such as adding, retrieving, updating, and deleting data within the database.",
+            "Traditional-Chinese": "儲存數據的容器，使用者可以對資料執行新增、獲取、更新、刪除等操作。"
+        },
+        "tools": [
+            {
+                "title": "SQLite",
+                "href": "https://sqlite.org/",
+                "description": {
+                    "English": "SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.",
+                    "Traditional-Chinese": "SQLite 是一個透過 C 語言函式庫實現的小型、快速、獨立、可靠性高且功能齊全的 SQL 資料庫引擎。"
+                },
+                "use-case": {
+                    "English": "SQLite was used during development to enable rapid iteration.",
+                    "Traditional-Chinese": "在開發過程中考量到疊代速度而使用 SQLite。"
+                }
+            },
+            {
+                "title": "PostgreSQL",
+                "href": "https://www.postgresql.org/",
+                "description": {
+                    "English": "PostgreSQL is a powerful, open source object-relational database system that has earned it a strong reputation for reliability, feature robustness, and performance.",
+                    "Traditional-Chinese": "PostgreSQL 是一個功能強大的、開源的物件關聯資料庫系統，因其可靠、功能強大和高效能而享有盛譽。"
+                },
+                "use-case": {
+                    "English": "PostgreSQL was used for production due to its reliability.",
+                    "Traditional-Chinese": "在生產環境考量到穩定性而使用 PostgreSQL。"
+                }
+            }
+        ]
+    },
+    {
+        "title": {
+            "English": "SVG image source",
+            "Traditional-Chinese": "SVG 圖示來源"
+        },
+        "description": {
+            "English": "Scalable Vector Graphics (SVG) is a type of image that can be rendered at any size without loss of quality.",
+            "Traditional-Chinese": "SVG 可縮放向量圖形（Scalable Vector Graphics，SVG）是一種可以隨意縮放而不損失品質的向量圖形格式。"
+        },
+        "tools": [
+            {
+                "title": "Primer Octicons",
+                "href": "https://primer.style/octicons/",
+                "description": {
+                    "English": "A scalable set of icons handcrafted by GitHub.",
+                    "Traditional-Chinese": "GitHub 精心打造的一套可縮放圖示。"
+                }
+            },
+            {
+                "title": "Bootstrap Icons",
+                "href": "https://icons.getbootstrap.com/",
+                "description": {
+                    "English": "Free, high quality, open source icon library with over 2,000 icons.",
+                    "Traditional-Chinese": "免費、高品質，包含超過 2000 個圖示的開源圖示網站。"
+                },
+                "use-case": {
+                    "English": "The following icons are from this website: <img src='/static/assets/svg/arrow-left.svg' width='18' alt='a solid black circle containing a white arrow pointing to the left.'> <img src='/static/assets/svg/arrow-right.svg' width='18' alt='a solid black circle containing a white arrow pointing to the right.'> <img src='/static/assets/svg/eraser.svg' width='18' alt='a image of a eraser.'> <img src='/static/assets/svg/lang-eng.svg' width='18' alt='a image of google translation app.'> <img src='/static/assets/svg/github.svg' width='18' alt='a image of the GitHub logo.'> <img src='/static/assets/svg/clock-history.svg' width='18' alt='a image of a ticking clock.'> <img src='/static/assets/svg/envelope-paper.svg' width='18' alt='a image of envelope.'> <img src='/static/assets/svg/info.svg' width='18' alt='a image of a box contain a letter i.'> <img src='/static/assets/svg/person-vcard.svg' width='18' alt='a image of business card'>",
+                    "Traditional-Chinese": "以下圖示均取自此網站： <img src='/static/assets/svg/arrow-left.svg' width='18' alt='a solid black circle containing a white arrow pointing to the left.'> <img src='/static/assets/svg/arrow-right.svg' width='18' alt='a solid black circle containing a white arrow pointing to the right.'> <img src='/static/assets/svg/eraser.svg' width='18' alt='a image of a eraser.'> <img src='/static/assets/svg/lang-eng.svg' width='18' alt='a image of google translation app.'> <img src='/static/assets/svg/github.svg' width='18' alt='a image of the GitHub logo.'> <img src='/static/assets/svg/clock-history.svg' width='18' alt='a image of a ticking clock.'> <img src='/static/assets/svg/envelope-paper.svg' width='18' alt='a image of envelope.'> <img src='/static/assets/svg/info.svg' width='18' alt='a image of a box contain a letter i.'> <img src='/static/assets/svg/person-vcard.svg' width='18' alt='a image of business card'>"
+                }
+            },
+            {
+                "title": "SVG Repo",
+                "href": "https://www.svgrepo.com/",
+                "description": {
+                    "English": "Search, explore and edit the best-fitting free icons or vectors for your projects using a wide variety vector library.",
+                    "Traditional-Chinese": "使用種類繁多的向量圖形來搜尋、瀏覽和編輯最適合您專案的免費圖示或向量圖。"
+                },
+                "use-case": {
+                    "English": "The following icons are from this website: <img src='/static/assets/svg/magic-cross.svg' width='18' alt='a four-pointed star.'> <img src='/static/assets/svg/magic-star.svg' width='18' alt='A five-pointed star.'> <img src='/static/assets/svg/return-home.svg' width='18' alt='a image of a box contain a left-pointed arrow.'>",
+                    "Traditional-Chinese": "以下圖示均取自此網站： <img src='/static/assets/svg/magic-cross.svg' width='18' alt='a four-pointed star.'> <img src='/static/assets/svg/magic-star.svg' width='18' alt='A five-pointed star.'> <img src='/static/assets/svg/return-home.svg' width='18' alt='a image of a box contain a left-pointed arrow.'>"
+                }
+            },
+            {
+                "title": "Font Awesome",
+                "href": "https://fontawesome.com/",
+                "description": {
+                    "English": "The internet's favorite icon library & toolkit.",
+                    "Traditional-Chinese": "網路上最受歡迎的圖示網頁和工具。"
+                }
+            },
+            {
+                "title": "Flaticon",
+                "href": "https://www.flaticon.com/",
+                "description": {
+                    "English": "Download Free Icons and Stickers for your projects. Resources made by and for designers.",
+                    "Traditional-Chinese": "下載免費圖示和貼紙用於您的專案。資源由設計師製作，專為設計師設計。"
+                },
+                "use-case": {
+                    "English": "The website icon <img src='/static/assets/ico/favicon.ico' width='18' alt='a image of a quill drawing a line.'> are from here, <a href='https://www.flaticon.com/free-icons/feather' title='feather icons'>created by Freepik - Flaticon</a>.",
+                    "Traditional-Chinese": "網站圖示 <img src='/static/assets/ico/favicon.ico' width='18' alt='a image of a quill drawing a line.'> 來自此網頁，<a href='https://www.flaticon.com/free-icons/feather' title='羽毛圖示'>由 Freepik - Flaticon 製作</a>。"
+                }
+            }
+        ]
+    },
+    {
+        "title": {
+            "English": "Edit and process SVG",
+            "Traditional-Chinese": "編輯、處理SVG"
+        },
+        "description": {
+            "English": "SVG is a vector graphics format. SVG images are composed of geometric shapes, and their underlying structure uses various \"drawing\" instructions. The following tools can alter these instructions.",
+            "Traditional-Chinese": "SVG是一種向量圖形格式。 SVG影像由幾何形狀構成，其底層使用了各種「繪製」指令。以下工具可以修改這些指令。"
+        },
+        "tools": [
+            {
+                "title": "Boxy SVG Editor",
+                "href": "https://boxy-svg.com/app",
+                "description": {
+                    "English": "Boxy is a vector drawing software that allows you to work efficiently with the vector format using many suitable tools.",
+                    "Traditional-Chinese": "Boxy 是一款向量繪圖軟體，它提供了許多合適的工具，讓您能夠有效率地處理向量格式的圖形。"
+                },
+                "use-case": {
+                    "English": "The Switch Language button has two versions <img src='/static/assets/svg/lang-eng.svg' width='18' alt='a image of google translation app with English represent letter on top.'> and <img src='/static/assets/svg/lang-zhtw.svg' width='18' alt='a image of google translation app with Traditional Chinese represent letter on top.'>, the latter was created using this website.",
+                    "Traditional-Chinese": "切換語言按鈕有兩個版本 <img src='/static/assets/svg/lang-eng.svg' width='18' alt='a image of google translation app with English represent letter on top.'> 和 <img src='/static/assets/svg/lang-zhtw.svg' width='18' alt='a image of google translation app with Traditional Chinese represent letter on top..'>，後者是透過此網站建立的。"
+                }
+            },
+            {
+                "title": "SVG Viewer",
+                "href": "https://www.svgviewer.dev/",
+                "description": {
+                    "English": "SVG Viewer is an online tool to view, edit and optimize SVGs.",
+                    "Traditional-Chinese": "SVG Viewer 是一款用於檢視、編輯和優化 SVG 的線上工具。"
+                },
+                "use-case": {
+                    "English": "The icon I created <img src='/static/assets/svg/lang-zhtw.svg' width='18' alt='a image of google translation app with Traditional Chinese represent letter on top..'> were optimized using this website.",
+                    "Traditional-Chinese": "自行建立的圖示 <img src='/static/assets/svg/lang-zhtw.svg' width='18' alt='a image of google translation app with Traditional Chinese represent letter on top..'> 是透過此網站優化的。"
+                }
+            },
+            {
+                "title": "CSS Color Filter Generator | ClampCSS",
+                "href": "https://clampcss.com/css-filter.html",
+                "description": {
+                    "English": "This website convert HEX colors into accurate CSS filters.",
+                    "Traditional-Chinese": "這個網站將十六進制顏色轉換為精確的 CSS 濾鏡。"
+                },
+                "use-case": {
+                    "English": "SVG colors cannot be directly changed using the <code>color</code> CSS property, <code>filter</code> are used here. All changes to the SVG icon colors are generated through this website.",
+                    "Traditional-Chinese": "SVG 的顏色無法直接使用 CSS 的 <code>color</code> 屬性更改，這裡使用 <code>filter</code> 屬性來變更顏色。所有變更的SVG圖示顏色均透過此網站產生。"
+                }
+            }
+        ]
+    },
+    {
+        "title": {
+            "English": "Color tools",
+            "Traditional-Chinese": "色彩相關工具"
+        },
+        "description": {
+            "English": "These tools help in generating and selecting colors.",
+            "Traditional-Chinese": "這些工具能產生或有助於選擇顏色。"
+        },
+        "tools": [
+            {
+                "title": "Color wheel | Adobe Color",
+                "href": "https://color.adobe.com/zh/create/color-wheel",
+                "description": {
+                    "English": "Design color themes based on color theory with our color palette generator. Use color harmonies on the color wheel to generate beautiful color palettes.",
+                    "Traditional-Chinese": "使用色輪建立調色盤，根據色彩理論設計主題。利用色輪上調和的配色，產生美麗的調色盤。"
+                }
+            },
+            {
+                "title": "Color Picker from Image",
+                "href": "https://imagecolorpicker.com/",
+                "favicon": "https://imagecolorpicker.com/favicon.svg",
+                "description": {
+                    "English": "Extract colors from any image instantly.",
+                    "Traditional-Chinese": "不費時的從任何圖像中提取顏色。"
+                }
+            },
+            {
+                "title": "Color Blending Tool | ColorKit",
+                "href": "https://colorkit.io/",
+                "description": {
+                    "English": "Color Blender generates color scales by mixing the shades between two colors. Enter a start and end color, and choose the number of blend steps.",
+                    "Traditional-Chinese": "Color Blender 透過混合兩種顏色之間的色調來產生多個顏色刻度。輸入起始顏色和結束顏色，並選擇產生的混合刻度數量。"
+                }
+            }
+        ]
+    },
+    {
+        "title": {
+            "English": "Inspiration and solution",
+            "Traditional-Chinese": "靈感與解決方案來源"
+        },
+        "description": {
+            "English": "The beginning and the wingman during the process.",
+            "Traditional-Chinese": "起始以及過程中的有力助手。"
+        },
+        "tools": [
+            {
+                "title": "Unsplash",
+                "href": "https://unsplash.com/",
+                "description": {
+                    "English": "Beautiful, free images and photos that you can download and use for any project. Better than any royalty free or stock photos.",
+                    "Traditional-Chinese": "精美且免費的圖片和照片，您可以下載並用於任何專案。比任何免版稅圖片或素材資料庫的照片都更勝一籌。"
+                },
+                "use-case": {
+                    "English": "The images from this website all have a link nearby to attribute!",
+                    "Traditional-Chinese": "來源於此網站的所有圖片附近都有註明出處！"
+                }
+            },
+            {
+                "title": "Hyperplexed",
+                "href": "https://hyperplexed.io/",
+                "favicon": "https://hyperplexed.io/_app/immutable/assets/favicon.C-UqNlkt.png",
+                "description": {
+                    "English": "See the world of front-end development through my lens. Doing my best to show you how to recreate some awesome stuff from around the web.",
+                    "Traditional-Chinese": "透過我的視角看前端開發的世界。我會盡我所能的向您展示如何重現網路上一些令人驚嘆的作品。"
+                }
+            },
+            {
+                "title": "Stack Overflow",
+                "href": "https://stackoverflow.com/",
+                "description": {
+                    "English": "Stack Overflow is the largest, most trusted online community for developers to learn, share their programming knowledge, and build their careers.",
+                    "Traditional-Chinese": "Stack Overflow 是規模最大、最值得信賴的線上開發者社區，開發者可以學習、分享程式設計知識並發展職業生涯。"
+                }
+            },
+            {
+                "title": "MDN Web Docs",
+                "href": "https://developer.mozilla.org/en-US/",
+                "description": {
+                    "English": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps.",
+                    "Traditional-Chinese": "MDN Web Docs 網站提供有關 Open Web 技術的資訊，包括 HTML、CSS 和 API，適用於網站和漸進式網路應用程式。"
+                }
+            }
+        ]
+    }
+]
