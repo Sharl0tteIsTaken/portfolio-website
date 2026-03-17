@@ -245,7 +245,12 @@ current = Current()
 
 if __name__ == "__main__":
     # local
+    current.update_lang_byte()
     app.run(debug=True, port=5000)
 else:
     # on Render
+    assert os.path.exists(current.path_lang_byte), (
+        "GitHub language percentages file not exist,"
+        "do ``current.update_lang_byte()`` to create one."
+    )
     app.run(port=10000, host="0.0.0.0")

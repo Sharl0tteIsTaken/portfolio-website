@@ -4,6 +4,7 @@ and a class used to record and store website information.
 """
 import json
 import os
+from pathlib import Path
 from typing import Literal
 
 import requests
@@ -16,6 +17,8 @@ type Languages = Literal["English", "Traditional-Chinese"]
 type Desc = dict[Languages, str]
 type Items = dict[Languages, list[str]]
 
+PATH = Path("static/assets/json/github-languages.json")
+ENCODING = "UTF-8"
 ERRMSG = "Environment variable `{var}` don't exist, check `.env` file."
 HREF_WEBSITE = "/about/website"
 HREF_AUTHOR = "/about/author"
@@ -27,11 +30,7 @@ HEADERS = {
 }
 
 ENDPOINT: str = os.getenv("ENDPOINT") or ""
-NAME: str = os.getenv("NAME") or ""
-TOKEN: str = os.getenv("TOKEN") or ""
 assert ENDPOINT != "", ERRMSG.format(var="ENDPOINT")
-assert NAME != "", ERRMSG.format(var="NAME")
-assert TOKEN != "", ERRMSG.format(var="TOKEN")
 
 
 class Base(DeclarativeBase):
@@ -101,6 +100,7 @@ class Current():
     language: Languages = "English"
     endpoint: str = "home"
     title: str = "website"
+    path_lang_byte: Path = PATH
 
     navbar_about: dict[Languages, str] = {
         "English": "About",
@@ -177,27 +177,38 @@ class Current():
         """
         self.title = title
 
-    def get_lang_byte(self) -> str:
+    def update_lang_byte(self) -> None:
         """
-        Get the number of each language in bytes of code from this
-        repository on GitHub.
+        Fetch the number of each language in bytes of code from this
+        repository on GitHub, and store the value as Python dict to a
+        JSON file.
+        """
+        response = requests.get(
+            ENDPOINT, headers=HEADERS, timeout=10
+            )
+        response.raise_for_status()
+        lang_byte = json.loads(response.text)
+        with open(self.path_lang_byte, mode="w", encoding=ENCODING) as file:
+            json.dump(lang_byte, file)
+
+    def get_lang_byte(self) -> dict[str, int]:
+        """
+        Returns a previously stored number of each language in bytes of
+        code from this repository on GitHub.
 
         Returns
         -------
-        str
-            A Json string, contain key-value pair with programming
-            langugage as key and number of bytes of code. With value
-            like ``{"HTML":31078,"Python":29948,...}``.
+        dict[str, int]
+            A JSON structured Python dict, contain key-value pair with
+            programming langugage as key and number of bytes of code.
+            With value like ``{"HTML":31078,"Python":29948,...}``.
         """
-        response = requests.get(
-            ENDPOINT, auth=(NAME, TOKEN), headers=HEADERS, timeout=10
-            )
-        response.raise_for_status()
-        return response.text
+        with open(self.path_lang_byte, encoding=ENCODING) as file:
+            return json.load(file)
 
     def get_lang_percentage(self) -> dict[str, float]:
         """
-        Convert Json string to dictionary. The main purpose is convert
+        Convert JSON string to dictionary. The main purpose is convert
         the number bytes of code for each language (on GitHub
         repository) into their respective percentages.
 
@@ -207,19 +218,19 @@ class Current():
             Languages and their bytes of code percentages. With value
             like: ``{'HTML': 36.7, 'Python': 35.2, ...}``.
         """
-        languages: dict[str, int] = json.loads(self.lang_byte)
+        lang_byte = self.lang_byte
         max_percentage = 100  # 100 or 1 (reprsent: 100% or 1/1)
         round_decimal = 1  # 1 or 3
 
-        total_bytes = sum(languages.values())
+        total_bytes = sum(lang_byte.values())
         lang_percentage = {
             lang: round((max_percentage * byte) / total_bytes, round_decimal)
-            for lang, byte in languages.items()
+            for lang, byte in lang_byte.items()
             }
 
         total_percentage = sum(lang_percentage.values())
         if total_percentage != max_percentage:
-            max_var = max(languages, key=languages.get)  # type: ignore
+            max_var = max(lang_byte, key=lang_byte.get)  # type: ignore
             missing = max_percentage - total_percentage
             lang_percentage[max_var] = round(
                 (lang_percentage[max_var] + missing), round_decimal
