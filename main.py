@@ -11,6 +11,7 @@ from flask import Flask, redirect, render_template, request, url_for
 from flask.typing import ResponseReturnValue
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped, note]
 from flask_sqlalchemy import SQLAlchemy
+from waitress import serve
 
 from demo_morse_code_converter.converter import Converter
 from demo_tic_tac_toe.showmaker_demo import ShowMaker
@@ -253,4 +254,4 @@ else:
         "GitHub language percentages file not exist,"
         "do ``current.update_lang_byte()`` to create one."
     )
-    app.run(port=10000, host="0.0.0.0")
+    serve(app, port=10000, host="0.0.0.0")
