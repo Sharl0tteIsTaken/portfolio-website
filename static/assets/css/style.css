@@ -244,7 +244,7 @@ footer {
     padding: 0;
 }
 
-@keyframes rotate {
+@keyframes background-rotate {
     from {
         rotate: 0deg;
     }
@@ -267,7 +267,7 @@ footer {
         to top left,
         #46A6F1, #e7f8e1, #f69c3c
     );
-    animation: rotate 30s infinite;
+    animation: background-rotate 30s infinite;
     filter: blur(100px);
     /* opacity: 0.4; */
     /* https://stackoverflow.com/questions/16898315/how-to-change-the-layer-order-of-divs */
@@ -415,11 +415,17 @@ textarea.form-control {
 }
 
 @keyframes scale {
-    from, to {
+    0% {
         transform: scale(0);
+        opacity: 0;
     }
     50% {
         transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
     }
 }
 
@@ -433,34 +439,40 @@ textarea.form-control {
     }
 }
 
-p > .magic {
+.magic {
     display: inline-block;
     position: relative;
 }
 
-p > .magic > .magic-star {
+.magic > .magic-star {
     --size: clamp(20px, 1.5vw, 30px);
     width: var(--size);
     height: var(--size);
     display: block;
     position: absolute;
-    left: var(--star-horizontal);
-    top: var(--star-vertical);
+    left: var(--effect-horizontal);
+    top: var(--effect-vertical);
 
-    animation: scale 1000ms ease forwards;
+    opacity: 0;
+    transform: scale(0);
+    animation: none;
 }
 
-p > .magic > .magic-star > img {
-    animation: rotate 1000ms linear infinite;
+.magic > .magic-star > img {
+    animation: rotate 1700ms linear infinite;
     display: block;
     opacity: 0.85;
 }
 
-p > .magic > .magic-star > img {
-    color: var(--violet);
+.star > img {
+    content: url("/static/assets/svg/magic-star.svg");
 }
 
-p > .magic > .magic-text {
+.cross > img {
+    content: url("/static/assets/svg/magic-cross.svg");
+}
+
+.magic > .magic-text {
     animation: crab-walk 5s linear infinite;
     background: linear-gradient(
         to right,
