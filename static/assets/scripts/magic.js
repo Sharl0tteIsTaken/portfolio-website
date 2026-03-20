@@ -1,29 +1,26 @@
-let index = 0, interval = 2500;
+const starTypes = ["cross", "star"];
 
-const rand = (min, max) => 
-  Math.floor(Math.random() * (max - min + 1)) + min;
-
-const animate = star => {
-  star.style.setProperty("--star-horizontal", `${rand(-10, 100)}%`);
-  star.style.setProperty("--star-vertical", `${rand(-40, 80)}%`);
-  const img = star.querySelector("img");
-  img.src = sources[Math.floor(sources.length * Math.random())]
-  // TODO: get this to save, not request(get) everytime.
-  star.style.animation = "none";
-  star.offsetHeight;
-  star.style.animation = "";
+function rand (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const sources = [
-  "../static/assets/svg/magic-star.svg",
-  "../static/assets/svg/magic-cross.svg",
-];
+function animate(star) {
+  star.style.setProperty("--effect-horizontal", `${rand(-10, 90)}%`);
+  star.style.setProperty("--effect-vertical", `${rand(-10, 60)}%`);
+
+  star.classList.remove(...starTypes);
+  star.classList.add(starTypes[rand(0, starTypes.length - 1)]);
+  star.style.animation = "scale 1250ms ease";
+
+  star.addEventListener('animationend', () => {
+    star.style.animation = "none";
+    setTimeout(() => animate(star), rand(1100, 2100));
+    }, { once: true }
+  );
+};
 
 window.addEventListener('load', () => {
   for(const star of document.getElementsByClassName("magic-star")) {
-    setTimeout(() => {
-      animate(star);
-      setInterval(() => animate(star), interval);
-    }, index++ * (interval / 1.75))
-  }
+    setTimeout(() => animate(star), rand(200, 1000));
+  };
 });
