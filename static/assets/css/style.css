@@ -5,7 +5,8 @@ body {
     --extra-font-weight: 600;
     --heavy-font-weight: 800;
 
-
+    /* --link-color: #0D6EFD;
+    --link-color-hover: #0033ff; */
     --purple: rgb(135, 0, 170);
     --violet: rgb(142, 27, 222);
     --pink: rgb(232, 18, 97);
@@ -22,38 +23,32 @@ body::-webkit-scrollbar {
     display: initial;
 }
 
+body::-webkit-scrollbar:horizontal {
+    height: 1px;
+    display: initial;
+}
+
 body::-webkit-scrollbar-thumb {
-background-color: rgb(0 0 0); 
+    background-color: rgb(0 0 0); 
 }
 
 body::-webkit-scrollbar-thumb:hover {
-background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.75);
 }
 
-
-.svg-whitened {
-    filter: invert(86%) sepia(7%) saturate(160%) hue-rotate(202deg) brightness(96%) contrast(89%);
+h1 {
+    margin-bottom: 0;
+    font-size: 2.5rem !important;
+    align-items: center;
+    justify-content: center;
 }
 
-.svg-magical {
-    /* #ffcc00 */
-    filter: brightness(0) saturate(100%) invert(80%) sepia(56%) saturate(2700%) hue-rotate(357deg) brightness(106%) contrast(109%);
+a {
+    text-decoration: none;
 }
 
-.fancy-font-letter {
-    font-family: "Pacifico", cursive !important;
-    font-weight: var(--normal-font-weight) !important;
-    font-style: normal !important;
-    font-size: x-large !important;
-    color: white !important;
-    text-transform: lowercase !important;
-}
-
-.fancy-font-number {
-    font-family: "Delius", cursive !important;
-    font-weight: var(--normal-font-weight) !important;
-    color: white !important;
-    font-style: normal !important;
+a:hover {
+    text-decoration: underline;
 }
 
 *:lang(English) {
@@ -70,27 +65,29 @@ background-color: rgba(0, 0, 0, 0.75);
     font-style: normal !important;
 }
 
-.font-size-fixed {
-    /* https://stackoverflow.com/questions/42782858/how-to-center-the-text-larger-than-the-container */
-    width: 30px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0;
+.btn {
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    --bs-btn-padding-x: 1.75rem;
+    --bs-btn-padding-y: 1rem;
+    --bs-btn-font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --bs-btn-border-color: transparent;
+    --bs-btn-disabled-opacity: 0.65;
+    --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
 }
 
-.div-in-flex-container-right-align {
-    display: flex;
-    margin-left: auto;
-    margin-right: 0;
-    padding-left: 2rem;
+.svg-whitened {
+    filter: invert(86%) sepia(7%) saturate(160%) hue-rotate(202deg) brightness(96%) contrast(89%);
 }
 
 
-/* header.html */
+/* ============================== header.html ============================== */
 .navbar {
     background-color: black !important;
+}
+
+.nav-link {
+    text-decoration: none !important;
 }
 
 .nav-item {
@@ -111,7 +108,73 @@ background-color: rgba(0, 0, 0, 0.75);
     min-width: auto;
 }
 
-/* footer.html */
+#hover-container {
+    gap: 2px;
+}
+
+#hover-container:hover > .hover-frame::after {
+  opacity: 1;
+}
+
+.hover-frame {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+}
+
+.hover-frame::before,
+.hover-frame::after {
+    border-radius: inherit;
+    content: "";
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 500ms;
+    inset: 0;
+}
+
+.hover-frame::after {  
+    background: radial-gradient(
+        300px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(255, 255, 255, 1),
+        transparent 40%
+    );
+    z-index: 1;
+}
+
+.hover-frame > .hover-content {
+    background-color: black;
+    border-radius: inherit;
+
+    inset: 1.5px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    z-index: 2;
+}
+
+.header-text {
+    padding-left: 0.5rem;
+    white-space: nowrap;
+}
+
+.header-title-text {
+    line-height: 34px;
+}
+
+.header-button-text {
+    line-height: 30px;
+}
+
+.brand-image {
+    border-radius: 50%;
+}
+
+
+/* ============================== footer.html ============================== */
 .copyright-text {
     font-size: 0.875em;
     margin: 0.5rem 0rem;
@@ -132,16 +195,47 @@ footer {
     margin: 0rem !important;
 }
 
-/* index.html */
+
+/* ============================== index.html ============================== */
+.fancy-font-letter {
+    font-family: "Pacifico", cursive !important;
+    font-weight: var(--normal-font-weight) !important;
+    font-style: normal !important;
+    font-size: x-large !important;
+    color: white !important;
+    text-transform: lowercase !important;
+}
+
+.fancy-font-number {
+    font-family: "Delius", cursive !important;
+    font-weight: var(--normal-font-weight) !important;
+    color: white !important;
+    font-style: normal !important;
+}
+
+.font-size-fixed {
+    width: 30px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.div-in-flex-container-right-align {
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+    padding-left: 2rem;
+}
+
 .h1-div-home {
     align-items: center;
     justify-content: center;
 }
 
-
 .spacer-top {
     height:  2vh;
-    /* background: linear-gradient(black, transparent); */
 }
 
 .spacer-between {
@@ -153,14 +247,8 @@ footer {
     background: linear-gradient(
         to top,
         white, transparent
-        );
+    );
 }
-
-/* this the solution from .blob, but it causes footer to misplace,
-    used z-index: -1; in .blob to resolve */
-/* .post-content {
-    position: absolute; 
-} */
 
 .wrap-block {
     margin-top: 1rem;
@@ -171,8 +259,7 @@ footer {
 
 .post {
     height: auto; 
-    /* https://www.geeksforgeeks.org/how-to-make-div-height-expand-with-its-content-using-css/ */
-    background-color: #212529 ;
+    background-color: #212529;
     padding: 1rem !important; 
     margin: -12px;
 }
@@ -202,9 +289,6 @@ footer {
 
 .post-text {
     margin-top: 0;
-    /* display: flex;
-    flex-flow: column;
-    height: 100%; */
 }
 
 .post-only-text {
@@ -212,7 +296,6 @@ footer {
 }
 
 .description {
-    /* cite https://stackoverflow.com/questions/3029422/how-to-auto-resize-an-image-while-maintaining-aspect-ratio */
     max-width: 100%;
     max-height: 100%;
     color: white;
@@ -255,7 +338,6 @@ footer {
 }
 
 .base-color {
-    /* https://stackoverflow.com/questions/7797708/how-to-keep-the-background-div-appear-desptie-scrolling-vertically */
     height: 120vmax;
     aspect-ratio: 1;
     position: fixed;
@@ -269,8 +351,6 @@ footer {
     );
     animation: background-rotate 30s infinite;
     filter: blur(100px);
-    /* opacity: 0.4; */
-    /* https://stackoverflow.com/questions/16898315/how-to-change-the-layer-order-of-divs */
     z-index: -1;
 }
 
@@ -281,13 +361,12 @@ footer {
 }
 
 
-/* contact.html & about.html */
+/* ============================== contact.html & about.html ============================== */
 .header-bg {
     position: relative;
     /* this line of code existence is to remind my self of don't underestimate any part of programming
     just because it's seems easy doesn't meant in pratice it's still easy 
     this line of code cause me about 5 hours to debug. 2024/05 */
-    /* padding-top: calc(57px + 8rem); */
     padding-top: 8rem;
     padding-bottom: 8rem;
     background: center center / cover no-repeat scroll rgb(108, 117, 125);
@@ -295,7 +374,6 @@ footer {
     background-size: cover; 
     background-position: center; 
     height: auto; 
-    /* Set the height as per your requirement  */
 }
 
 .photo-credit {
@@ -311,99 +389,12 @@ footer {
     text-shadow: var(--text-shadow-1px-black);
 }
 
+
+/* ============================== about.html ============================== */
 .subheading {
     font-size: 1.5rem;
     text-shadow: var(--text-shadow-1px-black);
 }
-
- h1, .h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: var(--heavy-font-weight);
-    line-height: 1.2;
-}
-h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, p {
-    --bs-body-font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --bs-body-font-size: 1rem;
-    --bs-body-font-weight: var(--normal-font-weight);
-    --bs-body-line-height: 1.65;  /* this is for all texts */
-}
-
-
-h1 {
-    font-size: 2.5rem !important;
-    align-items: center;
-    justify-content: center;
-}
-
-.form-floating > .form-control, .form-floating > .form-control-plaintext {
-    /* padding: 1.25rem 0px; */
-    height: 4.5rem;
-    line-height: 1.25;
-}
-
-.form-floating input, .form-floating textarea {
-    border-left: 0px;
-    border-right: 0px;
-    border-top: 0px;
-}
-
-textarea.form-control {
-    padding-top: 2.25rem !important;
-}
-
-.btn {
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    --bs-btn-padding-x: 1.75rem;
-    --bs-btn-padding-y: 1rem;
-    --bs-btn-font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-    --bs-btn-font-size: 0.875rem;
-    --bs-btn-font-weight: var(--heavy-font-weight);
-    --bs-btn-line-height: 1.5;
-    --bs-btn-color: #212529;
-    --bs-btn-bg: transparent;
-    --bs-btn-border-width: 1px;
-    --bs-btn-border-color: transparent;
-    --bs-btn-border-radius: 0.375rem;
-    --bs-btn-hover-border-color: transparent;
-    --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
-    --bs-btn-disabled-opacity: 0.65;
-    --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
-    display: inline-block;
-    font-family: var(--bs-btn-font-family);
-    font-size: var(--extra-font-weight);
-    font-weight: var(--bs-btn-font-weight);
-    line-height: var(--bs-btn-line-height);
-    color: var(--bs-btn-color);
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    user-select: none;
-    background-color: var(--bs-btn-bg);
-    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
-    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
-    transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-}
-
-.btn-primary {
-    --bs-btn-color: #fff;
-    --bs-btn-bg: #0085A1;
-    --bs-btn-border-color: #0085A1;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #007189;
-    --bs-btn-hover-border-color: #006a81;
-    --bs-btn-focus-shadow-rgb: 38, 151, 175;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #006a81;
-    --bs-btn-active-border-color: #006479;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #0085A1;
-    --bs-btn-disabled-border-color: #0085A1;
-}
-
 
 @keyframes crab-walk {
     from {
@@ -488,81 +479,15 @@ textarea.form-control {
     white-space: nowrap;
 }
 
-
-#hover-container {
-    gap: 2px;
+.svg-magical {
+    /* #ffcc00 */
+    filter: brightness(0) saturate(100%) invert(80%) sepia(56%) saturate(2700%) hue-rotate(357deg) brightness(106%) contrast(109%);
 }
 
-
-#hover-container:hover > .hover-frame::after {
-  opacity: 1;
-}
-
-.hover-frame {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    position: relative;
-}
-
-
-.hover-frame::before,
-.hover-frame::after {
-    border-radius: inherit;
-    content: "";
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    position: absolute;
-    transition: opacity 500ms;
-    inset: 0;
-}
-
-.hover-frame::after {  
-    background: radial-gradient(
-        300px circle at var(--mouse-x) var(--mouse-y), 
-        rgba(255, 255, 255, 1),
-        transparent 40%
-    );
-    z-index: 1;
-}
-
-.hover-frame > .hover-content {
-    background-color: black;
-    border-radius: inherit;
-
-    inset: 1px;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    z-index: 2;
-}
-
-.header-text {
-    padding-left: 0.5rem;
-    white-space: nowrap;
-}
-
-.header-title-text {
-    line-height: 34px;
-}
-
-.header-button-text {
-    line-height: 30px;
-}
-
-.brand-image {
-    border-radius: 50%;
-}
-
-/* About - github languages */
 .github-languages-block {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: -24px;
-    margin-bottom: 24px; */
 }
 
 .github-languages-figure {
@@ -571,7 +496,6 @@ textarea.form-control {
     line-height: 1.5;
     width: 240px;
     padding: 16px 0px;
-
 }
 
 .github-languages-title {
@@ -607,7 +531,7 @@ textarea.form-control {
     align-items: center;
     flex-wrap: nowrap;
     color: #59636e;
-    text-decoration: none;
+    text-decoration: none !important;
     font-size: 12px;
     margin-right: 16px;
 }
@@ -657,8 +581,7 @@ img.language-color-JavaScript {
 }
 
 
-
-
+/* ============================== about.html:tools ============================== */
 .category-description {
     margin-left: 2rem;
     font-weight: var(--normal-font-weight);
@@ -670,7 +593,6 @@ img.language-color-JavaScript {
 }
 
 .tool-href {
-    text-decoration: none;
     font-weight: var(--normal-font-weight);
 }
 
@@ -705,4 +627,25 @@ code {
     padding: .2em .4em;
     font-family: monospace !important;
     color: #d63384;
+}
+
+
+/* ============================== contact.html ============================== */
+.form-floating > .form-control, .form-floating > .form-control-plaintext {
+    height: 4.5rem;
+    line-height: 1.25;
+}
+
+.form-floating input, .form-floating textarea {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+}
+
+textarea.form-control {
+    padding-top: 2.25rem !important;
+}
+
+.btn-primary {
+    padding: 10px 16px;
 }
