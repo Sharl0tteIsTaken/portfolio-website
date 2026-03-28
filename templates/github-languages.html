@@ -1,10 +1,15 @@
 <div class="github-languages-block" lang="Not-Applicable">
   <div class="github-languages-figure">
-    <h2 class="github-languages-title">Website Languages</h2>
+    <h2 class="github-languages-title">
+      {% if current.language == "English": %}
+        Website Languages
+      {% elif current.language == "Traditional-Chinese": %}
+        網站的程式語言及佔比
+      {% endif %}
+    </h2>
     <div class="percentage-bar">
-      <!-- The following is the method that generates the fewest static type check warnings. See source code for more infoamtion. -->
-      {% for language, percentage in current.lang_percentage.items(): %}
-        <span class="language-color-{{ language }}" style="width: {{ percentage }}%;"></span>
+      {% for language, style in current.lang_style.items(): %}
+        <span class="language-color-{{ language }}" {{ style | safe }}></span>
       {% endfor %}
     </div>
     <ul class="bar-legend-box">

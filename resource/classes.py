@@ -140,6 +140,7 @@ class Current():
     def __init__(self) -> None:
         self.lang_byte = self.get_lang_byte()
         self.lang_percentage = self.get_lang_percentage()
+        self.lang_style = self.get_lang_style()
 
     def switch_language(self) -> None:
         """
@@ -237,3 +238,20 @@ class Current():
                 )
 
         return lang_percentage
+
+    def get_lang_style(self) -> dict[str, str]:
+        """
+        Format the number of language percentages to be a HTML style
+        tag.
+
+        Returns
+        -------
+        dict[str, str]
+            Languages and their bytes of code percentages formatted as a
+            HTML style tag. With value like:
+            ``{'HTML': 'style="width: 36.7%;"', ...}``.
+        """
+        return {
+            lang: f'style="width: {percent}%;"'
+            for lang, percent in self.lang_percentage.items()
+        }
