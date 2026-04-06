@@ -1,10 +1,10 @@
 {% for category in static_data.paragraphs: %}
   <dl lang="Not-Applicable">
     <h3>
-      {{ category.get("title").get(current.language) }}
+      {{ category.get("title").get(language) }}
     </h3>
     <dt class="category-description">
-      {{ category.get('description').get(current.language) }}
+      {{ category.get('description').get(language) }}
     </dt>
     {% for tool in category.get('tools'): %}
       <dt class="tool-title">
@@ -18,11 +18,11 @@
           {{ tool.get('title') }}
         </a>
         <blockquote class="tool-description">
-          {{ tool.get('description').get(current.language) | safe }}
+          {{ tool.get('description').get(language) | safe }}
         </blockquote>
         <dd class="tool-use-case">
           {% if tool.get('use-case'): %}
-            {{ tool.get('use-case').get(current.language) | safe }}
+            {{ tool.get('use-case').get(language) | safe }}
           {% endif %}
         </dd>
       </dt>

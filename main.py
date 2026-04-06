@@ -4,14 +4,15 @@ The source code of the server.
 import os
 import smtplib
 from resource.classes import (
-    AboutImage, AboutText, Base, ContactText, Current, Project
+    COOKIE_PATH, HREF_HOME, AboutImage, AboutText, AllowedTitles, Base,
+    ContactText, Current, Project, handle_lang_pref, set_cookies
     )
 
 from flask import Flask, redirect, render_template, request, url_for
-from flask.typing import ResponseReturnValue
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped, note]
 from flask_sqlalchemy import SQLAlchemy
 from waitress import serve
+from werkzeug.wrappers.response import Response
 
 from demo_morse_code_converter.converter import Converter
 from demo_tic_tac_toe.showmaker_demo import ShowMaker
@@ -37,24 +38,24 @@ db = SQLAlchemy(model_class=Base)
 
 # website routes
 @app.route('/')
+@set_cookies
 def home() -> str:
     """The home page of website."""
-    current.switch_endpoint()
     project_data = db.session.execute(db.select(Project)).scalars().all()
-
+    language = handle_lang_pref()
     return render_template(
         "index.html",
         current=current,
+        language=language,
         project_data=project_data,
         page="home"
         )
 
 
 @app.route("/about/<title>")
-def about(title: str) -> str:
+@set_cookies
+def about(title: AllowedTitles) -> str:
     """The about page of website."""
-    current.switch_endpoint()
-    current.record_title(title)
     static_data = db.session.execute(
         db.select(AboutText).where(AboutText.info_name == title)
         ).scalar()
@@ -72,9 +73,11 @@ def about(title: str) -> str:
         db.select(AboutImage).where(AboutImage.info_name == title)
         ).scalar()
 
+    language = handle_lang_pref()
     return render_template(
         "about.html",
         current=current,
+        language=language,
         title=title,
         static_data=static_data,
         background=background,
@@ -83,10 +86,11 @@ def about(title: str) -> str:
 
 
 @app.route("/contact", methods=["GET", "POST"])
+@set_cookies
 def contact() -> str:
     """The contact page of website."""
-    current.switch_endpoint()
     static_data = db.session.execute(db.select(ContactText)).scalar()
+    language = handle_lang_pref()
     if request.method == "POST":
         data = request.form
         send_email(data["name"], data["email"], data["message"])
@@ -94,6 +98,7 @@ def contact() -> str:
     return render_template(
         "contact.html",
         current=current,
+        language=language,
         static_data=static_data,
         msg_sent=False,
         page="contact"
@@ -101,27 +106,25 @@ def contact() -> str:
 
 
 @app.route("/switch-language")
-def switch_language() -> ResponseReturnValue:
+@set_cookies
+def switch_language() -> Response:
     """
     Switch website display language between Traditional Chinese and
     English.
     """
-    current.switch_endpoint()
-    current.switch_language()
-    if current.endpoint == "about":
-        return redirect(
-            url_for(
-                current.endpoint,
-                title=current.title
-            ),
-        )
+    handle_lang_pref(switch=True)
+    endpoint = request.cookies.get(COOKIE_PATH, default=HREF_HOME).lstrip("/")
+    title = ""
+    if endpoint.startswith("about"):
+        endpoint, title = endpoint.split("/", maxsplit=1)
     return redirect(url_for(
-        current.endpoint
+        endpoint,
+        title=title,
         ))
 
 
 @app.route("/gate/tic-tac-toe")
-def gate_tic_tac_toe() -> ResponseReturnValue:
+def gate_tic_tac_toe() -> Response:
     """
     The page to redirect to tic tac toe demo.
     This also resets the demo.
@@ -172,7 +175,7 @@ def demo_tic_tac_toe_input_receive() -> str:
 
 
 @app.route("/gate/morse-code-converter")
-def gate_morse_code_converter() -> ResponseReturnValue:
+def gate_morse_code_converter() -> Response:
     """
     The page to redirect to morse code converter demo.
     This also resets the demo.

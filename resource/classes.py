@@ -4,22 +4,31 @@ and a class used to record and store website information.
 """
 import json
 import os
+from collections.abc import Callable
+from datetime import datetime, timedelta, timezone
+from functools import lru_cache, wraps
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal, TypeAlias, cast, get_args
 
 import requests
-from flask import request
+from flask import Response, make_response, request, session
 from sqlalchemy import JSON
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from werkzeug.datastructures.accept import LanguageAccept
+from werkzeug.wrappers.response import Response as RedirectResponse
 
 # ---------------------------------------------------------------------
-type Languages = Literal["English", "Traditional-Chinese"]
-type Desc = dict[Languages, str]
-type Items = dict[Languages, list[str]]
+Languages: TypeAlias = Literal["English", "Traditional-Chinese"]
+Desc: TypeAlias = dict[Languages, str]
+Items: TypeAlias = dict[Languages, list[str]]
+
+AllowedTitles: TypeAlias = Literal["website", "author", "tools"]
+RouteRetVal: TypeAlias = str | RedirectResponse
 
 PATH = Path("static/assets/json/github-languages.json")
 ENCODING = "UTF-8"
 ERRMSG = "Environment variable `{var}` don't exist, check `.env` file."
+HREF_HOME = ""
 HREF_WEBSITE = "/about/website"
 HREF_AUTHOR = "/about/author"
 HREF_TOOLS = "/about/tools"
@@ -28,6 +37,12 @@ HEADERS = {
     "Content-Type": "application/json",
     "X-GitHub-Api-Version": "2022-11-28",
 }
+COOKIE_LANG = "language"
+COOKIE_PATH = "endpoint"
+COOKIE_MAX_DAY = 14
+COOKIE_MAX_SEC = COOKIE_MAX_DAY * 24 * 60 * 60
+LANGUAGE_ZH: Languages = "Traditional-Chinese"
+LANGUAGE_EN: Languages = "English"
 
 ENDPOINT: str = os.getenv("ENDPOINT") or ""
 assert ENDPOINT != "", ERRMSG.format(var="ENDPOINT")
@@ -37,7 +52,7 @@ class Base(DeclarativeBase):
     """base model for SQLAlchemy."""
 
 
-# db table
+# db tables
 class Project(Base):
     """The structure of a table in the database."""
     __tablename__ = "Project"
@@ -91,45 +106,42 @@ class ContactText(Base):
     form_sent: Mapped[Desc] = mapped_column(JSON, nullable=False)
 
 
+# tracking class
 class Current():
     """
     The current state of the website, also used to store some static
-    assets and keep track of every important information about the
-    website.
+    assets and keep track of some information about the website.
     """
-    language: Languages = "English"
-    endpoint: str = "home"
-    title: str = "website"
     path_lang_byte: Path = PATH
 
     navbar_about: dict[Languages, str] = {
-        "English": "About",
-        "Traditional-Chinese": "關於"
+        LANGUAGE_EN: "About",
+        LANGUAGE_ZH: "關於"
     }
     navbar_about_dropdown: dict[Languages, dict[str, str]] = {
-            "English": {
+            LANGUAGE_EN: {
                 "The Website": HREF_WEBSITE,
                 "The Author": HREF_AUTHOR,
                 "The Tools": HREF_TOOLS,
                 },
-            "Traditional-Chinese": {
+            LANGUAGE_ZH: {
                 "網站簡介": HREF_WEBSITE,
                 "我": HREF_AUTHOR,
                 "使用工具": HREF_TOOLS,
                 }
         }
     navbar_contact: dict[Languages, str] = {
-        "English": "Contact",
-        "Traditional-Chinese": "聯絡方式"
+        LANGUAGE_EN: "Contact",
+        LANGUAGE_ZH: "聯絡方式"
     }
 
     demo_title: dict[Languages, str] = {
-        "English": "Check out a demo of the project",
-        "Traditional-Chinese": "在網頁上玩玩看demo吧 (不支援中文)",
+        LANGUAGE_EN: "Check out a demo of the project",
+        LANGUAGE_ZH: "在網頁上玩玩看demo吧 (不支援中文)",
     }
     gh_title: dict[Languages, str] = {
-        "English": "Check out the source code on Github",
-        "Traditional-Chinese": "去GitHub上看看程式吧",
+        LANGUAGE_EN: "Check out the source code on Github",
+        LANGUAGE_ZH: "去GitHub上看看程式吧",
     }
 
     star_effect_amount: int = 2
@@ -141,42 +153,6 @@ class Current():
         self.lang_byte = self.get_lang_byte()
         self.lang_percentage = self.get_lang_percentage()
         self.lang_style = self.get_lang_style()
-
-    def switch_language(self) -> None:
-        """
-        Switch website display language between Traditional Chinese and
-        English.
-        """
-        self.language = (
-            "Traditional-Chinese"
-            if self.language == "English"
-            else "English"
-            )
-
-    def switch_endpoint(self) -> None:
-        """
-        Save the endpoint as class attribute before switching language.
-
-        This needs to be added to each function that switches URLs, but
-        this does not include demos.
-        """
-        if (
-            request.endpoint != "switch_language"
-            and isinstance(request.endpoint, str)
-        ):
-            self.endpoint = request.endpoint
-
-    def record_title(self, title: str) -> None:
-        """
-        Save the website title as class attribute. This is only needed
-        for the About page, because it has an additional parameter.
-
-        Parameters
-        ----------
-        title: str
-            The title of the website.
-        """
-        self.title = title
 
     def update_lang_byte(self) -> None:
         """
@@ -255,3 +231,117 @@ class Current():
             lang: f'style="width: {percent}%;"'
             for lang, percent in self.lang_percentage.items()
         }
+
+
+@lru_cache
+def is_allowed(language: Languages) -> bool:
+    """
+    Check if the language is allowed (in the Languages type).
+
+    Parameters
+    ----------
+    language: Languages
+        The name of the language to check.
+
+    Returns
+    -------
+    bool
+        If the language is allowed.
+    """
+    return language in get_args(Languages)
+
+
+def prefers_chinese(language_accept: LanguageAccept) -> bool:
+    """
+    If the `Accept-Language` in the request header includes Chinese.
+
+    Parameters
+    ----------
+    language_accept: LanguageAccept
+        Language codes from `Accept-Language` in the request header,
+        takes ``request.accept_languages``.
+
+    Returns
+    -------
+    bool
+        If Chinese is in ``accept_languages``.
+
+    Notes
+    -----
+    The check logic `> 0` is used because the ``find()`` method returns
+    `1` when the finding language has the highest priority, and `-1`
+    when the language is not in the list.
+    """
+    return language_accept.find("zh-TW") > 0 or language_accept.find("zh") > 0
+
+
+def handle_lang_pref(*, switch: bool = False) -> Languages:
+    """
+    A helper function for Flask route function that determines the
+    preferred language.
+
+    The language set in the cookie takes precedence, followed by the
+    language in `Accept-Language` from the request header. The
+    determined language is also stored in ``flask.session``.
+
+    Parameters
+    ----------
+    switch: bool, by default False
+        Whether to switch the determined language between Traditional
+        Chinese and English.
+
+    Returns
+    -------
+    Languages
+        The determined language.
+
+    Notes
+    -----
+    If `Accept-Language` includes Chinese, then it is considered
+    preferred and will be selected.
+    """
+    language = cast(Languages, request.cookies.get(COOKIE_LANG))
+    if is_allowed(language):
+        pref = language
+    else:
+        if prefers_chinese(request.accept_languages):
+            pref = LANGUAGE_ZH
+        else:
+            pref = LANGUAGE_EN
+    if switch:
+        pref = LANGUAGE_ZH if pref == LANGUAGE_EN else LANGUAGE_EN
+    session[COOKIE_LANG] = pref
+    return pref
+
+
+def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
+    """
+    A decorator to set user preferences in cookies for the Flask route
+    function.
+
+    Parameters
+    ----------
+    func: Callable[..., RouteRetVal]
+        A Flask route function to be wrapped.
+
+    Returns
+    -------
+    Callable[..., Response]
+        A wrapped function containing the Flask route function and
+        statements to set cookies.
+    """
+    @wraps(func)
+    def wrapper(*args: Any, **kwargs: Any) -> Response:
+        body = func(*args, **kwargs)
+        language = session.get(COOKIE_LANG) or LANGUAGE_EN
+        expires = datetime.now(timezone.utc) + timedelta(days=COOKIE_MAX_DAY)
+
+        response = make_response(body)
+        response.set_cookie(
+            COOKIE_PATH, request.path, max_age=COOKIE_MAX_SEC, expires=expires
+            )
+        response.set_cookie(
+            COOKIE_LANG, language, max_age=COOKIE_MAX_SEC, expires=expires
+            )
+        return response
+    return wrapper
