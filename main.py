@@ -5,7 +5,7 @@ import os
 import smtplib
 from resource.classes import (
     COOKIE_PATH, HREF_HOME, AboutImage, AboutText, AllowedTitles, Base,
-    ContactText, Current, Project, handle_lang_pref, set_cookies
+    ContactText, Current, Project, RouteRetVal, handle_lang_pref, set_cookies
     )
 
 from flask import Flask, redirect, render_template, request, url_for
@@ -39,22 +39,23 @@ db = SQLAlchemy(model_class=Base)
 # website routes
 @app.route('/')
 @set_cookies
-def home() -> str:
+def home() -> RouteRetVal:
     """The home page of website."""
     project_data = db.session.execute(db.select(Project)).scalars().all()
     language = handle_lang_pref()
-    return render_template(
+    body = render_template(
         "index.html",
         current=current,
         language=language,
         project_data=project_data,
         page="home"
         )
+    return body, language
 
 
 @app.route("/about/<title>")
 @set_cookies
-def about(title: AllowedTitles) -> str:
+def about(title: AllowedTitles) -> RouteRetVal:
     """The about page of website."""
     static_data = db.session.execute(
         db.select(AboutText).where(AboutText.info_name == title)
@@ -74,7 +75,7 @@ def about(title: AllowedTitles) -> str:
         ).scalar()
 
     language = handle_lang_pref()
-    return render_template(
+    body = render_template(
         "about.html",
         current=current,
         language=language,
@@ -82,45 +83,49 @@ def about(title: AllowedTitles) -> str:
         static_data=static_data,
         background=background,
         effect=effect,
-        page="about")
+        page="about"
+        )
+    return body, language
 
 
 @app.route("/contact", methods=["GET", "POST"])
 @set_cookies
-def contact() -> str:
+def contact() -> RouteRetVal:
     """The contact page of website."""
     static_data = db.session.execute(db.select(ContactText)).scalar()
     language = handle_lang_pref()
+    msg_sent = False
     if request.method == "POST":
         data = request.form
         send_email(data["name"], data["email"], data["message"])
-        return render_template("contact.html", msg_sent=True)
-    return render_template(
+        msg_sent = True
+    body = render_template(
         "contact.html",
         current=current,
         language=language,
         static_data=static_data,
-        msg_sent=False,
+        msg_sent=msg_sent,
         page="contact"
         )
+    return body, language
 
 
 @app.route("/switch-language")
 @set_cookies
-def switch_language() -> Response:
+def switch_language() -> RouteRetVal:
     """
     Switch website display language between Traditional Chinese and
     English.
     """
-    handle_lang_pref(switch=True)
+    language = handle_lang_pref(switch=True)
     endpoint = request.cookies.get(COOKIE_PATH, default=HREF_HOME).lstrip("/")
-    title = ""
+    endpoint = "home" if endpoint == "" else endpoint
     if endpoint.startswith("about"):
         endpoint, title = endpoint.split("/", maxsplit=1)
-    return redirect(url_for(
-        endpoint,
-        title=title,
-        ))
+        body = redirect(url_for(endpoint, title=title))
+    else:
+        body = redirect(url_for(endpoint))
+    return body, language
 
 
 @app.route("/gate/tic-tac-toe")

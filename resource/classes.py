@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Literal, TypeAlias, cast, get_args
 
 import requests
-from flask import Response, make_response, request, session
+from flask import Response, make_response, request
 from sqlalchemy import JSON
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from werkzeug.datastructures.accept import LanguageAccept
@@ -23,7 +23,7 @@ Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
 
 AllowedTitles: TypeAlias = Literal["website", "author", "tools"]
-RouteRetVal: TypeAlias = str | RedirectResponse
+RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages]
 
 PATH = Path("static/assets/json/github-languages.json")
 ENCODING = "UTF-8"
@@ -310,7 +310,6 @@ def handle_lang_pref(*, switch: bool = False) -> Languages:
             pref = LANGUAGE_EN
     if switch:
         pref = LANGUAGE_ZH if pref == LANGUAGE_EN else LANGUAGE_EN
-    session[COOKIE_LANG] = pref
     return pref
 
 
@@ -332,8 +331,7 @@ def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
     """
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Response:
-        body = func(*args, **kwargs)
-        language = session.get(COOKIE_LANG) or LANGUAGE_EN
+        body, language = func(*args, **kwargs)
         expires = datetime.now(timezone.utc) + timedelta(days=COOKIE_MAX_DAY)
 
         response = make_response(body)
