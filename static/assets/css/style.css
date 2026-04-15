@@ -196,26 +196,29 @@ so a default value is provided here.
 
 
 /* ============================== footer.html ============================== */
-.copyright-text {
-    font-size: 0.875em;
-    margin: 0.5rem 0rem;
-}
-
 .border-bottom {
     margin: 0rem !important;
     background-color: white;
 }
 
-.footer-container {
-    background-color: white;
-}
 
 footer {
-    padding: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
     background-color: white;
     margin: 0rem !important;
 }
 
+.copyright-text {
+    font-size: 0.875em;
+    margin: 0.5rem 0rem;
+}
+
+.policy-text {
+    font-size: 0.7em;
+    margin: 0rem;
+    line-height: 20px;
+}
 
 /* ============================== index.html ============================== */
 .fancy-font-letter {
@@ -669,4 +672,38 @@ textarea.form-control {
 
 .btn-primary {
     padding: 10px 16px;
+}
+
+
+/* ============================== policy.html ============================== */
+.quote {
+    background-color: #ededed;
+    margin-bottom: 10px;
+    padding: 10px 21px;
+    border-radius: 10px;
+}
+
+blockquote p::before {
+    content: "\201C";
+}
+
+blockquote p::after {
+    content: "\201D";
+}
+
+.cite {
+    text-align: right;
+}
+
+.cite::before {
+    content: "\2014";
+}
+
+.no-margin {
+    margin: 0px;
+}
+
+u {
+    text-decoration-line: underline;
+    text-underline-position: under;
 }

@@ -1,0 +1,98 @@
+{% include "header.html" %}
+
+<header
+  class="header-bg"
+  style="background-image: url('../static/assets/img/policy-bg-lighthouse-sunset.jpg'); background-position-y: 55%;"
+  >
+  <div class="container header-text-center custom-bg-container" lang="{{ language }}"> 
+    <div class="row">
+      <div>
+        {% if language == "English": %}
+          <h1 class="page-heading heading-weight-{{ language }}">Cookies and Privacy Policy</h1>
+          <span class="subheading"></span>
+        {% elif language == "Traditional-Chinese": %}
+          <h1 class="page-heading heading-weight-{{ language }}">隱私權政策與 Cookie</h1>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+<!-- photo credit -->
+<div class="photo-credit" lang="English">
+  Photo by 
+  <a href="https://unsplash.com/@stefaniejockschat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+    Stefanie Jockschat
+  </a>
+  on 
+  <a href="https://unsplash.com/photos/silhouette-of-lighthouse-near-body-of-water-during-sunset-gv4-MhwBTcA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+    Unsplash
+  </a>
+</div>
+
+<main class="mb-4"  lang="{{ language }}">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        
+        <div class="quote">
+          <blockquote cite="https://policies.google.com/technologies/cookies" class="no-margin">
+            <p class="no-margin">
+              {% if language == "English": %}
+                Cookies are small pieces of text sent to your browser by a website you visit.
+                They help that website remember information about your visit, which can both make it easier to visit the site again and make the site more useful to you.
+              {% elif language == "Traditional-Chinese": %}
+                Cookie 是您在瀏覽網站時，網站傳送給瀏覽器的一小段文字，可讓網站儲存您的瀏覽資訊，方便您下次瀏覽相同網站時套用同樣的設定，以及為您提供更實用的服務。
+              {% endif %}
+            </p>
+          </blockquote>
+          <p class="cite no-margin">
+            <cite>
+              <a href="https://policies.google.com/technologies/cookies">
+                {% if language == "English": %}
+                  Google Privacy & Terms
+                {% elif language == "Traditional-Chinese": %}
+                  Google 隱私權與條款
+                {% endif %}
+              </a>
+            </cite>
+          </p>
+        </div>
+        {% if language == "English": %}
+          <div lang="English">
+            <p>
+              This website uses two cookies: 
+              one to record your <u>preferred display language</u> 
+              and the other to record the <u>last webpage visited</u> on this website.
+              The purpose of recording these two pieces of information is to allow you and multiple users to 
+              switch display languages simultaneously and return to the webpage previously browsing after switching languages.
+            </p>
+            <p>
+              The cookies on this website <strong>are not used to</strong> identify or track users, for advertising purposes, for data analysis or evaluation, and are only stored in your browser for 14 days.
+            </p>
+            <p>
+              This website and its services do not collect any information.
+              However, because this website is hosted on Render, your personal information,
+              including your name, the device accessing the service, IP address, web page interactions,
+              and geolocation data, will be collected by Render. 
+              For detailed information and the scope of collection, please visit the <a href="https://render.com/privacy">Render privacy policy</a>.
+            </p>
+          </div>
+        {% elif language == "Traditional-Chinese": %}
+          <div lang="Traditional-Chinese">
+            <p>
+              本網站共使用兩個 cookie，分別為了記錄您的<u>偏好顯示語言</u>以及您於此網站瀏覽的<u>最後一個網頁</u>，記錄這兩項資訊的目的是為了讓您與多位使用者能同時切換顯示語言，並在切換語言之後各自返回到之前瀏覽的網頁。
+            </p>
+            <p>
+              本網站的 cookie <strong>不用於</strong>辨別或追蹤使用者身分、廣告用途、數據分析或評估，並且只在您的瀏覽器儲存 14 天。
+            </p>
+            <p>
+              本網站及本網站的服務並不會收集任何資訊。由於本網站架設於 Render，所以您的個人資訊包含名稱、存取服務的設備、IP 位址、數位足跡、地理位置等均會被 Render 收集，詳細的資訊與收集範圍請前往 <a href="https://render.com/privacy" lang="English">Render privacy policy</a> 查看。
+            </p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+
+{% include "footer.html" %}

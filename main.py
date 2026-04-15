@@ -110,6 +110,18 @@ def contact() -> RouteRetVal:
     return body, language
 
 
+@app.route("/policy")
+@set_cookies
+def policy() -> RouteRetVal:
+    language = handle_lang_pref()
+    body = render_template(
+        "policy.html",
+        current=current,
+        language=language,
+    )
+    return body, language
+
+
 @app.route("/switch-language")
 @set_cookies
 def switch_language() -> RouteRetVal:
