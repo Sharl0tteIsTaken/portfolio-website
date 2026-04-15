@@ -134,6 +134,10 @@ class Current():
         LANGUAGE_EN: "Contact",
         LANGUAGE_ZH: "聯絡方式"
     }
+    navbar_switch: dict[Languages, str] = {
+        LANGUAGE_EN: "Switch display language to Traditional Chinese",
+        LANGUAGE_ZH: "變更顯示語言為英文\nSwitch display language to English",
+    }
 
     demo_title: dict[Languages, str] = {
         LANGUAGE_EN: "Check out a demo of the project",

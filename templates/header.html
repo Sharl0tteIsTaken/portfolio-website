@@ -57,7 +57,7 @@
           <li class="nav-item hover-frame">
             <div class="hover-frame-size" aria-hidden="true"  id="frame-size-4"></div>
             <div class="hover-content">
-              <a href="{{ url_for('switch_language') }}" class="nav-link text-white">
+              <a href="{{ url_for('switch_language') }}" class="nav-link text-white" title="{{ current.navbar_switch.get(language) }}">
                 {% if language == "English": %}
                   <img src="../static/assets/svg/lang-eng.svg" class="svg-whitened" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="30">
                 {% elif language == "Traditional-Chinese": %}
@@ -66,6 +66,7 @@
               </a>
             </div>
           </li>
+          <!-- TODO: add dark mode -->
         </ul>
       </div>
     </div>

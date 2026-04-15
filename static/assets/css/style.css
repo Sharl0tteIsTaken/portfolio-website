@@ -336,6 +336,7 @@ footer {
 .keyword-block {
     padding: 2px !important;
     padding-bottom: 0px !important;
+    cursor: text;
 }
 
 .keyword-text {
@@ -343,6 +344,7 @@ footer {
     font-size: 16px !important;
     white-space: nowrap;
     padding: 1rem 1rem !important;
+    user-select: text;
 }
 
 .result-block {
@@ -651,9 +653,8 @@ img.language-color-JavaScript {
 
 .tool-use-case {
     font-size: 18px;
-    font-style: italic;
-    margin-left: 3rem;
-    margin-bottom: 0px;
+    font-style: italic !important;
+    margin: 4px 0px 0px 3rem;
 }
 
 .tool-use-case > img {
