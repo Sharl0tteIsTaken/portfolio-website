@@ -1,7 +1,9 @@
 body {
     font-size: 1.25rem;
     line-height: 33px;
+    text-underline-position: auto;
     --normal-font-weight: 400;
+    --added-font-weight: 500;
     --extra-font-weight: 600;
     --heavy-font-weight: 800;
 
@@ -51,18 +53,24 @@ a:hover {
     text-decoration: underline;
 }
 
+strong {
+    font-weight: bold !important;
+}
+
 *:lang(English) {
     font-family: "Playwrite NZ Basic", cursive !important;
     font-optical-sizing: auto !important;
-    font-weight: var(--normal-font-weight) !important;
+    font-weight: var(--normal-font-weight);
     font-style: normal !important;
+    text-underline-position: auto;
 }
 
 *:lang(Traditional-Chinese) {
     font-family: "Noto Sans TC", sans-serif !important;
     font-optical-sizing: auto !important;
-    font-weight: var(--normal-font-weight) !important;
+    font-weight: var(--normal-font-weight);
     font-style: normal !important;
+    text-underline-position: under;
 }
 
 .btn {
@@ -413,10 +421,19 @@ footer {
     text-shadow: var(--text-shadow-1px-black);
 }
 
+.heading-weight-English {
+    font-weight: var(--extra-font-weight) !important;
+}
+
+.heading-weight-Traditional-Chinese {
+    font-weight: var(--added-font-weight) !important;
+}
 
 /* ============================== about.html ============================== */
 .subheading {
+    color: white;
     font-size: 1.5rem;
+    font-weight: var(--added-font-weight) !important;
     text-shadow: var(--text-shadow-1px-black);
 }
 

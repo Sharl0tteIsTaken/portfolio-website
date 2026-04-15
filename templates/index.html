@@ -1,6 +1,6 @@
 {% include "header.html" %}
 
-<div">
+<div>
   <div class="base-color"></div>
   <div class="spacer-top"></div>
   <div class="post-content">
@@ -28,7 +28,7 @@
               - {{ project.gh_date }}
             </div>
             <hr class="title-separator">
-            <div class="flex-grow-1 d-flex flex-column post-text">
+            <div class="flex-grow-1 d-flex flex-column post-text" lang="{{ language }}">
               {% if project.preview_type != 'none': %}
                 <p class="description">
                   {{ project.description.get(language) | safe }}
@@ -47,7 +47,7 @@
           </div>
 
           {% if project.preview_type == 'none': %}
-            <p class="col-xxl-6 description post-only-text">
+            <p class="col-xxl-6 description post-only-text" lang="{{ language }}">
               {{ project.description.get(language) | safe }}
             </p>
           {% else %}

@@ -5,15 +5,13 @@
   class="header-bg"
   style="background-image: url('../static/assets/img/contact-bg-phone-booth.jpg')"
   >
-  <div class="container header-text-center custom-bg-container"> 
+  <div class="container header-text-center custom-bg-container" lang="{{ language }}"> 
     <div class="row">
-      <div class="page-heading">
-        {% if msg_sent: %}
-        <h1>Successfully sent your message</h1>
-        {% else: %}
-        <h1 class="contact-h1">{{ static_data.title.get(language) }}</h1>
-        {% endif %}
-      </div>
+      {% if msg_sent: %}
+      <h1>Successfully sent your message</h1>
+      {% else: %}
+      <h1 class="page-heading heading-weight-{{ language }}">{{ static_data.title.get(language) }}</h1>
+      {% endif %}
     </div>
   </div>
 </header>
@@ -30,7 +28,7 @@
 </div>
 
 <!-- Main Content-->
-<main class="mb-4">
+<main class="mb-4" lang="{{ language }}">
   <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
