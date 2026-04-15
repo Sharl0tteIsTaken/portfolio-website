@@ -17,6 +17,9 @@
 - 提出 PR [#106342](https://github.com/firstcontributions/first-contributions/pull/106342) 以修復 README 文件中的一個錯誤，該錯誤是在 HTML `<pre>` 標籤內使用符號 `<` 和 `>` 會導致它們之間的所有文字以及這兩個符號都被視為一個 HTML 標籤而不可見。
 - 提出 issue [#107627](https://github.com/firstcontributions/first-contributions/issues/107627) 為每位初學者創造更多機會在 GitHub 上做出他們的第一次貢獻。
 
-## 個人專案
+## 近期個人專案
 - [網路爬蟲範例](https://github.com/Sharl0tteIsTaken/web-crawler-example)：Python網路爬蟲演示。
 - [使用腳本向 REST API 發送請求](https://github.com/Sharl0tteIsTaken/scripting-with-rest-api)：使用 Python 與 GitHub REST API 互動。
+
+## 全部的 Repository
+我已將所有 repository 分類並提供了簡要說明，請查看以下連結：https://github.com/Sharl0tteIsTaken?tab=stars。

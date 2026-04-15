@@ -17,6 +17,9 @@ This is a repository containing all the code for the personal website. See the p
 - Submit PR [#106342](https://github.com/firstcontributions/first-contributions/pull/106342) to fix a bug in README file where using the symbol `<` and `>`  inside HTML `<pre>` tag would cause everything in between and both symbols to be treated as an HTML tag and therefore not visible.
 - Raise issue [#107627](https://github.com/firstcontributions/first-contributions/issues/107627) to create more opportunity for every beginners to make their first contribution on GitHub.
 
-## Personal Projects
+## Recent Personal Projects
 - [Web Crawler Example](https://github.com/Sharl0tteIsTaken/web-crawler-example): A Python web crawler demonstration.
 - [Scripting with REST API](https://github.com/Sharl0tteIsTaken/scripting-with-rest-api): Use Python to interact with the GitHub REST API.
+
+## All Repositories
+I have categorized all my repositories and provided brief descriptions, take a look at the following link: https://github.com/Sharl0tteIsTaken?tab=stars.
