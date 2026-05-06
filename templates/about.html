@@ -36,11 +36,11 @@
       </div>
     </div>
   </div>
+
+  {% if title == "website": %}
+    {% include "github-languages.html" %}
+  {% endif %}
   <script src="../static/assets/scripts/magic.js" defer></script>
 </main>
-
-{% if title == "website": %}
-  {% include "github-languages.html" %}
-{% endif %}
 
 {% include "footer.html" %}

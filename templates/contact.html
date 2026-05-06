@@ -51,9 +51,10 @@
                 name="name"
                 type="text"
                 placeholder=""
+                autocomplete="off"
                 required
               />
-              <label for="name">{{ static_data.form_name.get(language) }}</label>
+              <label for="name" class="form-label">{{ static_data.form_name.get(language) }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -62,9 +63,10 @@
                 name="email"
                 type="email"
                 placeholder=""
+                autocomplete="off"
                 required
               />
-              <label for="email">{{ static_data.form_mail.get(language) }}</label>
+              <label for="email" class="form-label">{{ static_data.form_mail.get(language) }}</label>
             </div>
             <div class="form-floating">
               <textarea
@@ -72,14 +74,15 @@
                 id="message"
                 name="message"
                 placeholder=""
+                autocomplete="off"
                 required
                 style="height: 12rem"
               ></textarea>
-              <label for="message">{{ static_data.form_msg.get(language) }}</label>
+              <label for="message" class="form-label">{{ static_data.form_msg.get(language) }}</label>
             </div>
             <br />
             <button
-              class="btn btn-primary text-uppercase"
+              class="btn btn-primary text-uppercase from-confirm"
               id="submitButton"
               type="submit"
             >

@@ -18,6 +18,7 @@ function syncFrameSize() {
       totalWidth += parseInt(content[i].offsetWidth, 0);
       maxHeight = Math.max(maxHeight, content[i].offsetHeight);
     }
+    // FIXME: calculated size are wrong when the dropdown content is `show`
 
     const sizer = frame.querySelector('.hover-frame-size');
     sizer.style.width = `${totalWidth}px`;

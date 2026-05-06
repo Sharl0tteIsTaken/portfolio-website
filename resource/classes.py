@@ -18,12 +18,13 @@ from werkzeug.datastructures.accept import LanguageAccept
 from werkzeug.wrappers.response import Response as RedirectResponse
 
 # ---------------------------------------------------------------------
+ColorScheme: TypeAlias = Literal["light", "dark", "auto", "TBD"]
 Languages: TypeAlias = Literal["English", "Traditional-Chinese"]
 Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
 
 AllowedTitles: TypeAlias = Literal["website", "author", "tools"]
-RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages]
+RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages, ColorScheme]
 
 PATH = Path("static/assets/json/github-languages.json")
 ENCODING = "UTF-8"
@@ -39,6 +40,7 @@ HEADERS = {
 }
 COOKIE_LANG = "language"
 COOKIE_PATH = "endpoint"
+COOKIE_SCHEME = "scheme"
 COOKIE_MAX_DAY = 14
 COOKIE_MAX_SEC = COOKIE_MAX_DAY * 24 * 60 * 60
 LANGUAGE_ZH: Languages = "Traditional-Chinese"
@@ -238,7 +240,7 @@ class Current():
 
 
 @lru_cache
-def is_allowed(language: Languages) -> bool:
+def is_lang_allowed(language: Languages) -> bool:
     """
     Check if the language is allowed (in the Languages type).
 
@@ -305,7 +307,7 @@ def handle_lang_pref(*, switch: bool = False) -> Languages:
     preferred and will be selected.
     """
     language = cast(Languages, request.cookies.get(COOKIE_LANG))
-    if is_allowed(language):
+    if is_lang_allowed(language):
         pref = language
     else:
         if prefers_chinese(request.accept_languages):
@@ -315,6 +317,41 @@ def handle_lang_pref(*, switch: bool = False) -> Languages:
     if switch:
         pref = LANGUAGE_ZH if pref == LANGUAGE_EN else LANGUAGE_EN
     return pref
+
+
+@lru_cache
+def is_scheme_allowed(scheme: ColorScheme) -> bool:
+    """
+    Check if the color scheme is allowed (in the ColorScheme type).
+
+    Parameters
+    ----------
+    scheme: ColorScheme
+        The name of the scheme to check.
+
+    Returns
+    -------
+    bool
+        If the scheme is allowed.
+    """
+    return scheme in get_args(ColorScheme)
+
+
+def get_scheme() -> ColorScheme:
+    """
+    A helper function for Flask route function that determines the
+    color scheme set by the user, defaults to `TBD` (to be determined).
+    This allows JavaScript to resolve the scheme using the 
+    `prefers-color-scheme` CSS media feature.
+
+    Returns
+    -------
+    ColorScheme
+        The validated color scheme or `TBD`.
+    """
+    scheme = cast(ColorScheme, request.cookies.get(COOKIE_SCHEME))
+    scheme = scheme if is_scheme_allowed(scheme) else "TBD"
+    return scheme
 
 
 def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
@@ -335,15 +372,16 @@ def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
     """
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Response:
-        body, language = func(*args, **kwargs)
+        body, language, scheme = func(*args, **kwargs)
         expires = datetime.now(timezone.utc) + timedelta(days=COOKIE_MAX_DAY)
 
         response = make_response(body)
-        response.set_cookie(
-            COOKIE_PATH, request.path, max_age=COOKIE_MAX_SEC, expires=expires
-            )
-        response.set_cookie(
-            COOKIE_LANG, language, max_age=COOKIE_MAX_SEC, expires=expires
-            )
+
+        cookies = [COOKIE_PATH, COOKIE_LANG, COOKIE_SCHEME]
+        values = [request.path, language, scheme]
+        for index, cookie in enumerate(cookies):
+            response.set_cookie(
+                cookie, values[index], max_age=COOKIE_MAX_SEC, expires=expires
+                )
         return response
     return wrapper
