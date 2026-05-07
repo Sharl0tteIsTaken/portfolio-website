@@ -377,6 +377,8 @@ def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
 
         response = make_response(body)
 
+        # TODO: follow gdpr, defaults to no cookie, enable via JS
+
         cookies = [COOKIE_PATH, COOKIE_LANG, COOKIE_SCHEME]
         values = [request.path, language, scheme]
         for index, cookie in enumerate(cookies):
