@@ -290,47 +290,64 @@ so a default value is provided here.
     border-radius: 50%;
 }
 
-.display-dropdown {
+.float-dropdown {
     background-color: var(--background-base-color);
     position: fixed;
-    right: 20px;
-    bottom: 40px;
     z-index: 3000;
     border-radius: 10px;
 }
 
-#theme-switcher {
+.float-dropdown-left {
+    left: 20px;
+    bottom: 40px;
+}
+
+.float-dropdown-right {
+    right: 20px;
+    bottom: 40px;
+}
+
+.float-dropdown-menubutton {
     padding: 10px 16px;
-    border-radius: 10px;
+    border-radius: 10px !important;
     border: 2px solid rgb(from var(--foreground-base-color) R G B / 0.2);
     transition: border 300ms ease;
 }
 
-#theme-switcher:hover, #theme-switcher:focus {
+.float-dropdown-menubutton:hover, .float-dropdown-menubutton:focus {
     border: 2px solid var(--foreground-base-color);
     transition: border 300ms ease;
 }
 
-.display-option {
+.dropdown-menu > p {
+    padding: 0px 8px;
+    margin: 0px;
+}
+
+.float-dropdown-option {
     cursor: pointer;
     color: var(--highest-contrast-text-color);
 }
 
-.display-option.active {
+.float-dropdown-option.active {
     color: var(--option-activate-text-color);
     background-color: var(--option-background-color);
 }
 
-.display-option:hover, .display-option:focus {
+.float-dropdown-option:hover, .float-dropdown-option:focus {
     background-color: var(--switcher-hover-color);
 }
 
-.display-option.disabled {
+.float-dropdown-option.disabled {
     cursor: default;
 }
 
-.display-option.disabled > img {
+.float-dropdown-option.disabled > img {
     filter: var(--svg-filter-option-activate);
+}
+
+.float-dropdown-switch {
+    /* margin-left: 32px; */
 }
 
 .svg-color-by-theme {

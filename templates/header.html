@@ -74,18 +74,49 @@
   </nav>
 
   <body lang="Not-Applicable">
-    <!-- TODO: add gdpr cookie banner -->
-    <div class="btn-group dropup display-dropdown" role="group" lang="{{ language }}">
+    <div class="btn-group dropup float-dropdown float-dropdown-left" role="group" lang="{{ language }}">
       <div class="hover-frame-size" aria-hidden="true"></div>
-      <button type="button" id="theme-switcher" class="btn dropdown-toggle focus-button" data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
+        btn
+      </button>
+      <ul class="dropdown-menu">
+        <p>
+          Some example text that’s free-flowing within the dropdown menu.
+        </p>
+        <li>
+          <div class="dropdown-item form-check form-switch float-dropdown-option">
+            <!-- FIXME: input tag is outside of parent div and off center vertically -->
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label float-dropdown-switch" for="switchCheckDefault">Default switch checkbox input</label>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown-item form-check form-switch float-dropdown-option">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label float-dropdown-switch" for="switchCheckDefault">Default switch checkbox input</label>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown-item form-check form-switch float-dropdown-option">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label float-dropdown-switch" for="switchCheckDefault">Default switch checkbox input</label>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- TODO: add gdpr cookie banner -->
+    <!-- TODO: add role -->
+    <div class="btn-group dropup float-dropdown float-dropdown-right" role="group" lang="{{ language }}">
+      <div class="hover-frame-size" aria-hidden="true"></div>
+      <button type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
         {% if language == "English": %}
           <img src="../static/assets/svg/quill-draw-eng.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="32">
         {% elif language == "Traditional-Chinese": %}
           <img src="../static/assets/svg/quill-draw-zhtw.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from Traditional Chinese to English." height="32">
         {% endif %}
       </button>
-      <ul class="dropdown-menu display-panel">
-        <li><button class="dropdown-item display-option" data-bs-theme-value="light">
+      <ul class="dropdown-menu">
+        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="light">
           <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme" alt="a line draw image of the sun.">
           {% if language == "English": %}
             Toggle theme (Light)
@@ -93,7 +124,7 @@
             切換主題 (淺色)
           {% endif %}
         </button></li>
-        <li><button class="dropdown-item display-option" data-bs-theme-value="dark">
+        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="dark">
           <img src="../static/assets/svg/moon-stars-fill.svg" class="svg-color-by-theme" alt="a line draw image of the moon.">
           {% if language == "English": %}
             Toggle theme (Dark)
@@ -101,7 +132,7 @@
             切換主題 (深色)
           {% endif %}
         </button></li>
-        <li><button class="dropdown-item display-option" data-bs-theme-value="auto">
+        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="auto">
           <img src="../static/assets/svg/sun-and-moon.svg" class="svg-color-by-theme" alt="a line draw image of sun and moon separated by a diagonal line.">
           {% if language == "English": %}
             Toggle theme (Auto)
