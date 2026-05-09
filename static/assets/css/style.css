@@ -27,6 +27,15 @@ html[data-bs-theme=light], html[data-bs-theme=auto] {
     --svg-filter-basic: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(324deg) brightness(96%) contrast(104%);
     /* #FFCC00 */
     --svg-filter-magic: brightness(0) saturate(100%) invert(80%) sepia(56%) saturate(2700%) hue-rotate(357deg) brightness(106%) contrast(109%);
+
+    .form-check-input {
+        --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e") !important;
+    }
+
+    .form-check-input:checked {
+        --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 1%29'/%3e%3c/svg%3e") !important;
+    }
+
 }
 
 html[data-bs-theme=dark] {
@@ -60,6 +69,14 @@ html[data-bs-theme=dark] {
     --svg-filter-basic: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(205deg) brightness(107%) contrast(102%);
     /* #ffff00 */
     --svg-filter-magic: brightness(0) saturate(100%) invert(91%) sepia(43%) saturate(3003%) hue-rotate(358deg) brightness(108%) contrast(102%);
+
+    .form-check-input {
+        --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 0.25%29'/%3e%3c/svg%3e") !important;
+    }
+
+    .form-check-input:checked {
+        --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 1%29'/%3e%3c/svg%3e") !important;
+    }
 
     .decor-rule {
         color: white !important;
@@ -202,6 +219,9 @@ strong {
 
 .dropdown-menu {
     min-width: auto;
+    border: 2px solid var(--lower-contrast-background-color);
+    outline: 2px solid var(--background-base-color);
+    background-color: var(--lower-contrast-background-color);
 }
 
 #hover-container {
@@ -308,20 +328,26 @@ so a default value is provided here.
 }
 
 .float-dropdown-menubutton {
+    /* TODO: maybe won't have text here. */
+    color: var(--highest-contrast-text-color) !important;
+    font-weight: bold;
     padding: 10px 16px;
     border-radius: 10px !important;
     border: 2px solid rgb(from var(--foreground-base-color) R G B / 0.2);
+    outline: 1px solid var(--background-base-color);
     transition: border 300ms ease;
 }
 
 .float-dropdown-menubutton:hover, .float-dropdown-menubutton:focus {
     border: 2px solid var(--foreground-base-color);
+    outline: 1px solid var(--background-base-color);
     transition: border 300ms ease;
 }
 
 .dropdown-menu > p {
     padding: 0px 8px;
     margin: 0px;
+    color: var(--highest-contrast-text-color);
 }
 
 .float-dropdown-option {
@@ -346,8 +372,51 @@ so a default value is provided here.
     filter: var(--svg-filter-option-activate);
 }
 
-.float-dropdown-switch {
-    /* margin-left: 32px; */
+.form-check-input {
+    margin-top: 8.5px;
+    cursor: pointer;
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 0.25%29'/%3e%3c/svg%3e");
+}
+
+.form-check-input:focus {
+    border-color: var(--highest-contrast-text-color);
+    box-shadow: 0 0 0 0.25rem rgb(from var(--highest-contrast-text-color) R G B / 0.15);
+}
+
+.form-check-input:checked {
+    background-color: var(--background-base-color);
+    border-color: var(--highest-contrast-text-color);
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.float-dropdown-button-group {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    white-space: nowrap;
+    padding: 0px 8px;
+}
+
+.float-dropdown-button {
+    padding: 8px;
+    font-weight: bold;
+    border: 2px solid transparent;
+    color: var(--highest-contrast-text-color);
+}
+
+.float-dropdown-button:hover {
+    background-color: var(--switcher-hover-color);
+}
+
+.float-dropdown-button:focus {
+    color: var(--highest-contrast-text-color);
+    border: 2px solid var(--highest-contrast-text-color);
+    border-radius: 10px;
+    box-shadow: none;
 }
 
 .svg-color-by-theme {

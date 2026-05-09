@@ -75,39 +75,40 @@
 
   <body lang="Not-Applicable">
     <div class="btn-group dropup float-dropdown float-dropdown-left" role="group" lang="{{ language }}">
-      <div class="hover-frame-size" aria-hidden="true"></div>
-      <button type="button" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn dropdown-toggle float-dropdown-menubutton focus-button" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
         btn
       </button>
       <ul class="dropdown-menu">
         <p>
           Some example text that’s free-flowing within the dropdown menu.
         </p>
-        <li>
-          <div class="dropdown-item form-check form-switch float-dropdown-option">
-            <!-- FIXME: input tag is outside of parent div and off center vertically -->
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            <label class="form-check-label float-dropdown-switch" for="switchCheckDefault">Default switch checkbox input</label>
+        <li class="dropdown-item float-dropdown-option">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault-1">
+            <label class="form-check-label" for="switchCheckDefault-1">Default switch checkbox input</label>
           </div>
         </li>
-        <li>
-          <div class="dropdown-item form-check form-switch float-dropdown-option">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            <label class="form-check-label float-dropdown-switch" for="switchCheckDefault">Default switch checkbox input</label>
+        <li class="dropdown-item float-dropdown-option">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault-2">
+            <label class="form-check-label" for="switchCheckDefault-2">Default switch checkbox input</label>
           </div>
         </li>
-        <li>
-          <div class="dropdown-item form-check form-switch float-dropdown-option">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            <label class="form-check-label float-dropdown-switch" for="switchCheckDefault">Default switch checkbox input</label>
+        <li class="dropdown-item float-dropdown-option">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault-3">
+            <label class="form-check-label" for="switchCheckDefault-3">Default switch checkbox input</label>
           </div>
+        </li>
+        <li class="float-dropdown-button-group">
+          <button class="btn float-dropdown-button" type="button">deny all</button>
+          <button class="btn float-dropdown-button" type="button">accept all</button>
         </li>
       </ul>
     </div>
     <!-- TODO: add gdpr cookie banner -->
     <!-- TODO: add role -->
     <div class="btn-group dropup float-dropdown float-dropdown-right" role="group" lang="{{ language }}">
-      <div class="hover-frame-size" aria-hidden="true"></div>
       <button type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
         {% if language == "English": %}
           <img src="../static/assets/svg/quill-draw-eng.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="32">
