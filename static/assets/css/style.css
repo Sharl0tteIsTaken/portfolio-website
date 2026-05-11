@@ -98,6 +98,7 @@ body {
     /* #DEE2E6 */
     --svg-filter-option-activate: brightness(0) saturate(100%) invert(88%) sepia(9%) saturate(105%) hue-rotate(169deg) brightness(105%) contrast(88%);
     --option-background-color: #565e64;
+    --option-mousedown-background-color: rgb(108, 117, 123);
 
     font-size: 1.25rem;
     line-height: 33px;
@@ -317,12 +318,12 @@ so a default value is provided here.
     border-radius: 10px;
 }
 
-.float-dropdown-left {
+.cookie-banner {
     left: 20px;
     bottom: 40px;
 }
 
-.float-dropdown-right {
+.theme-banner {
     right: 20px;
     bottom: 40px;
 }
@@ -358,6 +359,11 @@ so a default value is provided here.
 .float-dropdown-option.active {
     color: var(--option-activate-text-color);
     background-color: var(--option-background-color);
+}
+
+.float-dropdown-option:active {
+    color: var(--foreground-base-color);
+    background-color: var(--option-mousedown-background-color) !important;
 }
 
 .float-dropdown-option:hover, .float-dropdown-option:focus {

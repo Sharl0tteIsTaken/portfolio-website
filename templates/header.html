@@ -74,7 +74,7 @@
   </nav>
 
   <body lang="Not-Applicable">
-    <div class="btn-group dropup float-dropdown float-dropdown-left" role="group" lang="{{ language }}">
+    <div class="btn-group dropup float-dropdown cookie-banner" role="group" lang="{{ language }}">
       <button class="btn dropdown-toggle float-dropdown-menubutton focus-button" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
         btn
       </button>
@@ -101,14 +101,14 @@
           </div>
         </li>
         <li class="float-dropdown-button-group">
-          <button class="btn float-dropdown-button" type="button">deny all</button>
-          <button class="btn float-dropdown-button" type="button">accept all</button>
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)">deny all</button>
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)">accept all</button>
         </li>
       </ul>
     </div>
     <!-- TODO: add gdpr cookie banner -->
     <!-- TODO: add role -->
-    <div class="btn-group dropup float-dropdown float-dropdown-right" role="group" lang="{{ language }}">
+    <div class="btn-group dropup float-dropdown theme-banner" role="group" lang="{{ language }}">
       <button type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
         {% if language == "English": %}
           <img src="../static/assets/svg/quill-draw-eng.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="32">
