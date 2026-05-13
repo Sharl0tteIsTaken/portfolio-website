@@ -323,6 +323,12 @@ so a default value is provided here.
     bottom: 40px;
 }
 
+#close-cookie-banner {
+    position: fixed;
+    right: 5px;
+    top: 5px;
+}
+
 .theme-banner {
     right: 20px;
     bottom: 40px;
