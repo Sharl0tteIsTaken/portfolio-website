@@ -20,7 +20,15 @@
     date.setTime(date.getTime() + (cookieExpire))
     const expires = "; expires=" + date.toUTCString()
 
-    document.cookie = cookieName + "=" + theme + expires + "; path=/"
+    const cookieSetting = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("setting="))
+      ?.split("=")[1]
+
+    const allowStore = JSON.parse(cookieSetting)?.find(item => item.id === cookieName)?.checked
+    if (allowStore) {
+      document.cookie = cookieName + "=" + theme + expires + "; path=/"
+    }
   }
 
   const getTheme = () => {

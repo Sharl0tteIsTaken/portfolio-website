@@ -13,7 +13,6 @@ const toggleAllSwitch = state => {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  // restore user setting in cookie banner
   const settingValue = JSON.parse(
     document.cookie
     .split("; ")
@@ -21,6 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
     ?.split("=")[1] ?? null
   )
   if (settingValue) {
+    // restore user setting in cookie banner
     settingValue.forEach(setting => {
       const element = document.getElementById(setting.id)
       if (element) {
@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     })
   } else {
+    // show cookie banner
     const menubutton = bootstrap.Dropdown.getOrCreateInstance(
       document.querySelector(".cookie-banner .float-dropdown-menubutton")
     )
@@ -57,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.cookie = cookieSettingName + "=" + JSON.stringify(setting) + expires + "; path=/"
   }
 
-  // close banner should record cookie setting
+  // record cookie setting (close banner with button)
   document.querySelector("#close-cookie-banner").addEventListener('click', () => {
     updateCookie()
     const menubutton = bootstrap.Dropdown.getOrCreateInstance(
@@ -76,6 +77,16 @@ window.addEventListener('DOMContentLoaded', () => {
     element.addEventListener('keydown', event => {
       if (event.key === "Enter") {
         element.click()
+      }
+    })
+  })
+
+  // remove rejected cookie
+  document.querySelector(".cookie-banner").addEventListener("hidden.bs.dropdown", () => {
+    const setting = Array.from(allSwitches).map(({ id, checked }) => ({id, checked}))
+    setting.forEach(rule => {
+      if (!rule.checked) {
+        document.cookie = rule.id + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
       }
     })
   })

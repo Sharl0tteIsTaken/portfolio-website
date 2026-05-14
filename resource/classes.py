@@ -22,6 +22,7 @@ ColorScheme: TypeAlias = Literal["light", "dark", "auto", "TBD"]
 Languages: TypeAlias = Literal["English", "Traditional-Chinese"]
 Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
+CookieKeys: TypeAlias = Literal["setting", "language", "endpoint", "scheme"]
 
 AllowedTitles: TypeAlias = Literal["website", "author", "tools"]
 RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages, ColorScheme]
@@ -38,9 +39,11 @@ HEADERS = {
     "Content-Type": "application/json",
     "X-GitHub-Api-Version": "2022-11-28",
 }
-COOKIE_LANG = "language"
-COOKIE_PATH = "endpoint"
-COOKIE_SCHEME = "scheme"
+COOKIE_SETTING: CookieKeys = "setting"
+COOKIE_LANG: CookieKeys = "language"
+COOKIE_PATH: CookieKeys = "endpoint"
+COOKIE_SCHEME: CookieKeys = "scheme"
+COOKIE_NAMES: list[CookieKeys] = [COOKIE_LANG, COOKIE_PATH, COOKIE_SCHEME]
 COOKIE_MAX_DAY = 14
 COOKIE_MAX_SEC = COOKIE_MAX_DAY * 24 * 60 * 60
 LANGUAGE_ZH: Languages = "Traditional-Chinese"
@@ -341,7 +344,7 @@ def get_scheme() -> ColorScheme:
     """
     A helper function for Flask route function that determines the
     color scheme set by the user, defaults to `TBD` (to be determined).
-    This allows JavaScript to resolve the scheme using the 
+    This allows JavaScript to resolve the scheme using the
     `prefers-color-scheme` CSS media feature.
 
     Returns
@@ -377,13 +380,28 @@ def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
 
         response = make_response(body)
 
-        # TODO: follow gdpr, defaults to no cookie, enable via JS
+        exist_setting = request.cookies.get(COOKIE_SETTING)
+        if exist_setting and exist_setting != "null":
+            setting = json.loads(exist_setting)
 
-        cookies = [COOKIE_PATH, COOKIE_LANG, COOKIE_SCHEME]
-        values = [request.path, language, scheme]
-        for index, cookie in enumerate(cookies):
+            value = {
+                COOKIE_PATH: request.path,
+                COOKIE_LANG: language,
+                COOKIE_SCHEME: scheme
+            }
+            for rule in setting:
+                cookie_id = cast(CookieKeys, rule.get("id"))
+                if rule.get("checked") and cookie_id in COOKIE_NAMES:
+                    response.set_cookie(
+                        cookie_id, value[cookie_id],
+                        max_age=COOKIE_MAX_SEC, expires=expires
+                    )
+        else:
+            # set to ``None`` to trigger cookie banner for new users
+            # this becomes ``"null"``
             response.set_cookie(
-                cookie, values[index], max_age=COOKIE_MAX_SEC, expires=expires
+                COOKIE_SETTING, json.dumps(None),
+                max_age=COOKIE_MAX_SEC, expires=expires
                 )
         return response
     return wrapper
