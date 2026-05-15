@@ -219,9 +219,9 @@ strong {
 }
 
 .dropdown-menu {
-    min-width: auto;
-    border: 2px solid var(--lower-contrast-background-color);
-    outline: 2px solid var(--background-base-color);
+    min-width: 280px;
+    border: 2px solid color-mix(in srgb, var(--highest-contrast-text-color) 50%, rgb(127, 127, 127) 50%);
+    outline: 2px solid color-mix(in srgb, var(--background-base-color) 50%, rgb(127, 127, 127) 50%);
     background-color: var(--lower-contrast-background-color);
 }
 
@@ -294,6 +294,11 @@ so a default value is provided here.
     z-index: 2;
 }
 
+/* focus remove the hover effect */
+.hover-frame > .hover-content:focus-within {
+    inset: 0px;
+}
+
 .header-text {
     padding-left: 0.5rem;
     white-space: nowrap;
@@ -335,8 +340,6 @@ so a default value is provided here.
 }
 
 .float-dropdown-menubutton {
-    /* TODO: maybe won't have text here. */
-    color: var(--highest-contrast-text-color) !important;
     font-weight: bold;
     padding: 10px 16px;
     border-radius: 10px !important;
@@ -351,10 +354,13 @@ so a default value is provided here.
     transition: border 300ms ease;
 }
 
-.dropdown-menu > p {
+.dropdown-menu > p, .dropdown-menu > h4 , .dropdown-menu > li {
     padding: 0px 8px;
-    margin: 0px;
     color: var(--highest-contrast-text-color);
+}
+
+.dropdown-menu > p {
+    margin: 0px;
 }
 
 .float-dropdown-option {
@@ -429,6 +435,15 @@ so a default value is provided here.
     border: 2px solid var(--highest-contrast-text-color);
     border-radius: 10px;
     box-shadow: none;
+}
+
+.cookie-banner-policy {
+    line-height: 20px;
+}
+
+.cookie-banner-description {
+    margin-bottom: 4.5px;
+    cursor: help;
 }
 
 .svg-color-by-theme {

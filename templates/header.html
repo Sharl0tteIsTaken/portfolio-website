@@ -75,40 +75,101 @@
 
   <body lang="Not-Applicable">
     <div class="btn-group dropup float-dropdown cookie-banner" role="group" lang="{{ language }}">
-      <button class="btn dropdown-toggle float-dropdown-menubutton focus-button" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-        btn
+      <button
+        class="btn dropdown-toggle float-dropdown-menubutton focus-button" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
+        {% if language == "English": %}
+          aria-label="Privacy settings"
+        {% elif language == "Traditional-Chinese": %}
+          aria-label="隱私設定"
+        {% endif %}
+        >
+        <img src="../static/assets/svg/record-preference.svg" class="svg-color-by-theme" alt="a quill drawing a fingerprint on a file" height="32">
       </button>
       <ul class="dropdown-menu">
         <button type="button" class="btn-close" id="close-cookie-banner" aria-label="Close"></button>
-        <p>
-          Some example text that’s free-flowing within the dropdown menu.
-        </p>
+        {% if language == "English": %}
+          <h4>Privacy Settings</h4>
+          <p>Configure and manage the cookies used by this website.</p>
+          <ul>
+            <li>Accepted settings will be stored via cookie in your device.</li>
+            <li>Rejected settings will removed after this banner is closed.</li>
+          </ul>
+        {% elif language == "Traditional-Chinese": %}
+          <h4>隱私設定</h4>
+          <p>設定及管理此網站使用的 cookie。</p>
+          <ul>
+            <li>您接受的設定將透過 Cookie 儲存在您的裝置上。</li>
+            <li>您拒絕的設定將在本橫幅關閉後被刪除。</li>
+          </ul>
+        {% endif %}
         <li class="dropdown-item float-dropdown-option">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="language">
-            <label class="form-check-label" for="language">Language</label>
+            <label class="form-check-label" for="language">
+              {% if language == "English": %}
+                Preferred display language
+              {% elif language == "Traditional-Chinese": %}
+                偏好顯示語言
+              {% endif %}
+              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('language').get(language) }}" alt="" height="16">
+            </label>
           </div>
         </li>
         <li class="dropdown-item float-dropdown-option">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="endpoint">
-            <label class="form-check-label" for="endpoint">Endpoint</label>
+            <label class="form-check-label" for="endpoint">
+              {% if language == "English": %}
+                Last webpage visited
+              {% elif language == "Traditional-Chinese": %}
+                瀏覽的最後一個網頁
+              {% endif %}
+              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('endpoint').get(language) }}" alt="" height="16">
+            </label>
           </div>
         </li>
         <li class="dropdown-item float-dropdown-option">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="scheme">
-            <label class="form-check-label" for="scheme">Scheme</label>
+            <label class="form-check-label" for="scheme">
+              {% if language == "English": %}
+                Preferred color scheme
+              {% elif language == "Traditional-Chinese": %}
+                偏好顯示模式
+              {% endif %}
+              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('scheme').get(language) }}" alt="" height="16">
+            </label>
           </div>
         </li>
         <li class="float-dropdown-button-group">
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)">Reject all</button>
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)">Accept all</button>
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)" title="...">
+            {% if language == "English": %}
+              Reject all
+            {% elif language == "Traditional-Chinese": %}
+              全部拒絕
+            {% endif %}
+          </button>
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)">
+            {% if language == "English": %}
+              Accept all
+            {% elif language == "Traditional-Chinese": %}
+              全部同意
+            {% endif %}
+          </button>
+        </li>
+        <li class="text-center no-margin cookie-banner-policy">
+          <a href="{{ url_for('policy') }}" class="policy-text" lang="{{ language }}">
+            {% if language == "English": %}
+              Privacy Policy
+            {% elif language == "Traditional-Chinese": %}
+              隱私權政策
+            {% endif %}
+          </a>
         </li>
       </ul>
     </div>
     <!-- TODO: add gdpr cookie banner -->
-    <!-- TODO: add role -->
+    <!-- TODO: add `role`, `aria-label` for buttons on navbar -->
     <div class="btn-group dropup float-dropdown theme-banner" role="group" lang="{{ language }}">
       <button type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
         {% if language == "English": %}

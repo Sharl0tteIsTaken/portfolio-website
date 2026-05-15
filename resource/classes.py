@@ -23,6 +23,7 @@ Languages: TypeAlias = Literal["English", "Traditional-Chinese"]
 Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
 CookieKeys: TypeAlias = Literal["setting", "language", "endpoint", "scheme"]
+BannerDesc: TypeAlias = Literal[CookieKeys, "accept", "reject"]
 
 AllowedTitles: TypeAlias = Literal["website", "author", "tools"]
 RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages, ColorScheme]
@@ -142,6 +143,64 @@ class Current():
     navbar_switch: dict[Languages, str] = {
         LANGUAGE_EN: "Switch display language to Traditional Chinese",
         LANGUAGE_ZH: "變更顯示語言為英文\nSwitch display language to English",
+    }
+
+    cookie_banner_description: dict[BannerDesc, dict[Languages, str]] = {
+        COOKIE_SETTING: {
+            LANGUAGE_EN: (
+                "TODO: add this"
+                ),
+            LANGUAGE_ZH: (
+                "TODO: add this"
+                )
+        },
+        COOKIE_LANG: {
+            LANGUAGE_EN: (
+                "This setting allows you to switch languages."
+                "\nWithout it, you will not be able to switch languages."
+                ),
+            LANGUAGE_ZH: (
+                "啟用這項設定以切換語言，關閉此設定則無法切換語言。"
+                )
+        },
+        COOKIE_PATH: {
+            LANGUAGE_EN: (
+                "This setting allows you to return to the webpage previously "
+                "browsing after switching languages.\nWithout it, you will be "
+                "redirected to the website homepage after switching languages."
+                ),
+            LANGUAGE_ZH: (
+                "啟用這項設定以在切換語言後返回之前瀏覽的網頁，"
+                "關閉此設定則會在切換語言後回到網站首頁。"
+                )
+        },
+        COOKIE_SCHEME: {
+            LANGUAGE_EN: (
+                "This setting allows you to maintain the selected theme after "
+                "navigating to different webpages or switching languages."
+                "\nWithout it, the theme set by the browser will be used."
+                ),
+            LANGUAGE_ZH: (
+                "啟用這項設定以在瀏覽不同網頁時或切換語言後維持設定的顯示模式，"
+                "關閉此設定則會顯示瀏覽器設定的顯示模式。"
+                )
+        },
+        "accept": {
+            LANGUAGE_EN: (
+                "TODO: add this"
+                ),
+            LANGUAGE_ZH: (
+                "TODO: add this"
+                )
+        },
+        "reject": {
+            LANGUAGE_EN: (
+                "TODO: add this"
+                ),
+            LANGUAGE_ZH: (
+                "TODO: add this"
+                )
+        },
     }
 
     demo_title: dict[Languages, str] = {

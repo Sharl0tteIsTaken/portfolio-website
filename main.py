@@ -120,6 +120,7 @@ def contact() -> RouteRetVal:
 @app.route("/policy")
 @set_cookies
 def policy() -> RouteRetVal:
+    # TODO: add docstring
     language = handle_lang_pref()
     scheme = get_scheme()
     body = render_template(
