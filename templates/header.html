@@ -92,16 +92,17 @@
           <p>Configure and manage the cookies used by this website.</p>
           <ul>
             <li>Accepted settings will be stored via cookie in your device.</li>
-            <li>Rejected settings will removed after this banner is closed.</li>
+            <li>Rejected settings will removed after this window is closed.</li>
           </ul>
         {% elif language == "Traditional-Chinese": %}
           <h4>隱私設定</h4>
-          <p>設定及管理此網站使用的 cookie。</p>
+          <p>設定及管理此網站使用的 Cookie。</p>
           <ul>
             <li>您接受的設定將透過 Cookie 儲存在您的裝置上。</li>
-            <li>您拒絕的設定將在本橫幅關閉後被刪除。</li>
+            <li>您拒絕的設定將在本視窗關閉後被刪除。</li>
           </ul>
         {% endif %}
+        <!-- TODO: add switch for `setting` -->
         <li class="dropdown-item float-dropdown-option">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="language">
@@ -142,14 +143,14 @@
           </div>
         </li>
         <li class="float-dropdown-button-group">
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)" title="...">
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)" title="TODO: add this">
             {% if language == "English": %}
               Reject all
             {% elif language == "Traditional-Chinese": %}
               全部拒絕
             {% endif %}
           </button>
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)">
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)" title="TODO: add this">
             {% if language == "English": %}
               Accept all
             {% elif language == "Traditional-Chinese": %}

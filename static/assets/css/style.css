@@ -583,6 +583,11 @@ footer {
     padding-top: 1rem;
 }
 
+.post-text > a, .post-only-text {
+    --link-color: #5280FF;
+    --link-color-hover: #455FFF;
+}
+
 .description {
     max-width: 100%;
     max-height: 100%;
