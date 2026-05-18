@@ -98,15 +98,32 @@
           <h4>隱私設定</h4>
           <p>設定及管理此網站使用的 Cookie。</p>
           <ul>
-            <li>您接受的設定將透過 Cookie 儲存在您的裝置上。</li>
-            <li>您拒絕的設定將在本視窗關閉後被刪除。</li>
+            <li>您同意的設定將透過 Cookie 儲存在您的裝置上。</li>
+            <li>您拒絕的設定將在本視窗關閉後立刻刪除。</li>
           </ul>
         {% endif %}
-        <!-- TODO: add switch for `setting` -->
+        <!-- TODO: shouldn't be able to click this (includes parent container) -->
+        <!-- TODO: cursor on parent shouldn't be pointer -->
+        <!-- TODO: reject all button shouldn't be able to uncheck this -->
+        <!-- TODO: de-couple the class name `form-check-input` in <input> with the function in `switch.js`  -->
+        <!-- TODO: "record setting or not" shouldn't be in the `setting` cookie  -->
+        <li class="dropdown-item float-dropdown-option">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="setting" checked disabled>
+            <label class="form-check-label d-flex justify-content-between align-items-center" for="setting">
+              {% if language == "English": %}
+                Cookie preferences
+              {% elif language == "Traditional-Chinese": %}
+                Cookie 偏好設定
+              {% endif %}
+              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('setting').get(language) }}" alt="" height="16">
+            </label>
+          </div>
+        </li>
         <li class="dropdown-item float-dropdown-option">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="language">
-            <label class="form-check-label" for="language">
+            <label class="form-check-label d-flex justify-content-between align-items-center" for="language">
               {% if language == "English": %}
                 Preferred display language
               {% elif language == "Traditional-Chinese": %}
@@ -119,7 +136,7 @@
         <li class="dropdown-item float-dropdown-option">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="endpoint">
-            <label class="form-check-label" for="endpoint">
+            <label class="form-check-label d-flex justify-content-between align-items-center" for="endpoint">
               {% if language == "English": %}
                 Last webpage visited
               {% elif language == "Traditional-Chinese": %}
@@ -132,7 +149,7 @@
         <li class="dropdown-item float-dropdown-option">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="scheme">
-            <label class="form-check-label" for="scheme">
+            <label class="form-check-label d-flex justify-content-between align-items-center" for="scheme">
               {% if language == "English": %}
                 Preferred color scheme
               {% elif language == "Traditional-Chinese": %}
@@ -180,6 +197,7 @@
         {% endif %}
       </button>
       <ul class="dropdown-menu">
+        <!-- TODO: add description for what this dropdown is for -->
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="light">
           <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme" alt="a line draw image of the sun.">
           {% if language == "English": %}

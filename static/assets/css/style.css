@@ -437,12 +437,19 @@ so a default value is provided here.
     box-shadow: none;
 }
 
+.cookie-banner > .dropdown-menu > ul > li {
+    font-size: 14px;
+}
+
+.cookie-banner .form-check-label:lang(English) {
+    font-size: 13px;
+}
+
 .cookie-banner-policy {
     line-height: 20px;
 }
 
 .cookie-banner-description {
-    margin-bottom: 4.5px;
     cursor: help;
 }
 

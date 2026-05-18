@@ -160,7 +160,7 @@ class Current():
                 "\nWithout it, you will not be able to switch languages."
                 ),
             LANGUAGE_ZH: (
-                "啟用這項設定以切換語言，關閉此設定則無法切換語言。"
+                "同意這項設定以切換語言，拒絕此設定則無法切換語言。"
                 )
         },
         COOKIE_PATH: {
@@ -170,8 +170,8 @@ class Current():
                 "redirected to the website homepage after switching languages."
                 ),
             LANGUAGE_ZH: (
-                "啟用這項設定以在切換語言後返回之前瀏覽的網頁，"
-                "關閉此設定則會在切換語言後回到網站首頁。"
+                "同意這項設定以在切換語言後返回之前瀏覽的網頁，\n"
+                "拒絕此設定則會在切換語言後回到網站首頁。"
                 )
         },
         COOKIE_SCHEME: {
@@ -181,8 +181,8 @@ class Current():
                 "\nWithout it, the theme set by the browser will be used."
                 ),
             LANGUAGE_ZH: (
-                "啟用這項設定以在瀏覽不同網頁時或切換語言後維持設定的顯示模式，"
-                "關閉此設定則會顯示瀏覽器設定的顯示模式。"
+                "同意這項設定以在瀏覽不同網頁時或切換語言後維持設定的顯示模式，\n"
+                "拒絕此設定則會顯示瀏覽器設定的顯示模式。"
                 )
         },
         "accept": {
