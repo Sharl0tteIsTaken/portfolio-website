@@ -102,12 +102,7 @@
             <li>您拒絕的設定將在本視窗關閉後立刻刪除。</li>
           </ul>
         {% endif %}
-        <!-- TODO: shouldn't be able to click this (includes parent container) -->
-        <!-- TODO: cursor on parent shouldn't be pointer -->
-        <!-- TODO: reject all button shouldn't be able to uncheck this -->
-        <!-- TODO: de-couple the class name `form-check-input` in <input> with the function in `switch.js`  -->
-        <!-- TODO: "record setting or not" shouldn't be in the `setting` cookie  -->
-        <li class="dropdown-item float-dropdown-option">
+        <li class="dropdown-item float-dropdown-option-disabled">
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="setting" checked disabled>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="setting">
@@ -116,58 +111,60 @@
               {% elif language == "Traditional-Chinese": %}
                 Cookie 偏好設定
               {% endif %}
-              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('setting').get(language) }}" alt="" height="16">
+              <span class="disabled-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('setting').get(language) }}" data-bs-custom-class="custom-tooltip-style">
+                <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" alt="an information icon." height="16">
+              </span>
             </label>
           </div>
         </li>
-        <li class="dropdown-item float-dropdown-option">
+        <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="language">
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="language">
             <label class="form-check-label d-flex justify-content-between align-items-center" for="language">
               {% if language == "English": %}
                 Preferred display language
               {% elif language == "Traditional-Chinese": %}
                 偏好顯示語言
               {% endif %}
-              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('language').get(language) }}" alt="" height="16">
+              <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('language').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
-        <li class="dropdown-item float-dropdown-option">
+        <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="endpoint">
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="endpoint">
             <label class="form-check-label d-flex justify-content-between align-items-center" for="endpoint">
               {% if language == "English": %}
                 Last webpage visited
               {% elif language == "Traditional-Chinese": %}
                 瀏覽的最後一個網頁
               {% endif %}
-              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('endpoint').get(language) }}" alt="" height="16">
+              <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('endpoint').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
-        <li class="dropdown-item float-dropdown-option">
+        <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="scheme">
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="scheme">
             <label class="form-check-label d-flex justify-content-between align-items-center" for="scheme">
               {% if language == "English": %}
                 Preferred color scheme
               {% elif language == "Traditional-Chinese": %}
                 偏好顯示模式
               {% endif %}
-              <img src="../static/assets/svg/info.svg" class="cookie-banner-description svg-color-by-theme" title="{{ current.cookie_banner_description.get('scheme').get(language) }}" alt="" height="16">
+              <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('scheme').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
         <li class="float-dropdown-button-group">
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)" title="TODO: add this">
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)">
             {% if language == "English": %}
               Reject all
             {% elif language == "Traditional-Chinese": %}
               全部拒絕
             {% endif %}
           </button>
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)" title="TODO: add this">
+          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)">
             {% if language == "English": %}
               Accept all
             {% elif language == "Traditional-Chinese": %}
@@ -186,8 +183,8 @@
         </li>
       </ul>
     </div>
-    <!-- TODO: add gdpr cookie banner -->
     <!-- TODO: add `role`, `aria-label` for buttons on navbar -->
+    <!-- FIXME: `button.active.disabled` shouldn't be able to be keyboard focusable -->
     <div class="btn-group dropup float-dropdown theme-banner" role="group" lang="{{ language }}">
       <button type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
         {% if language == "English": %}

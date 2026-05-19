@@ -1,5 +1,6 @@
 const cookieSettingName = "setting"
-const switchCheckbox = ".form-check-input"
+const switchCheckbox = ".cookie-banner-switch"
+const switchExcludeElement = ["INPUT", "LABEL", "IMG"]
 
 const toggleAllSwitch = state => {
   document.querySelectorAll(switchCheckbox)
@@ -37,10 +38,10 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   // parent container toggleable
-  document.querySelectorAll(".cookie-banner ul .dropdown-item")
+  document.querySelectorAll(".cookie-banner ul .cookie-banner-switch-container")
     .forEach(element => {
       element.addEventListener('click', click => {
-        if (click.target.tagName !== "INPUT" && click.target.tagName !== "LABEL") {
+        if (!switchExcludeElement.includes(click.target.tagName)) {
           const checkbox = element.querySelector(switchCheckbox)
           checkbox.click()
         }

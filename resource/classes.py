@@ -148,10 +148,11 @@ class Current():
     cookie_banner_description: dict[BannerDesc, dict[Languages, str]] = {
         COOKIE_SETTING: {
             LANGUAGE_EN: (
-                "TODO: add this"
+                "This setting is used to record your privacy settings on this "
+                "website."
                 ),
             LANGUAGE_ZH: (
-                "TODO: add this"
+                "這個設定用於記錄您在本網站的隱私設定。"
                 )
         },
         COOKIE_LANG: {
@@ -184,23 +185,7 @@ class Current():
                 "同意這項設定以在瀏覽不同網頁時或切換語言後維持設定的顯示模式，\n"
                 "拒絕此設定則會顯示瀏覽器設定的顯示模式。"
                 )
-        },
-        "accept": {
-            LANGUAGE_EN: (
-                "TODO: add this"
-                ),
-            LANGUAGE_ZH: (
-                "TODO: add this"
-                )
-        },
-        "reject": {
-            LANGUAGE_EN: (
-                "TODO: add this"
-                ),
-            LANGUAGE_ZH: (
-                "TODO: add this"
-                )
-        },
+        }
     }
 
     demo_title: dict[Languages, str] = {

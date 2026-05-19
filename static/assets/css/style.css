@@ -319,7 +319,7 @@ so a default value is provided here.
 .float-dropdown {
     background-color: var(--background-base-color);
     position: fixed;
-    z-index: 3000;
+    z-index: 1000;
     border-radius: 10px;
 }
 
@@ -382,12 +382,19 @@ so a default value is provided here.
     background-color: var(--switcher-hover-color);
 }
 
+/* theme switcher */
 .float-dropdown-option.disabled {
     cursor: default;
 }
 
 .float-dropdown-option.disabled > img {
     filter: var(--svg-filter-option-activate);
+}
+
+/* cookie banner */
+.float-dropdown-option-disabled:is(:hover, :active, :focus) {
+    color: var(--highest-contrast-text-color);
+    background-color: var(--lower-contrast-background-color);
 }
 
 .form-check-input {
@@ -449,14 +456,43 @@ so a default value is provided here.
     line-height: 20px;
 }
 
-.cookie-banner-description {
+.cookie-banner-description-img {
     cursor: help;
+}
+
+.disabled-tooltip {
+    line-height: 10px;
+    user-select: none;
 }
 
 .svg-color-by-theme {
     filter: var(--svg-filter-basic);
 }
 
+.custom-tooltip-style {
+    --bs-tooltip-min-width: fit-content;
+    --bs-tooltip-max-width: 80vw;
+    --bs-tooltip-font-size: 12px;
+    --bs-tooltip-color: var(--highest-contrast-text-color);
+    --bs-tooltip-bg: var(--footer-bg-color);
+    --bs-tooltip-border-radius: 1px;
+    --bs-tooltip-opacity: 1;
+
+    white-space: pre-wrap;
+    cursor: default;
+    user-select: none;
+}
+
+.custom-tooltip-style > .tooltip-arrow {
+    visibility: hidden;
+}
+
+/* Bootstrap tooltip CSS variables cannot modify some styles of the child element */
+.custom-tooltip-style > .tooltip-inner {
+    text-align: left;
+    border: 1.5px solid var(--highest-contrast-text-color);
+    margin-left: 5.5px;
+}
 
 /* ============================== footer.html ============================== */
 .decor-rule {
