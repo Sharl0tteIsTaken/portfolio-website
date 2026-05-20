@@ -1,5 +1,6 @@
 const cookieSettingName = "setting"
 const switchCheckbox = ".cookie-banner-switch"
+const switchSetting = ".cookie-banner-setting"
 const switchExcludeElement = ["INPUT", "LABEL", "IMG"]
 
 const toggleAllSwitch = state => {
@@ -13,6 +14,19 @@ const toggleAllSwitch = state => {
   )
 }
 
+const toggleSettingSwitch = state => {
+    const settingCheckbox = document.querySelector(switchSetting)
+      settingCheckbox.checked = state
+  }
+
+const removeAllCookie = () => {
+  toggleAllSwitch(false)
+  toggleSettingSwitch(false)
+  document.cookie.split("; ").forEach(cookie => {
+    document.cookie = cookie.split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+  })
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   const settingValue = JSON.parse(
     document.cookie
@@ -22,6 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
   )
   if (settingValue) {
     // restore user setting in cookie banner
+    toggleSettingSwitch(true)
     settingValue.forEach(setting => {
       const element = document.getElementById(setting.id)
       if (element) {
@@ -44,6 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (!switchExcludeElement.includes(click.target.tagName)) {
           const checkbox = element.querySelector(switchCheckbox)
           checkbox.click()
+          toggleSettingSwitch(true)
         }
       })
     })
@@ -72,6 +88,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // record cookie setting
     element.addEventListener('change', () => {
       updateCookie()
+      toggleSettingSwitch(true)
     })
 
     // extra keyboard support

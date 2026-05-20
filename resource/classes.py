@@ -424,9 +424,11 @@ def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
 
         response = make_response(body)
 
-        exist_setting = request.cookies.get(COOKIE_SETTING)
-        if exist_setting and exist_setting != "null":
-            setting = json.loads(exist_setting)
+        # only set cookie after user interacts with cookie banner,
+        # JavaScript can handle cases where cookies do not exist.
+        setting_exist = request.cookies.get(COOKIE_SETTING)
+        if setting_exist:
+            setting = json.loads(setting_exist)
 
             value = {
                 COOKIE_PATH: request.path,
@@ -440,12 +442,5 @@ def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
                         cookie_id, value[cookie_id],
                         max_age=COOKIE_MAX_SEC, expires=expires
                     )
-        else:
-            # set to ``None`` to trigger cookie banner for new users
-            # this becomes ``"null"``
-            response.set_cookie(
-                COOKIE_SETTING, json.dumps(None),
-                max_age=COOKIE_MAX_SEC, expires=expires
-                )
         return response
     return wrapper

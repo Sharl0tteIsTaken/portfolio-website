@@ -23,7 +23,7 @@
     const cookieSetting = document.cookie
       .split("; ")
       .find((row) => row.startsWith("setting="))
-      ?.split("=")[1]
+      ?.split("=")[1] ?? null
 
     const allowStore = JSON.parse(cookieSetting)?.find(item => item.id === cookieName)?.checked
     if (allowStore) {

@@ -100,6 +100,11 @@
           <ul>
             <li>您同意的設定將透過 Cookie 儲存在您的裝置上。</li>
             <li>您拒絕的設定將在本視窗關閉後立刻刪除。</li>
+            <!-- TODO: line-height too high -->
+            <!-- TODO: add description like:
+            By interacting (only for clicking buttons or switching settings) with this window,
+            a cookie is stored in your device for 14 days to remember your consent preferences.
+            -->
           </ul>
         {% endif %}
         <li class="dropdown-item float-dropdown-option-disabled">
@@ -172,14 +177,25 @@
             {% endif %}
           </button>
         </li>
-        <li class="text-center no-margin cookie-banner-policy">
-          <a href="{{ url_for('policy') }}" class="policy-text" lang="{{ language }}">
-            {% if language == "English": %}
-              Privacy Policy
-            {% elif language == "Traditional-Chinese": %}
-              隱私權政策
-            {% endif %}
-          </a>
+        <li class="text-center no-margin cookie-banner-footer float-dropdown-button-group">
+          <div class="cookie-banner-footer-item">
+            <button class="btn btn-link cookie-remove-link" type="button" onclick="removeAllCookie()" lang="{{ language }}">
+              {% if language == "English": %}
+                Remove all cookie
+              {% elif language == "Traditional-Chinese": %}
+                刪除全部 Cookie
+              {% endif %}
+            </button>
+          </div>
+          <div class="cookie-banner-footer-item">
+            <a href="{{ url_for('policy') }}" class="policy-text" lang="{{ language }}">
+              {% if language == "English": %}
+                Privacy Policy
+              {% elif language == "Traditional-Chinese": %}
+                隱私權政策
+              {% endif %}
+            </a>
+          </div>
         </li>
       </ul>
     </div>

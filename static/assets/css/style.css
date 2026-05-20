@@ -452,8 +452,12 @@ so a default value is provided here.
     font-size: 13px;
 }
 
-.cookie-banner-policy {
+.cookie-banner-footer {
     line-height: 20px;
+}
+
+.cookie-banner-footer-item {
+    flex-basis: 150px;
 }
 
 .cookie-banner-description-img {
@@ -492,6 +496,29 @@ so a default value is provided here.
     text-align: left;
     border: 1.5px solid var(--highest-contrast-text-color);
     margin-left: 5.5px;
+}
+
+.cookie-remove-link, .cookie-remove-link:hover, .cookie-remove-link:focus {
+    color: var(--footer-text-color);
+    font-size: 0.7em;
+    margin: 0rem;
+    line-height: 20px;
+    cursor: pointer;
+    padding: 0px;
+    text-transform: none;
+    letter-spacing: 0px;
+    text-decoration: none;
+    --bs-btn-border-radius: 0px;
+}
+
+.cookie-remove-link:hover {
+    text-decoration: underline;
+}
+
+.cookie-remove-link:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+    outline-offset: 1px;
+    box-shadow: none;
 }
 
 /* ============================== footer.html ============================== */
