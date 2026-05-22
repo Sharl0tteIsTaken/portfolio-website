@@ -139,6 +139,8 @@ def switch_language() -> RouteRetVal:
     Switch website display language between Traditional Chinese and
     English.
     """
+    # FIXME: the first switch after turning on the `language` privacy
+    # setting will redirect to the homepage.
     language = handle_lang_pref(switch=True)
     scheme = get_scheme()
     endpoint = request.cookies.get(COOKIE_PATH, default=HREF_HOME).lstrip("/")

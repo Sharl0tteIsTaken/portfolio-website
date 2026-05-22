@@ -361,6 +361,8 @@ so a default value is provided here.
 
 .dropdown-menu > p {
     margin: 0px;
+    line-height: 30px;
+    letter-spacing: 0.5px;
 }
 
 .float-dropdown-option {
@@ -414,16 +416,18 @@ so a default value is provided here.
 }
 
 .form-check-label {
+    line-height: 28px;
     cursor: pointer;
     user-select: none;
+    letter-spacing: 0.5px;
 }
 
-.float-dropdown-button-group {
+.float-dropdown-item-group {
     display: flex;
     justify-content: space-around;
     width: 100%;
     white-space: nowrap;
-    padding: 0px 8px;
+    gap: 6px;
 }
 
 .float-dropdown-button {
@@ -431,6 +435,8 @@ so a default value is provided here.
     font-weight: bold;
     border: 2px solid transparent;
     color: var(--highest-contrast-text-color);
+    padding: 6px 8px;
+    margin: 4px 0px;
 }
 
 .float-dropdown-button:hover {
@@ -446,6 +452,10 @@ so a default value is provided here.
 
 .cookie-banner > .dropdown-menu > ul > li {
     font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    color: var(--highest-contrast-text-color);
+    padding-right: 8px;
 }
 
 .cookie-banner .form-check-label:lang(English) {
@@ -458,6 +468,11 @@ so a default value is provided here.
 
 .cookie-banner-footer-item {
     flex-basis: 150px;
+}
+
+.cookie-banner-description {
+    line-height: 24px !important;
+    margin: 3px 0px !important;
 }
 
 .cookie-banner-description-img {
@@ -498,6 +513,27 @@ so a default value is provided here.
     margin-left: 5.5px;
 }
 
+.text-with-tooltip {
+    display: inline-block;
+    height: 24px;
+    cursor: help;
+    font-weight: bold;
+}
+
+.text-with-tooltip:lang(Traditional-Chinese) {
+    margin-right: -3px;
+}
+
+.text-with-tooltip > img {
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
+.custom-text-tooltip-style > .tooltip-inner {
+    margin-top: 47px;
+    margin-left: -5px;
+}
+
 .cookie-remove-link, .cookie-remove-link:hover, .cookie-remove-link:focus {
     color: var(--footer-text-color);
     font-size: 0.7em;
@@ -516,9 +552,11 @@ so a default value is provided here.
 }
 
 .cookie-remove-link:focus {
-    outline: -webkit-focus-ring-color auto 1px;
-    outline-offset: 1px;
     box-shadow: none;
+}
+
+.cookie-remove-link:focus-visible {
+    outline-offset: 3px;
 }
 
 /* ============================== footer.html ============================== */
@@ -552,6 +590,10 @@ footer {
     font-size: 0.7em;
     margin: 0rem;
     line-height: 20px;
+}
+
+.policy-text:focus-visible {
+    outline-offset: 3px;
 }
 
 /* ============================== index.html ============================== */

@@ -149,10 +149,14 @@ class Current():
         COOKIE_SETTING: {
             LANGUAGE_EN: (
                 "This setting is used to record your privacy settings on this "
-                "website."
+                "website.\nYou accept this setting by interacting with this "
+                'panel.\nYou reject by clicking "Remove All Cookie" in the '
+                "lower left corner."
                 ),
             LANGUAGE_ZH: (
-                "這個設定用於記錄您在本網站的隱私設定。"
+                "這個設定用於記錄您在本網站的所有其他隱私設定。\n"
+                "操作本控制台將同意這項設定，"
+                '透過本控制台左下角的「刪除全部 Cookie」拒絕。'
                 )
         },
         COOKIE_LANG: {

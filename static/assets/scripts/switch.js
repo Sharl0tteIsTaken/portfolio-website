@@ -1,27 +1,27 @@
 const cookieSettingName = "setting"
 const switchCheckbox = ".cookie-banner-switch"
-const switchSetting = ".cookie-banner-setting"
+const cookiePrefCheckbox = ".cookie-banner-preference"
 const switchExcludeElement = ["INPUT", "LABEL", "IMG"]
 
 const toggleAllSwitch = state => {
   document.querySelectorAll(switchCheckbox)
     .forEach(element => {
-      if (element.checked !== state) {
-        element.checked = state
-        element.dispatchEvent(new Event('change'))
-      }
+      // Intentionally no check as this is an interaction with the panel,
+      // event should be dispatched.
+      element.checked = state
+      element.dispatchEvent(new Event('change'))
     }
   )
 }
 
-const toggleSettingSwitch = state => {
-    const settingCheckbox = document.querySelector(switchSetting)
-      settingCheckbox.checked = state
+const toggleCookiePref = state => {
+  const settingCheckbox = document.querySelector(cookiePrefCheckbox)
+  settingCheckbox.checked = state
   }
 
 const removeAllCookie = () => {
   toggleAllSwitch(false)
-  toggleSettingSwitch(false)
+  toggleCookiePref(false)
   document.cookie.split("; ").forEach(cookie => {
     document.cookie = cookie.split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
   })
@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
   )
   if (settingValue) {
     // restore user setting in cookie banner
-    toggleSettingSwitch(true)
+    toggleCookiePref(true)
     settingValue.forEach(setting => {
       const element = document.getElementById(setting.id)
       if (element) {
@@ -59,7 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (!switchExcludeElement.includes(click.target.tagName)) {
           const checkbox = element.querySelector(switchCheckbox)
           checkbox.click()
-          toggleSettingSwitch(true)
+          toggleCookiePref(true)
         }
       })
     })
@@ -75,20 +75,11 @@ window.addEventListener('DOMContentLoaded', () => {
     document.cookie = cookieSettingName + "=" + JSON.stringify(setting) + expires + "; path=/"
   }
 
-  // record cookie setting (close banner with button)
-  document.querySelector("#close-cookie-banner").addEventListener('click', () => {
-    updateCookie()
-    const menubutton = bootstrap.Dropdown.getOrCreateInstance(
-      document.querySelector(".cookie-banner .float-dropdown-menubutton")
-    )
-    menubutton.hide()
-  })
-
   allSwitches.forEach(element => {
     // record cookie setting
     element.addEventListener('change', () => {
       updateCookie()
-      toggleSettingSwitch(true)
+      toggleCookiePref(true)
     })
 
     // extra keyboard support
@@ -99,6 +90,16 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   })
 
+  // record cookie setting (close banner with button)
+  document.querySelector("#close-cookie-banner").addEventListener('click', () => {
+    updateCookie()
+    toggleCookiePref(true)
+    const menubutton = bootstrap.Dropdown.getOrCreateInstance(
+      document.querySelector(".cookie-banner .float-dropdown-menubutton")
+    )
+    menubutton.hide()
+  })
+
   // remove rejected cookie
   document.querySelector(".cookie-banner").addEventListener("hidden.bs.dropdown", () => {
     const setting = Array.from(allSwitches).map(({ id, checked }) => ({id, checked}))
@@ -107,5 +108,13 @@ window.addEventListener('DOMContentLoaded', () => {
         document.cookie = rule.id + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
       }
     })
+  })
+
+  // keyboard support for remove all cookie
+  const removeLink = document.querySelector(".cookie-remove-link")
+  removeLink.addEventListener('keydown', event => {
+    if (event.key === "Enter") {
+      removeLink.click()
+    }
   })
 })

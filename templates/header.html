@@ -85,31 +85,37 @@
         >
         <img src="../static/assets/svg/record-preference.svg" class="svg-color-by-theme" alt="a quill drawing a fingerprint on a file" height="32">
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu cookie-banner-menu">
         <button type="button" class="btn-close" id="close-cookie-banner" aria-label="Close"></button>
         {% if language == "English": %}
-          <h4>Privacy Settings</h4>
+          <h4>Privacy Settings Panel</h4>
           <p>Configure and manage the cookies used by this website.</p>
+          <p class="cookie-banner-description">
+            By
+            <u class="text-with-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="Only click buttons and accept/reject settings, others are excluded." data-bs-custom-class="custom-tooltip-style custom-text-tooltip-style"
+             >interacting<img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" alt="an information icon." height="16"></u>
+            with this panel, a cookie is stored in your device to remember your cookie setting preferences.
+          </p>
           <ul>
             <li>Accepted settings will be stored via cookie in your device.</li>
-            <li>Rejected settings will removed after this window is closed.</li>
+            <li>Rejected settings will be removed after this panel is closed.</li>
           </ul>
         {% elif language == "Traditional-Chinese": %}
-          <h4>隱私設定</h4>
+          <h4>隱私設定控制台</h4>
           <p>設定及管理此網站使用的 Cookie。</p>
+          <p class="cookie-banner-description">
+            <u class="text-with-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="只有點擊按鈕和同意/拒絕設定，其他行為不算。" data-bs-custom-class="custom-tooltip-style custom-text-tooltip-style"
+             >操作<img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" alt="an information icon." height="16"></u>
+            本控制台將儲存一個 Cookie 在您的裝置上，以記住您的設定。
+          </p>
           <ul>
-            <li>您同意的設定將透過 Cookie 儲存在您的裝置上。</li>
-            <li>您拒絕的設定將在本視窗關閉後立刻刪除。</li>
-            <!-- TODO: line-height too high -->
-            <!-- TODO: add description like:
-            By interacting (only for clicking buttons or switching settings) with this window,
-            a cookie is stored in your device for 14 days to remember your consent preferences.
-            -->
+            <li>同意的設定將透過 Cookie 儲存在您的裝置上。</li>
+            <li>拒絕的設定將在控制台關閉後刪除。</li>
           </ul>
         {% endif %}
         <li class="dropdown-item float-dropdown-option-disabled">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="setting" checked disabled>
+            <input class="form-check-input cookie-banner-preference" type="checkbox" role="switch" id="setting" disabled>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="setting">
               {% if language == "English": %}
                 Cookie preferences
@@ -161,7 +167,7 @@
             </label>
           </div>
         </li>
-        <li class="float-dropdown-button-group">
+        <li class="float-dropdown-item-group">
           <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)">
             {% if language == "English": %}
               Reject all
@@ -177,15 +183,15 @@
             {% endif %}
           </button>
         </li>
-        <li class="text-center no-margin cookie-banner-footer float-dropdown-button-group">
+        <li class="text-center no-margin cookie-banner-footer float-dropdown-item-group">
           <div class="cookie-banner-footer-item">
-            <button class="btn btn-link cookie-remove-link" type="button" onclick="removeAllCookie()" lang="{{ language }}">
+            <span class="cookie-remove-link" role="link" onclick="removeAllCookie()" tabindex="0" lang="{{ language }}">
               {% if language == "English": %}
-                Remove all cookie
+                Remove All Cookie
               {% elif language == "Traditional-Chinese": %}
                 刪除全部 Cookie
               {% endif %}
-            </button>
+            </span>
           </div>
           <div class="cookie-banner-footer-item">
             <a href="{{ url_for('policy') }}" class="policy-text" lang="{{ language }}">
