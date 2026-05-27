@@ -8,83 +8,77 @@
  * https://getbootstrap.com/docs/5.3/customize/color-modes/#javascript
  */
 
-(() => {
-  'use strict'
+import { setCookie, getCookie, cookieNameSetting } from './modules/common.mjs'
 
-  const cookieName = "scheme"
-  const cookieExpire = 14 * 24 * 60 * 60 * 1000
-  const allowTheme = ["light", "dark", "auto"]
+'use strict'
 
-  const storeTheme = theme => {
-    const date = new Date()
-    date.setTime(date.getTime() + (cookieExpire))
-    const expires = "; expires=" + date.toUTCString()
+const cookieName = "scheme"
+const allowTheme = ["light", "dark", "auto"]
 
-    const cookieSetting = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("setting="))
-      ?.split("=")[1] ?? null
+const storeTheme = theme => {
+  const cookieSetting = getCookie(cookieNameSetting)
 
-    const allowStore = JSON.parse(cookieSetting)?.find(item => item.id === cookieName)?.checked
-    if (allowStore) {
-      document.cookie = cookieName + "=" + theme + expires + "; path=/"
-    }
+  const allowStore = JSON.parse(cookieSetting)?.find(item => item.id === cookieName)?.checked
+  if (allowStore) {
+    setCookie(cookieName, theme)
+  }
+}
+
+/**
+ * Note:
+ * The following code is duplicated in `scripts/preload-color-scheme.js` to prevent screen flickering.
+ * Any modifications here must also be reflected in the code there.
+ */
+// duplication start
+const getTheme = () => {
+  const prefer = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  const theme = getCookie(cookieName) ?? prefer
+  return allowTheme.includes(theme) ? theme : prefer
+}
+
+const setTheme = theme => {
+  document.documentElement.setAttribute('data-bs-theme', theme)
+}
+
+setTheme(getTheme())
+// duplication end
+
+const showActiveTheme = (theme, focus = false) => {
+  const themeSwitcher = document.getElementById("theme-switcher")
+
+  if (!themeSwitcher) {
+    return
   }
 
-  const getTheme = () => {
-    const prefer = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    const cookieValue = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(cookieName + "="))
-    ?.split("=")[1]
+  document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+    const isSelected = element.getAttribute("data-bs-theme-value") === theme
+    element.classList.toggle('active', isSelected)
+    element.classList.toggle('disabled', isSelected)
+    element.setAttribute('aria-pressed', isSelected)
+  })
 
-    const theme = cookieValue ?? prefer
-    return allowTheme.includes(theme) ? theme : prefer
+  const themeSelected = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+  themeSwitcher.setAttribute('aria-label', themeSelected.textContent.trim())
+
+  if (focus) {
+    themeSwitcher.focus()
   }
+}
 
-  const setTheme = theme => {
-    document.documentElement.setAttribute('data-bs-theme', theme)
-  }
-
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
   setTheme(getTheme())
+})
 
-  const showActiveTheme = (theme, focus = false) => {
-    const themeSwitcher = document.getElementById("theme-switcher")
+window.addEventListener('DOMContentLoaded', () => {
+  showActiveTheme(getTheme())
 
-    if (!themeSwitcher) {
-      return
-    }
-
-    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-      const isSelected = element.getAttribute("data-bs-theme-value") === theme
-      element.classList.toggle('active', isSelected)
-      element.classList.toggle('disabled', isSelected)
-      element.setAttribute('aria-pressed', isSelected)
-    })
-  
-    const themeSelected = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-    themeSwitcher.setAttribute('aria-label', themeSelected.textContent.trim())
-
-    if (focus) {
-      themeSwitcher.focus()
-    }
-  }
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    setTheme(getTheme())
-  })
-
-  window.addEventListener('DOMContentLoaded', () => {
-    showActiveTheme(getTheme())
-
-    document.querySelectorAll('[data-bs-theme-value]')
-      .forEach(toggle => {
-        toggle.addEventListener('click', () => {
-          const theme = toggle.getAttribute('data-bs-theme-value')
-          storeTheme(theme)
-          setTheme(theme)
-          showActiveTheme(theme, true)
-        })
+  document.querySelectorAll('[data-bs-theme-value]')
+    .forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const theme = toggle.getAttribute('data-bs-theme-value')
+        storeTheme(theme)
+        setTheme(theme)
+        showActiveTheme(theme, true)
       })
-  })
-})()
+    })
+})

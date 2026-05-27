@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="Not-Applicable" data-bs-theme={{ scheme }}>
+<html lang="{{ language }}" data-bs-theme={{ scheme }}>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Delius&family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Noto+Sans+TC:wght@100..900&family=Pacifico&family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
+    <script src="../static/assets/scripts/preload-color-scheme.js" type="module"></script>
     <script src="../static/assets/scripts/avatar.js"></script>
-    <script src="../static/assets/scripts/color-scheme.js"></script>
   </head>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ language }}">
     <div class="container-fluid">
@@ -130,7 +130,7 @@
         </li>
         <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="language">
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="language" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="language">
               {% if language == "English": %}
                 Preferred display language
@@ -143,7 +143,7 @@
         </li>
         <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="endpoint">
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="endpoint" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="endpoint">
               {% if language == "English": %}
                 Last webpage visited
@@ -156,7 +156,7 @@
         </li>
         <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="scheme">
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="scheme" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="scheme">
               {% if language == "English": %}
                 Preferred color scheme
@@ -168,14 +168,14 @@
           </div>
         </li>
         <li class="float-dropdown-item-group">
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(false)">
+          <button class="btn float-dropdown-button" type="button" data-action="toggle-all" data-state="false">
             {% if language == "English": %}
               Reject all
             {% elif language == "Traditional-Chinese": %}
               全部拒絕
             {% endif %}
           </button>
-          <button class="btn float-dropdown-button" type="button" onclick="toggleAllSwitch(true)">
+          <button class="btn float-dropdown-button" type="button" data-action="toggle-all" data-state="true">
             {% if language == "English": %}
               Accept all
             {% elif language == "Traditional-Chinese": %}
@@ -185,7 +185,7 @@
         </li>
         <li class="text-center no-margin cookie-banner-footer float-dropdown-item-group">
           <div class="cookie-banner-footer-item">
-            <span class="cookie-remove-link" role="link" onclick="removeAllCookie()" tabindex="0" lang="{{ language }}">
+            <span class="cookie-remove-link" role="link" data-action="remove-all" tabindex="0" lang="{{ language }}">
               {% if language == "English": %}
                 Remove All Cookie
               {% elif language == "Traditional-Chinese": %}
