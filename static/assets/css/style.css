@@ -219,7 +219,7 @@ strong {
 }
 
 .dropdown-menu {
-    min-width: 280px;
+    min-width: fit-content;
     border: 2px solid color-mix(in srgb, var(--highest-contrast-text-color) 50%, rgb(127, 127, 127) 50%);
     outline: 2px solid color-mix(in srgb, var(--background-base-color) 50%, rgb(127, 127, 127) 50%);
     background-color: var(--lower-contrast-background-color);
@@ -326,6 +326,10 @@ so a default value is provided here.
 .cookie-banner {
     left: 20px;
     bottom: 40px;
+}
+
+.cookie-banner-menu {
+    min-width: 280px;
 }
 
 #close-cookie-banner {
