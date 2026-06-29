@@ -5,7 +5,8 @@ import os
 import smtplib
 from resource.classes import (
     COOKIE_PATH, HREF_HOME, AboutImage, AboutText, AllowedTitles, Base,
-    ContactText, Current, Project, RouteRetVal, handle_lang_pref, set_cookies
+    ContactText, Current, Project, RouteRetVal, handle_lang_pref, get_scheme,
+    set_cookies
     )
 
 from flask import Flask, redirect, render_template, request, url_for
@@ -43,14 +44,16 @@ def home() -> RouteRetVal:
     """The home page of website."""
     project_data = db.session.execute(db.select(Project)).scalars().all()
     language = handle_lang_pref()
+    scheme = get_scheme()
     body = render_template(
         "index.html",
         current=current,
         language=language,
+        scheme=scheme,
         project_data=project_data,
         page="home"
         )
-    return body, language
+    return body, language, scheme
 
 
 @app.route("/about/<title>")
@@ -75,17 +78,19 @@ def about(title: AllowedTitles) -> RouteRetVal:
         ).scalar()
 
     language = handle_lang_pref()
+    scheme = get_scheme()
     body = render_template(
         "about.html",
         current=current,
         language=language,
+        scheme=scheme,
         title=title,
         static_data=static_data,
         background=background,
         effect=effect,
         page="about"
         )
-    return body, language
+    return body, language, scheme
 
 
 @app.route("/contact", methods=["GET", "POST"])
@@ -94,6 +99,7 @@ def contact() -> RouteRetVal:
     """The contact page of website."""
     static_data = db.session.execute(db.select(ContactText)).scalar()
     language = handle_lang_pref()
+    scheme = get_scheme()
     msg_sent = False
     if request.method == "POST":
         data = request.form
@@ -104,22 +110,26 @@ def contact() -> RouteRetVal:
         current=current,
         language=language,
         static_data=static_data,
+        scheme=scheme,
         msg_sent=msg_sent,
         page="contact"
         )
-    return body, language
+    return body, language, scheme
 
 
 @app.route("/policy")
 @set_cookies
 def policy() -> RouteRetVal:
+    # TODO: add docstring
     language = handle_lang_pref()
+    scheme = get_scheme()
     body = render_template(
         "policy.html",
         current=current,
         language=language,
+        scheme=scheme,
     )
-    return body, language
+    return body, language, scheme
 
 
 @app.route("/switch-language")
@@ -130,6 +140,7 @@ def switch_language() -> RouteRetVal:
     English.
     """
     language = handle_lang_pref(switch=True)
+    scheme = get_scheme()
     endpoint = request.cookies.get(COOKIE_PATH, default=HREF_HOME).lstrip("/")
     endpoint = "home" if endpoint == "" else endpoint
     if endpoint.startswith("about"):
@@ -137,7 +148,7 @@ def switch_language() -> RouteRetVal:
         body = redirect(url_for(endpoint, title=title))
     else:
         body = redirect(url_for(endpoint))
-    return body, language
+    return body, language, scheme
 
 
 @app.route("/gate/tic-tac-toe")

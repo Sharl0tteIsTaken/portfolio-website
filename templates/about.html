@@ -13,6 +13,9 @@
     </div>
   </div>
 </header>
+
+<ul class="horizontal-stroke"></ul>
+
 <!-- photo credit -->
 <div class="photo-credit" lang="English">
   {{ background.attribute | safe }}
@@ -36,11 +39,12 @@
       </div>
     </div>
   </div>
+
+  {% if title == "website": %}
+    {% include "github-languages.html" %}
+  {% endif %}
   <script src="../static/assets/scripts/magic.js" defer></script>
 </main>
 
-{% if title == "website": %}
-  {% include "github-languages.html" %}
-{% endif %}
-
+<ul class="horizontal-stroke"></ul>
 {% include "footer.html" %}

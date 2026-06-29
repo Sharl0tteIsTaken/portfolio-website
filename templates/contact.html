@@ -15,16 +15,15 @@
     </div>
   </div>
 </header>
+
+<ul class="horizontal-stroke"></ul>
+
 <!-- photo credit -->
 <div class="photo-credit" lang="English">
   Photo by 
-  <a href="https://unsplash.com/@lobostudiohamburg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-    LoboStudio Hamburg
-  </a>
+  <a href="https://unsplash.com/@lobostudiohamburg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">LoboStudio Hamburg</a>
   on
-  <a href="https://unsplash.com/photos/red-telephone-booth-beside-road-bepwY8khinw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-  Unsplash
-  </a>
+  <a href="https://unsplash.com/photos/red-telephone-booth-beside-road-bepwY8khinw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 </div>
 
 <!-- Main Content-->
@@ -51,9 +50,10 @@
                 name="name"
                 type="text"
                 placeholder=""
+                autocomplete="off"
                 required
               />
-              <label for="name">{{ static_data.form_name.get(language) }}</label>
+              <label for="name" class="form-label">{{ static_data.form_name.get(language) }}</label>
             </div>
             <div class="form-floating">
               <input
@@ -62,9 +62,10 @@
                 name="email"
                 type="email"
                 placeholder=""
+                autocomplete="off"
                 required
               />
-              <label for="email">{{ static_data.form_mail.get(language) }}</label>
+              <label for="email" class="form-label">{{ static_data.form_mail.get(language) }}</label>
             </div>
             <div class="form-floating">
               <textarea
@@ -72,14 +73,15 @@
                 id="message"
                 name="message"
                 placeholder=""
+                autocomplete="off"
                 required
                 style="height: 12rem"
               ></textarea>
-              <label for="message">{{ static_data.form_msg.get(language) }}</label>
+              <label for="message" class="form-label">{{ static_data.form_msg.get(language) }}</label>
             </div>
             <br />
             <button
-              class="btn btn-primary text-uppercase"
+              class="btn btn-primary text-uppercase from-confirm"
               id="submitButton"
               type="submit"
             >
@@ -92,4 +94,5 @@
   </div>
 </main>
 
+<ul class="horizontal-stroke"></ul>
 {% include "footer.html" %}

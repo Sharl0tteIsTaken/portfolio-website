@@ -18,12 +18,17 @@ from werkzeug.datastructures.accept import LanguageAccept
 from werkzeug.wrappers.response import Response as RedirectResponse
 
 # ---------------------------------------------------------------------
+ColorScheme: TypeAlias = Literal["light", "dark", "auto", "TBD"]
 Languages: TypeAlias = Literal["English", "Traditional-Chinese"]
+# FIXME: change to use BCP 47 language tag, en-US and zh-TW. The current
+# approch isn't working any more.
 Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
+CookieKeys: TypeAlias = Literal["setting", "language", "endpoint", "scheme"]
+BannerDesc: TypeAlias = Literal[CookieKeys, "accept", "reject"]
 
 AllowedTitles: TypeAlias = Literal["website", "author", "tools"]
-RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages]
+RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages, ColorScheme]
 
 PATH = Path("static/assets/json/github-languages.json")
 ENCODING = "UTF-8"
@@ -37,8 +42,11 @@ HEADERS = {
     "Content-Type": "application/json",
     "X-GitHub-Api-Version": "2022-11-28",
 }
-COOKIE_LANG = "language"
-COOKIE_PATH = "endpoint"
+COOKIE_SETTING: CookieKeys = "setting"
+COOKIE_LANG: CookieKeys = "language"
+COOKIE_PATH: CookieKeys = "endpoint"
+COOKIE_SCHEME: CookieKeys = "scheme"
+COOKIE_NAMES: list[CookieKeys] = [COOKIE_LANG, COOKIE_PATH, COOKIE_SCHEME]
 COOKIE_MAX_DAY = 14
 COOKIE_MAX_SEC = COOKIE_MAX_DAY * 24 * 60 * 60
 LANGUAGE_ZH: Languages = "Traditional-Chinese"
@@ -137,6 +145,53 @@ class Current():
     navbar_switch: dict[Languages, str] = {
         LANGUAGE_EN: "Switch display language to Traditional Chinese",
         LANGUAGE_ZH: "變更顯示語言為英文\nSwitch display language to English",
+    }
+
+    cookie_banner_description: dict[BannerDesc, dict[Languages, str]] = {
+        COOKIE_SETTING: {
+            LANGUAGE_EN: (
+                "This setting is used to record your privacy settings on this "
+                "website.\nYou accept this setting by interacting with the "
+                'Privacy Settings Panel.\nYou reject by clicking "Remove All '
+                'Cookie" in the lower left corner of the panel.'
+                ),
+            LANGUAGE_ZH: (
+                "這個設定用於記錄您在本網站的所有其他隱私設定。\n"
+                "操作隱私設定控制台將同意這項設定，"
+                '透過控制台左下角的「刪除全部 Cookie」拒絕。'
+                )
+        },
+        COOKIE_LANG: {
+            LANGUAGE_EN: (
+                "This setting allows you to switch languages."
+                "\nWithout it, you will not be able to switch languages."
+                ),
+            LANGUAGE_ZH: (
+                "同意這項設定以切換語言，拒絕此設定則無法切換語言。"
+                )
+        },
+        COOKIE_PATH: {
+            LANGUAGE_EN: (
+                "This setting allows you to return to the webpage previously "
+                "browsing after switching languages.\nWithout it, you will be "
+                "redirected to the website homepage after switching languages."
+                ),
+            LANGUAGE_ZH: (
+                "同意這項設定以在切換語言後返回之前瀏覽的網頁，\n"
+                "拒絕此設定則會在切換語言後回到網站首頁。"
+                )
+        },
+        COOKIE_SCHEME: {
+            LANGUAGE_EN: (
+                "This setting allows you to maintain the selected theme after "
+                "navigating to different webpages or switching languages."
+                "\nWithout it, the theme set by the browser will be used."
+                ),
+            LANGUAGE_ZH: (
+                "同意這項設定以在瀏覽不同網頁時或切換語言後維持設定的顯示模式，\n"
+                "拒絕此設定則會顯示瀏覽器設定的顯示模式。"
+                )
+        }
     }
 
     demo_title: dict[Languages, str] = {
@@ -238,7 +293,7 @@ class Current():
 
 
 @lru_cache
-def is_allowed(language: Languages) -> bool:
+def is_lang_allowed(language: Languages) -> bool:
     """
     Check if the language is allowed (in the Languages type).
 
@@ -305,7 +360,7 @@ def handle_lang_pref(*, switch: bool = False) -> Languages:
     preferred and will be selected.
     """
     language = cast(Languages, request.cookies.get(COOKIE_LANG))
-    if is_allowed(language):
+    if is_lang_allowed(language):
         pref = language
     else:
         if prefers_chinese(request.accept_languages):
@@ -315,6 +370,41 @@ def handle_lang_pref(*, switch: bool = False) -> Languages:
     if switch:
         pref = LANGUAGE_ZH if pref == LANGUAGE_EN else LANGUAGE_EN
     return pref
+
+
+@lru_cache
+def is_scheme_allowed(scheme: ColorScheme) -> bool:
+    """
+    Check if the color scheme is allowed (in the ColorScheme type).
+
+    Parameters
+    ----------
+    scheme: ColorScheme
+        The name of the scheme to check.
+
+    Returns
+    -------
+    bool
+        If the scheme is allowed.
+    """
+    return scheme in get_args(ColorScheme)
+
+
+def get_scheme() -> ColorScheme:
+    """
+    A helper function for Flask route function that determines the
+    color scheme set by the user, defaults to `TBD` (to be determined).
+    This allows JavaScript to resolve the scheme using the
+    `prefers-color-scheme` CSS media feature.
+
+    Returns
+    -------
+    ColorScheme
+        The validated color scheme or `TBD`.
+    """
+    scheme = cast(ColorScheme, request.cookies.get(COOKIE_SCHEME))
+    scheme = scheme if is_scheme_allowed(scheme) else "TBD"
+    return scheme
 
 
 def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
@@ -335,15 +425,28 @@ def set_cookies(func: Callable[..., RouteRetVal]) -> Callable[..., Response]:
     """
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Response:
-        body, language = func(*args, **kwargs)
+        body, language, scheme = func(*args, **kwargs)
         expires = datetime.now(timezone.utc) + timedelta(days=COOKIE_MAX_DAY)
 
         response = make_response(body)
-        response.set_cookie(
-            COOKIE_PATH, request.path, max_age=COOKIE_MAX_SEC, expires=expires
-            )
-        response.set_cookie(
-            COOKIE_LANG, language, max_age=COOKIE_MAX_SEC, expires=expires
-            )
+
+        # only set cookie after user interacts with cookie banner,
+        # JavaScript can handle cases where cookies do not exist.
+        setting_exist = request.cookies.get(COOKIE_SETTING)
+        if setting_exist:
+            setting = json.loads(setting_exist)
+
+            value = {
+                COOKIE_PATH: request.path,
+                COOKIE_LANG: language,
+                COOKIE_SCHEME: scheme
+            }
+            for rule in setting:
+                cookie_id = cast(CookieKeys, rule.get("id"))
+                if rule.get("checked") and cookie_id in COOKIE_NAMES:
+                    response.set_cookie(
+                        cookie_id, value[cookie_id],
+                        max_age=COOKIE_MAX_SEC, expires=expires
+                    )
         return response
     return wrapper

@@ -20,11 +20,12 @@
         <blockquote class="tool-description">
           {{ tool.get('description').get(language) | safe }}
         </blockquote>
-        <dd class="tool-use-case">
-          {% if tool.get('use-case'): %}
+        <!-- TODO: add new svg and used sites -->
+        {% if tool.get('use-case'): %}
+          <dd class="tool-use-case">
             {{ tool.get('use-case').get(language) | safe }}
-          {% endif %}
-        </dd>
+          </dd>
+        {% endif %}
       </dt>
     {% endfor %}
   </dl>
