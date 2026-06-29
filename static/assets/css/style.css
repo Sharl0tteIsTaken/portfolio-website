@@ -23,6 +23,8 @@ html[data-bs-theme=light], html[data-bs-theme=auto] {
 
     --form-text-color: var(--foreground-base-color);
 
+    --table-bg-color-even: #edeef2;
+
     /* #000000 */
     --svg-filter-basic: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(324deg) brightness(96%) contrast(104%);
     /* #FFCC00 */
@@ -65,6 +67,8 @@ html[data-bs-theme=dark] {
 
     --form-text-color: var(--foreground-damp-color);
 
+    --table-bg-color-even: #32363b;
+
     /* #ffffff */
     --svg-filter-basic: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(205deg) brightness(107%) contrast(102%);
     /* #ffff00 */
@@ -83,6 +87,10 @@ html[data-bs-theme=dark] {
         height: auto !important;
         padding: 0px !important;
         border-bottom: 0px !important;
+    }
+    
+    .horizontal-stroke {
+        border-top: 2px solid #656775;
     }
 
     .magic > .magic-star > img {
@@ -142,6 +150,10 @@ h1 {
     font-size: 2.5rem !important;
     align-items: center;
     justify-content: center;
+}
+
+h4 {
+    font-size: 1.45rem;
 }
 
 a {
@@ -479,7 +491,7 @@ so a default value is provided here.
     margin: 3px 0px !important;
 }
 
-.cookie-banner-description-img {
+.tooltip-img {
     cursor: help;
 }
 
@@ -564,6 +576,10 @@ so a default value is provided here.
 }
 
 /* ============================== footer.html ============================== */
+.horizontal-stroke {
+    margin: 0px;
+}
+
 .decor-rule {
     font-family: "Iosevka Charon Mono", monospace;
     font-size: 16px;
@@ -650,7 +666,7 @@ footer {
     padding-top: 6rem;
     background: linear-gradient(
         to top,
-        white, transparent
+        var(--footer-bg-color), transparent
     );
 }
 
@@ -668,7 +684,7 @@ footer {
     margin: -12px;
 }
 
-.last-edit-date {
+.last-edit-date-index {
     padding-right: 0.25rem;
 }
 
@@ -1117,12 +1133,16 @@ blockquote p::after {
     content: "\201D";
 }
 
-.cite {
+.text-align-right {
     text-align: right;
 }
 
-.cite::before {
+cite::before {
     content: "\2014";
+}
+
+cite {
+    font-style: normal;
 }
 
 .no-margin {
@@ -1132,4 +1152,66 @@ blockquote p::after {
 u {
     text-decoration-line: underline;
     text-underline-position: under;
+}
+
+.table-responsive {
+    margin: 8px 0px 18px 0px;
+}
+
+.table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-size: 0.8rem;
+    font-weight: var(--normal-font-weight);
+    letter-spacing: 0.5px;
+    margin-bottom: 0px;
+}
+
+caption {
+    caption-side: bottom;
+    padding: 4px 10px 0px 10px;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+tr:nth-of-type(even) {
+  --bs-table-bg: var(--table-bg-color-even);
+}
+
+th, td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+    font-size: 16px;
+    white-space: pre-wrap;
+    line-height: 28px;
+}
+
+:is(td):lang(Traditional-Chinese) {
+    white-space: normal;
+    line-height: 24px;
+}
+
+
+.policy-glossary {
+    line-height: 28px;
+}
+
+.policy-glossary dd {
+    margin-left: revert;
+    margin-bottom: 8px;
+
+}
+
+dt, dd {
+    font-size: 16px;
+    font-weight: var(--normal-font-weight);
+}
+
+.policy-info-icon {
+    margin-bottom: 2px;
+}
+
+.last-edit-date-policy {
+    font-size: 14px;
+    line-height: normal;
 }

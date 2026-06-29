@@ -93,8 +93,8 @@
           <p class="cookie-banner-description">
             By
             <u class="text-with-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="Only click buttons and accept/reject settings, others are excluded." data-bs-custom-class="custom-tooltip-style custom-text-tooltip-style"
-             >interacting<img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" alt="an information icon." height="16"></u>
-            with this panel, a cookie is stored in your device to remember your cookie setting preferences.
+             >interacting<img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" alt="an information icon." height="16"></u>
+            with this panel, a cookie is stored on your device to remember your cookie setting preferences.
           </p>
           <ul>
             <li>Accepted settings will be stored via cookie in your device.</li>
@@ -105,7 +105,7 @@
           <p>設定及管理此網站使用的 Cookie。</p>
           <p class="cookie-banner-description">
             <u class="text-with-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="只有點擊按鈕和同意/拒絕設定，其他行為不算。" data-bs-custom-class="custom-tooltip-style custom-text-tooltip-style"
-             >操作<img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" alt="an information icon." height="16"></u>
+             >操作<img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" alt="an information icon." height="16"></u>
             本控制台將儲存一個 Cookie 在您的裝置上，以記住您的設定。
           </p>
           <ul>
@@ -123,7 +123,7 @@
                 Cookie 偏好設定
               {% endif %}
               <span class="disabled-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('setting').get(language) }}" data-bs-custom-class="custom-tooltip-style">
-                <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" alt="an information icon." height="16">
+                <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" alt="an information icon." height="16">
               </span>
             </label>
           </div>
@@ -137,7 +137,7 @@
               {% elif language == "Traditional-Chinese": %}
                 偏好顯示語言
               {% endif %}
-              <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('language').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('language').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
@@ -150,7 +150,7 @@
               {% elif language == "Traditional-Chinese": %}
                 瀏覽的最後一個網頁
               {% endif %}
-              <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('endpoint').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('endpoint').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
@@ -163,7 +163,7 @@
               {% elif language == "Traditional-Chinese": %}
                 偏好顯示模式
               {% endif %}
-              <img src="../static/assets/svg/info.svg" class="cookie-banner-description-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('scheme').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('scheme').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>

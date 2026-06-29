@@ -20,6 +20,8 @@ from werkzeug.wrappers.response import Response as RedirectResponse
 # ---------------------------------------------------------------------
 ColorScheme: TypeAlias = Literal["light", "dark", "auto", "TBD"]
 Languages: TypeAlias = Literal["English", "Traditional-Chinese"]
+# FIXME: change to use BCP 47 language tag, en-US and zh-TW. The current
+# approch isn't working any more.
 Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
 CookieKeys: TypeAlias = Literal["setting", "language", "endpoint", "scheme"]
@@ -155,8 +157,8 @@ class Current():
                 ),
             LANGUAGE_ZH: (
                 "這個設定用於記錄您在本網站的所有其他隱私設定。\n"
-                "操作本控制台將同意這項設定，"
-                '透過本控制台左下角的「刪除全部 Cookie」拒絕。'
+                "操作隱私設定控制台將同意這項設定，"
+                '透過控制台左下角的「刪除全部 Cookie」拒絕。'
                 )
         },
         COOKIE_LANG: {

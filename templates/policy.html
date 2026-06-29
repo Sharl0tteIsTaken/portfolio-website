@@ -8,15 +8,18 @@
     <div class="row">
       <div>
         {% if language == "English": %}
-          <h1 class="page-heading heading-weight-{{ language }}">Cookies and Privacy Policy</h1>
+          <h1 class="page-heading heading-weight-{{ language }}">Privacy Policy and Cookies used</h1>
           <span class="subheading"></span>
         {% elif language == "Traditional-Chinese": %}
-          <h1 class="page-heading heading-weight-{{ language }}">隱私權政策與 Cookie</h1>
+          <h1 class="page-heading heading-weight-{{ language }}">隱私權政策與使用的 Cookie</h1>
         {% endif %}
       </div>
     </div>
   </div>
 </header>
+
+<ul class="horizontal-stroke"></ul>
+
 <!-- photo credit -->
 <div class="photo-credit" lang="English">
   Photo by 
@@ -33,7 +36,57 @@
   <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
+
+        <div class="last-edit-date-policy">
+          <p class="text-align-right no-margin">
+            <!-- TODO: remember: update the date as well -->
+            {% if language == "English": %}
+              Last updated on 2026/06/29 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">full update history</a>)
+            {% elif language == "Traditional-Chinese": %}
+              最後更新於 2026/06/29 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">完整更新記錄</a>)
+            {% endif %}
+          </p>
+        </div>
+
+        <h3>
+          {% if language == "English": %}
+            Privacy policy
+          {% elif language == "Traditional-Chinese": %}
+            隱私權政策
+          {% endif %}
+        </h3>
+        <p>
+          {% if language == "English": %}
+            <p>
+              This website and its services do not collect any of your personal information; settings you agree to are used only during your session, and all information stored based on your consent is saved on your device via cookies.
+            </p>
+            <p>
+              The cookies used on this website are not used to identify or track user identities, nor for advertising purposes, data analysis, or similar activities.
+            </p>
+            <p>
+              This website is hosted on <a href="https://render.com">Render</a>, and Render will collect your personal information (including your name, the device accessing the service, IP address, web page interactions, geolocation data, and more). For detailed information and the scope of collection, please visit the <a href="https://render.com/privacy">Render privacy policy</a>.
+            </p>
+          {% elif language == "Traditional-Chinese": %}
+            <p>
+              本網站及本網站的服務並不會收集任何您的個人資訊，您同意使用的設定僅會在您的使用期間使用，您同意設定而儲存的所有資訊都是透過 Cookie 儲存在您的裝置上。
+            </p>
+            <p>
+              本網站使用的 Cookie 不用於辨別或追蹤使用者身分、廣告用途、數據分析等行為。
+            </p>
+            <p>
+              本網站架設於 <a href="https://render.com" lang="English">Render</a>，您的個人資訊包含名稱、存取服務的設備、IP 位址、數位足跡、地理位置等均會被 Render 收集，詳細資訊與收集範圍請前往 <a href="https://render.com/privacy" lang="English">Render privacy policy</a> 查看。
+            </p>
+          {% endif %}
+        </p>
         
+        <div class="spacer-between"></div>
+        <h3>
+          {% if language == "English": %}
+            Cookies used
+          {% elif language == "Traditional-Chinese": %}
+            使用的 Cookie
+          {% endif %}
+        </h3>
         <div class="quote">
           <blockquote cite="https://policies.google.com/technologies/cookies" class="no-margin">
             <p class="no-margin">
@@ -45,7 +98,7 @@
               {% endif %}
             </p>
           </blockquote>
-          <p class="cite no-margin">
+          <p class="text-align-right no-margin">
             <cite>
               <a href="https://policies.google.com/technologies/cookies">
                 {% if language == "English": %}
@@ -57,49 +110,228 @@
             </cite>
           </p>
         </div>
-        {% if language == "English": %}
-          <div lang="English">
-            <p>
-              <!-- TODO: follow gdpr, use bullet point & table, add categories, necessity, purpose, duration -->
-              <!-- By visiting this website, a cookie is stored in your device for 14 days to remember your consent preferences.
-              By accepting the following settings, a corresponding cookie will also be set on your device.
-              By rejecting any following settings, the corresponding cookie is removed on your device. -->
-              <!-- TODO: can't change language without language cookie -->
-              <!-- TODO: won't go back to the page previously on without endpoint cookie -->
-              This website uses three cookies: 
-              one to record your <u>preferred display language</u>,
-              another to record the <u>last webpage visited</u> on this website,
-              and a third to record your <u>preferred color scheme</u>.
-              The purpose of recording the first two pieces of information is to allow you and multiple users to 
-              switch display languages simultaneously and return to the webpage previously browsing after switching languages.
-            </p>
-            <p>
-              The cookies on this website <strong>are not used to</strong> identify or track users, for advertising purposes, for data analysis or evaluation, and are only stored in your browser for 14 days.
-            </p>
-            <p>
-              This website and its services do not collect any information.
-              However, because this website is hosted on Render, your personal information,
-              including your name, the device accessing the service, IP address, web page interactions,
-              and geolocation data, will be collected by Render. 
-              For detailed information and the scope of collection, please visit the <a href="https://render.com/privacy">Render privacy policy</a>.
-            </p>
-          </div>
-        {% elif language == "Traditional-Chinese": %}
-          <div lang="Traditional-Chinese">
-            <p>
-              本網站共使用三個 cookie，分別為了記錄您的<u>偏好顯示模式</u>、<u>偏好顯示語言</u>以及您於此網站瀏覽的<u>最後一個網頁</u>，記錄前兩項資訊的目的是為了讓您與多位使用者能同時切換顯示語言，並在切換語言之後各自返回到之前瀏覽的網頁。
-            </p>
-            <p>
-              本網站的 cookie <strong>不用於</strong>辨別或追蹤使用者身分、廣告用途、數據分析或評估，並且只在您的瀏覽器儲存 14 天。
-            </p>
-            <p>
-              本網站及本網站的服務並不會收集任何資訊。由於本網站架設於 Render，所以您的個人資訊包含名稱、存取服務的設備、IP 位址、數位足跡、地理位置等均會被 Render 收集，詳細的資訊與收集範圍請前往 <a href="https://render.com/privacy" lang="English">Render privacy policy</a> 查看。
-            </p>
-          </div>
-        {% endif %}
+        <div class="table-responsive">
+          <table class="table">
+            {% if language == "English": %}
+              <caption>
+                Classification of cookies used by this website
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Necessity</th>
+                  <th scope="col">Persistence</th>
+                  <th scope="col">Provenance</th>
+                  <th scope="col">Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">setting</th>
+                  <td>Strictly necessary</td>
+                  <td>Persistent</td>
+                  <td>First-party</td>
+                  <td>14 days</td>
+                </tr>
+                <tr>
+                  <th scope="row">language</th>
+                  <td>Functionality</td>
+                  <td>Persistent</td>
+                  <td>First-party</td>
+                  <td>14 days</td>
+                </tr>
+                <tr>
+                  <th scope="row">endpoint</th>
+                  <td>Functionality</td>
+                  <td>Persistent</td>
+                  <td>First-party</td>
+                  <td>14 days</td>
+                </tr>
+                <tr>
+                  <th scope="row">scheme</th>
+                  <td>Functionality</td>
+                  <td>Persistent</td>
+                  <td>First-party</td>
+                  <td>14 days</td>
+                </tr>
+              </tbody>
+            {% elif language == "Traditional-Chinese": %}
+              <caption>
+                此網站使用的 Cookie 的分類
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">名稱</th>
+                  <th scope="col">必要程度</th>
+                  <th scope="col">持續類型</th>
+                  <th scope="col">來源</th>
+                  <th scope="col">儲存時長</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">setting</th>
+                  <td>必要的</td>
+                  <td>持續的</td>
+                  <td>第一方</td>
+                  <td>14天</td>
+                </tr>
+                <tr>
+                  <th scope="row">language</th>
+                  <td>功能性</td>
+                  <td>持續的</td>
+                  <td>第一方</td>
+                  <td>14天</td>
+                </tr>
+                <tr>
+                  <th scope="row">endpoint</th>
+                  <td>功能性</td>
+                  <td>持續的</td>
+                  <td>第一方</td>
+                  <td>14天</td>
+                </tr>
+                <tr>
+                  <th scope="row">scheme</th>
+                  <td>功能性</td>
+                  <td>持續的</td>
+                  <td>第一方</td>
+                  <td>14天</td>
+                </tr>
+              </tbody>
+            {% endif %}
+          </table>
+        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <caption>
+              {% if language == "English": %}
+                Purpose of cookies used by this website
+              {% elif language == "Traditional-Chinese": %}
+                此網站使用的 Cookie 的目的
+              {% endif %}
+            </caption>
+            <thead>
+              <tr>
+                {% if language == "English": %}
+                  <th scope="col">Name</th>
+                  <th scope="col">Purpose</th>
+                {% elif language == "Traditional-Chinese": %}
+                  <th scope="col">名稱</th>
+                  <th scope="col">目的</th>
+                {% endif %}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">setting</th>
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner_description.get('setting').get(language)}}</td>
+              </tr>
+              <tr>
+                <th scope="row">language</th>
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner_description.get('language').get(language)}}</td>
+              </tr>
+              <tr>
+                <th scope="row">endpoint</th>
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner_description.get('endpoint').get(language)}}</td>
+              </tr>
+              <tr>
+                <th scope="row">scheme</th>
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner_description.get('scheme').get(language)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="policy-glossary">
+          {% if language == "English": %}
+            <h4>Glossary and Source</h4>
+            <dl>
+              <dt>
+                Necessity: strictly necessary 
+                <dd>
+                  This type of cookie is essential for you to browse the website and use its features,
+                  this website uses it to record your cookie setting preferences.
+                  You can read more about this at 
+                  <a href="https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions#necessary">
+                     What are the exceptions — Information Commissioner's Office</a>.
+                </dd>
+              </dt>
+              <dt>
+                Necessity: functionality
+                <dd>
+                  This type of cookie is used to support some functionality, without it some functions will not be available.
+                  See what will be unavailable by mouseover/focus the
+                  <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme policy-info-icon" alt="an information icon." height="16">
+                  icon on the Privacy Settings Panel in the lower left corner of the screen.
+                </dd>
+              </dt>
+              <dt>
+                Persistence: persistent
+                <dd>This type of cookie is stored on your device for a duration, closing the browser will not delete it.</dd>
+              </dt>
+              <dt>
+                Provenance: first-party
+                <dd>This type of cookie is stored on your device by the website you are visiting, namely this website.</dd>
+              </dt>
+              <dt>
+                Duration
+                <dd>The time that cookies are stored on your device. They will be automatically deleted after they expire.</dd>
+              </dt>
+              <dt>
+                Source
+                <dd>
+                  To make our privacy policy clear and easy to understand, this website uses a modified cookie classification.
+                  You can view the unmodified and other unused cookie classifications here:
+                  <a href="https://gdpr.eu/cookies/">Cookies, the GDPR, and the ePrivacy Directive — GDPR.eu</a>.
+                </dd>
+              </dt>
+            </dl>
+          {% elif language == "Traditional-Chinese": %}
+            <h4>名詞解釋與來源</h4>
+            <dl>
+              <dt>
+                必要程度: 必要的
+                <dd>
+                  這種類型的 Cookie 使您可以瀏覽網站和使用其功能，本網站使用它來記錄您的 Cookie 設定偏好。您可以到下面的網址了解更多: 
+                  <a href="https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions#necessary">
+                     What are the exceptions — Information Commissioner's Office</a>。
+                </dd>
+              </dt>
+              <dt>
+                必要程度: 功能性
+                <dd>
+                  如果沒有此 Cookie，某些功能將無法使用。將滑鼠懸停/鍵盤聚焦於螢幕左下角的「隱私設定控制台」上的
+                  <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme policy-info-icon" alt="an information icon." height="16">
+                  圖示，即可查看哪些功能將無法使用。
+                </dd>
+              </dt>
+              <dt>
+                持續類型: 持續性
+                <dd>這種類型的 Cookie 會在您的裝置上儲存一段時間，關閉瀏覽器並不會將其刪除。</dd>
+              </dt>
+              <dt>
+                來源: 第一方
+                <dd>這種類型的 Cookie 由您正在造訪的網站（即本網站）儲存在您的裝置上。</dd>
+              </dt>
+              <dt>
+                儲存時長
+                <dd>Cookie 在您的裝置儲存的時間長度，時間結束後將自動刪除。</dd>
+              </dt>
+              <dt>
+                資訊來源
+                <dd>
+                  為了使隱私權政策清晰易懂，本網站使用了修改後的 Cookie 分類。未修改與未使用的 Cookie 分類可以下面的網址查看:
+                  <a href="https://gdpr.eu/cookies/">Cookies, the GDPR, and the ePrivacy Directive — GDPR.eu</a>。
+                </dd>
+              </dt>
+            </dl>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
 </main>
 
+<!-- lightweight text modification; won't be used elsewhere -->
+<script src="../static/assets/scripts/strip-br-zhtw.js" defer></script>
+<ul class="horizontal-stroke"></ul>
 {% include "footer.html" %}
