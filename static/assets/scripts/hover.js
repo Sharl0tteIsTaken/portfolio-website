@@ -10,20 +10,13 @@ document.getElementById("hover-container").onmousemove = e => {
 }
 
 function syncFrameSize() {
-  for(frame of document.getElementsByClassName('hover-frame')) {
-    var totalWidth = 0, maxHeight = 0;
-    var content = frame.querySelector('.hover-content').children
+  for (const frame of document.getElementsByClassName('hover-frame')) {
+    const content = frame.querySelector('.hover-content').children[0]
+    const sizeHolder = frame.querySelector('.hover-frame-size');
+    sizeHolder.style.width = `${content.offsetWidth}px`;
+    sizeHolder.style.height = `${content.offsetHeight}px`;
+  }
+}
 
-    for (var i = 0; i < content.length; i++) {
-      totalWidth += parseInt(content[i].offsetWidth, 0);
-      maxHeight = Math.max(maxHeight, content[i].offsetHeight);
-    }
-    // FIXME: calculated size are wrong when the dropdown content is `show`
-
-    const sizer = frame.querySelector('.hover-frame-size');
-    sizer.style.width = `${totalWidth}px`;
-    sizer.style.height = `${maxHeight}px`;
-  };
-};
 window.addEventListener('load', syncFrameSize);
 window.addEventListener('resize', syncFrameSize);
