@@ -170,7 +170,7 @@ strong {
     font-weight: bold !important;
 }
 
-*:lang(English) {
+*:lang(en-US) {
     font-family: "Playwrite NZ Basic", cursive !important;
     font-optical-sizing: auto !important;
     font-weight: var(--normal-font-weight);
@@ -178,7 +178,7 @@ strong {
     text-underline-position: auto;
 }
 
-*:lang(Traditional-Chinese) {
+*:lang(zh-TW) {
     font-family: "Noto Sans TC", sans-serif !important;
     font-optical-sizing: auto !important;
     font-weight: var(--normal-font-weight);
@@ -287,10 +287,6 @@ so a default value is provided here.
 
 #frame-size-3 {
     width: 121px; height: 46px;
-}
-
-#frame-size-4 {
-    width: 62px; height: 50px;
 }
 
 .hover-frame > .hover-content {

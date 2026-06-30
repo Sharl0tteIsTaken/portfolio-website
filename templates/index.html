@@ -10,7 +10,7 @@
         <div class="post row rounded-4 shadow-lg">
           <div class="col-xxl-6 d-flex flex-column post-block">
             <div class="d-flex flex-row h1-div-home">
-              <h1 class="display-4 fw-bold lh-1 text-white title" lang="English">{{ project.title }}</h1>
+              <h1 class="display-4 fw-bold lh-1 text-white title" lang="en-US">{{ project.title }}</h1>
                <!-- https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements -->
                <div class="flex-wrap div-in-flex-container-right-align">
                 {% if project.is_demo == "true": %}
@@ -39,7 +39,7 @@
                 <div class="row align-items-end">
                   {% for desc in project.keywords.get(language): %}
                     <div class="col keyword-block">
-                      <button type="button" class="btn btn-outline-info keyword-text" lang="Traditional-Chinese" disabled>{{ desc }}</button>
+                      <button type="button" class="btn btn-outline-info keyword-text" lang="zh-TW" disabled>{{ desc }}</button>
                     </div>
                   {% endfor %}
                 </div>

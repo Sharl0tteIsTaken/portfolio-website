@@ -15,7 +15,7 @@
   </head>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ language }}">
     <div class="container-fluid">
-      <a class="navbar-brand d-flex" href="{{ url_for('home') }}" lang="English">
+      <a class="navbar-brand d-flex" href="{{ url_for('home') }}" lang="en-US">
         <img width="34" class="brand-image" src="https://avatars.githubusercontent.com/u/166942861?v=4" alt="@Sharl0tteIsTaken" onerror="useBackupBrandImage(this);"/>
         <div class="header-text header-title-text">Sharl0tteIsTaken</div>
       </a>
@@ -60,9 +60,9 @@
             <div class="hover-frame-size" aria-hidden="true"  id="frame-size-4"></div>
             <div class="hover-content">
               <a href="{{ url_for('switch_language') }}" class="nav-link text-white focus-button" title="{{ current.navbar_switch.get(language) }}">
-                {% if language == "English": %}
+                {% if language == "en-US": %}
                   <img src="../static/assets/svg/lang-eng.svg" class="svg-whitened" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="30">
-                {% elif language == "Traditional-Chinese": %}
+                {% elif language == "zh-TW": %}
                   <img src="../static/assets/svg/lang-zhtw.svg" class="svg-whitened" alt="a line draw image of google translation app, represents a button to switch the language from Traditional Chinese to English." height="30">
                 {% endif %}
               </a>
@@ -77,9 +77,9 @@
     <div class="btn-group dropup float-dropdown cookie-banner" role="group" lang="{{ language }}">
       <button
         class="btn dropdown-toggle float-dropdown-menubutton focus-button" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
-        {% if language == "English": %}
+        {% if language == "en-US": %}
           aria-label="Privacy settings"
-        {% elif language == "Traditional-Chinese": %}
+        {% elif language == "zh-TW": %}
           aria-label="隱私設定"
         {% endif %}
         >
@@ -87,7 +87,7 @@
       </button>
       <ul class="dropdown-menu cookie-banner-menu">
         <button type="button" class="btn-close" id="close-cookie-banner" aria-label="Close"></button>
-        {% if language == "English": %}
+        {% if language == "en-US": %}
           <h4>Privacy Settings Panel</h4>
           <p>Configure and manage the cookies used by this website.</p>
           <p class="cookie-banner-description">
@@ -100,7 +100,7 @@
             <li>Accepted settings will be stored via cookie in your device.</li>
             <li>Rejected settings will be removed after this panel is closed.</li>
           </ul>
-        {% elif language == "Traditional-Chinese": %}
+        {% elif language == "zh-TW": %}
           <h4>隱私設定控制台</h4>
           <p>設定及管理此網站使用的 Cookie。</p>
           <p class="cookie-banner-description">
@@ -117,9 +117,9 @@
           <div class="form-check form-switch">
             <input class="form-check-input cookie-banner-preference" type="checkbox" role="switch" id="setting" disabled>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="setting">
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Cookie preferences
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 Cookie 偏好設定
               {% endif %}
               <span class="disabled-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('setting').get(language) }}" data-bs-custom-class="custom-tooltip-style">
@@ -132,9 +132,9 @@
           <div class="form-check form-switch">
             <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="language" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="language">
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Preferred display language
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 偏好顯示語言
               {% endif %}
               <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('language').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
@@ -145,9 +145,9 @@
           <div class="form-check form-switch">
             <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="endpoint" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="endpoint">
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Last webpage visited
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 瀏覽的最後一個網頁
               {% endif %}
               <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('endpoint').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
@@ -158,9 +158,9 @@
           <div class="form-check form-switch">
             <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="scheme" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="scheme">
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Preferred color scheme
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 偏好顯示模式
               {% endif %}
               <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('scheme').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
@@ -169,16 +169,16 @@
         </li>
         <li class="float-dropdown-item-group">
           <button class="btn float-dropdown-button" type="button" data-action="toggle-all" data-state="false">
-            {% if language == "English": %}
+            {% if language == "en-US": %}
               Reject all
-            {% elif language == "Traditional-Chinese": %}
+            {% elif language == "zh-TW": %}
               全部拒絕
             {% endif %}
           </button>
           <button class="btn float-dropdown-button" type="button" data-action="toggle-all" data-state="true">
-            {% if language == "English": %}
+            {% if language == "en-US": %}
               Accept all
-            {% elif language == "Traditional-Chinese": %}
+            {% elif language == "zh-TW": %}
               全部同意
             {% endif %}
           </button>
@@ -186,18 +186,18 @@
         <li class="text-center no-margin cookie-banner-footer float-dropdown-item-group">
           <div class="cookie-banner-footer-item">
             <span class="cookie-remove-link" role="link" data-action="remove-all" tabindex="0" lang="{{ language }}">
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Remove All Cookie
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 刪除全部 Cookie
               {% endif %}
             </span>
           </div>
           <div class="cookie-banner-footer-item">
             <a href="{{ url_for('policy') }}" class="policy-text" lang="{{ language }}">
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Privacy Policy
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 隱私權政策
               {% endif %}
             </a>
@@ -209,35 +209,34 @@
     <!-- FIXME: `button.active.disabled` shouldn't be able to be keyboard focusable -->
     <div class="btn-group dropup float-dropdown theme-banner" role="group" lang="{{ language }}">
       <button type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
-        {% if language == "English": %}
+        {% if language == "en-US": %}
           <img src="../static/assets/svg/quill-draw-eng.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="32">
-        {% elif language == "Traditional-Chinese": %}
+        {% elif language == "zh-TW": %}
           <img src="../static/assets/svg/quill-draw-zhtw.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from Traditional Chinese to English." height="32">
         {% endif %}
       </button>
       <ul class="dropdown-menu">
-        <!-- TODO: add description for what this dropdown is for -->
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="light">
           <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme" alt="a line draw image of the sun.">
-          {% if language == "English": %}
+          {% if language == "en-US": %}
             Toggle theme (Light)
-          {% elif language == "Traditional-Chinese": %}
+          {% elif language == "zh-TW": %}
             切換主題 (淺色)
           {% endif %}
         </button></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="dark">
           <img src="../static/assets/svg/moon-stars-fill.svg" class="svg-color-by-theme" alt="a line draw image of the moon.">
-          {% if language == "English": %}
+          {% if language == "en-US": %}
             Toggle theme (Dark)
-          {% elif language == "Traditional-Chinese": %}
+          {% elif language == "zh-TW": %}
             切換主題 (深色)
           {% endif %}
         </button></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="auto">
           <img src="../static/assets/svg/sun-and-moon.svg" class="svg-color-by-theme" alt="a line draw image of sun and moon separated by a diagonal line.">
-          {% if language == "English": %}
+          {% if language == "en-US": %}
             Toggle theme (Auto)
-          {% elif language == "Traditional-Chinese": %}
+          {% elif language == "zh-TW": %}
             依照瀏覽器主題
           {% endif %}
           <!-- TODO: remove image of ... in alt text, see: https://accessibility.huit.harvard.edu/describe-content-images -->

@@ -19,9 +19,7 @@ from werkzeug.wrappers.response import Response as RedirectResponse
 
 # ---------------------------------------------------------------------
 ColorScheme: TypeAlias = Literal["light", "dark", "auto", "TBD"]
-Languages: TypeAlias = Literal["English", "Traditional-Chinese"]
-# FIXME: change to use BCP 47 language tag, en-US and zh-TW. The current
-# approch isn't working any more.
+Languages: TypeAlias = Literal["en-US", "zh-TW"]
 Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
 CookieKeys: TypeAlias = Literal["setting", "language", "endpoint", "scheme"]
@@ -49,8 +47,8 @@ COOKIE_SCHEME: CookieKeys = "scheme"
 COOKIE_NAMES: list[CookieKeys] = [COOKIE_LANG, COOKIE_PATH, COOKIE_SCHEME]
 COOKIE_MAX_DAY = 14
 COOKIE_MAX_SEC = COOKIE_MAX_DAY * 24 * 60 * 60
-LANGUAGE_ZH: Languages = "Traditional-Chinese"
-LANGUAGE_EN: Languages = "English"
+LANG_ZH_TW: Languages = "zh-TW"
+LANG_EN_US: Languages = "en-US"
 
 ENDPOINT: str = os.getenv("ENDPOINT") or ""
 assert ENDPOINT != "", ERRMSG.format(var="ENDPOINT")
@@ -123,71 +121,71 @@ class Current():
     path_lang_byte: Path = PATH
 
     navbar_about: dict[Languages, str] = {
-        LANGUAGE_EN: "About",
-        LANGUAGE_ZH: "關於"
+        LANG_EN_US: "About",
+        LANG_ZH_TW: "關於"
     }
     navbar_about_dropdown: dict[Languages, dict[str, str]] = {
-            LANGUAGE_EN: {
+            LANG_EN_US: {
                 "The Website": HREF_WEBSITE,
                 "The Author": HREF_AUTHOR,
                 "The Tools": HREF_TOOLS,
                 },
-            LANGUAGE_ZH: {
+            LANG_ZH_TW: {
                 "網站簡介": HREF_WEBSITE,
                 "我": HREF_AUTHOR,
                 "使用工具": HREF_TOOLS,
                 }
         }
     navbar_contact: dict[Languages, str] = {
-        LANGUAGE_EN: "Contact",
-        LANGUAGE_ZH: "聯絡方式"
+        LANG_EN_US: "Contact",
+        LANG_ZH_TW: "聯絡方式"
     }
     navbar_switch: dict[Languages, str] = {
-        LANGUAGE_EN: "Switch display language to Traditional Chinese",
-        LANGUAGE_ZH: "變更顯示語言為英文\nSwitch display language to English",
+        LANG_EN_US: "Switch display language to Traditional Chinese",
+        LANG_ZH_TW: "變更顯示語言為英文\nSwitch display language to English",
     }
 
     cookie_banner_description: dict[BannerDesc, dict[Languages, str]] = {
         COOKIE_SETTING: {
-            LANGUAGE_EN: (
+            LANG_EN_US: (
                 "This setting is used to record your privacy settings on this "
                 "website.\nYou accept this setting by interacting with the "
                 'Privacy Settings Panel.\nYou reject by clicking "Remove All '
                 'Cookie" in the lower left corner of the panel.'
                 ),
-            LANGUAGE_ZH: (
+            LANG_ZH_TW: (
                 "這個設定用於記錄您在本網站的所有其他隱私設定。\n"
                 "操作隱私設定控制台將同意這項設定，"
                 '透過控制台左下角的「刪除全部 Cookie」拒絕。'
                 )
         },
         COOKIE_LANG: {
-            LANGUAGE_EN: (
+            LANG_EN_US: (
                 "This setting allows you to switch languages."
                 "\nWithout it, you will not be able to switch languages."
                 ),
-            LANGUAGE_ZH: (
+            LANG_ZH_TW: (
                 "同意這項設定以切換語言，拒絕此設定則無法切換語言。"
                 )
         },
         COOKIE_PATH: {
-            LANGUAGE_EN: (
+            LANG_EN_US: (
                 "This setting allows you to return to the webpage previously "
                 "browsing after switching languages.\nWithout it, you will be "
                 "redirected to the website homepage after switching languages."
                 ),
-            LANGUAGE_ZH: (
+            LANG_ZH_TW: (
                 "同意這項設定以在切換語言後返回之前瀏覽的網頁，\n"
                 "拒絕此設定則會在切換語言後回到網站首頁。"
                 )
         },
         COOKIE_SCHEME: {
-            LANGUAGE_EN: (
+            LANG_EN_US: (
                 "This setting allows you to maintain the selected theme after "
                 "navigating to different webpages or switching languages."
                 "\nWithout it, the theme set by the browser will be used."
                 ),
-            LANGUAGE_ZH: (
+            LANG_ZH_TW: (
                 "同意這項設定以在瀏覽不同網頁時或切換語言後維持設定的顯示模式，\n"
                 "拒絕此設定則會顯示瀏覽器設定的顯示模式。"
                 )
@@ -195,12 +193,12 @@ class Current():
     }
 
     demo_title: dict[Languages, str] = {
-        LANGUAGE_EN: "Check out a demo of the project",
-        LANGUAGE_ZH: "在網頁上玩玩看demo吧 (不支援中文)",
+        LANG_EN_US: "Check out a demo of the project",
+        LANG_ZH_TW: "在網頁上玩玩看demo吧 (不支援中文)",
     }
     gh_title: dict[Languages, str] = {
-        LANGUAGE_EN: "Check out the source code on Github",
-        LANGUAGE_ZH: "去GitHub上看看程式吧",
+        LANG_EN_US: "Check out the source code on Github",
+        LANG_ZH_TW: "去GitHub上看看程式吧",
     }
 
     star_effect_amount: int = 2
@@ -364,11 +362,11 @@ def handle_lang_pref(*, switch: bool = False) -> Languages:
         pref = language
     else:
         if prefers_chinese(request.accept_languages):
-            pref = LANGUAGE_ZH
+            pref = LANG_ZH_TW
         else:
-            pref = LANGUAGE_EN
+            pref = LANG_EN_US
     if switch:
-        pref = LANGUAGE_ZH if pref == LANGUAGE_EN else LANGUAGE_EN
+        pref = LANG_ZH_TW if pref == LANG_EN_US else LANG_EN_US
     return pref
 
 

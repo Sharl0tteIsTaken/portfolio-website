@@ -7,10 +7,10 @@
   <div class="container header-text-center custom-bg-container" lang="{{ language }}"> 
     <div class="row">
       <div>
-        {% if language == "English": %}
+        {% if language == "en-US": %}
           <h1 class="page-heading heading-weight-{{ language }}">Privacy Policy and Cookies used</h1>
           <span class="subheading"></span>
-        {% elif language == "Traditional-Chinese": %}
+        {% elif language == "zh-TW": %}
           <h1 class="page-heading heading-weight-{{ language }}">隱私權政策與使用的 Cookie</h1>
         {% endif %}
       </div>
@@ -21,7 +21,7 @@
 <ul class="horizontal-stroke"></ul>
 
 <!-- photo credit -->
-<div class="photo-credit" lang="English">
+<div class="photo-credit" lang="en-US">
   Photo by 
   <a href="https://unsplash.com/@stefaniejockschat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
     Stefanie Jockschat
@@ -40,23 +40,23 @@
         <div class="last-edit-date-policy">
           <p class="text-align-right no-margin">
             <!-- TODO: remember: update the date as well -->
-            {% if language == "English": %}
+            {% if language == "en-US": %}
               Last updated on 2026/06/29 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">full update history</a>)
-            {% elif language == "Traditional-Chinese": %}
+            {% elif language == "zh-TW": %}
               最後更新於 2026/06/29 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">完整更新記錄</a>)
             {% endif %}
           </p>
         </div>
 
         <h3>
-          {% if language == "English": %}
+          {% if language == "en-US": %}
             Privacy policy
-          {% elif language == "Traditional-Chinese": %}
+          {% elif language == "zh-TW": %}
             隱私權政策
           {% endif %}
         </h3>
         <p>
-          {% if language == "English": %}
+          {% if language == "en-US": %}
             <p>
               This website and its services do not collect any of your personal information; settings you agree to are used only during your session, and all information stored based on your consent is saved on your device via cookies.
             </p>
@@ -66,7 +66,7 @@
             <p>
               This website is hosted on <a href="https://render.com">Render</a>, and Render will collect your personal information (including your name, the device accessing the service, IP address, web page interactions, geolocation data, and more). For detailed information and the scope of collection, please visit the <a href="https://render.com/privacy">Render privacy policy</a>.
             </p>
-          {% elif language == "Traditional-Chinese": %}
+          {% elif language == "zh-TW": %}
             <p>
               本網站及本網站的服務並不會收集任何您的個人資訊，您同意使用的設定僅會在您的使用期間使用，您同意設定而儲存的所有資訊都是透過 Cookie 儲存在您的裝置上。
             </p>
@@ -74,26 +74,26 @@
               本網站使用的 Cookie 不用於辨別或追蹤使用者身分、廣告用途、數據分析等行為。
             </p>
             <p>
-              本網站架設於 <a href="https://render.com" lang="English">Render</a>，您的個人資訊包含名稱、存取服務的設備、IP 位址、數位足跡、地理位置等均會被 Render 收集，詳細資訊與收集範圍請前往 <a href="https://render.com/privacy" lang="English">Render privacy policy</a> 查看。
+              本網站架設於 <a href="https://render.com" lang="en-US">Render</a>，您的個人資訊包含名稱、存取服務的設備、IP 位址、數位足跡、地理位置等均會被 Render 收集，詳細資訊與收集範圍請前往 <a href="https://render.com/privacy" lang="en-US">Render privacy policy</a> 查看。
             </p>
           {% endif %}
         </p>
         
         <div class="spacer-between"></div>
         <h3>
-          {% if language == "English": %}
+          {% if language == "en-US": %}
             Cookies used
-          {% elif language == "Traditional-Chinese": %}
+          {% elif language == "zh-TW": %}
             使用的 Cookie
           {% endif %}
         </h3>
         <div class="quote">
           <blockquote cite="https://policies.google.com/technologies/cookies" class="no-margin">
             <p class="no-margin">
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Cookies are small pieces of text sent to your browser by a website you visit.
                 They help that website remember information about your visit, which can both make it easier to visit the site again and make the site more useful to you.
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 Cookie 是您在瀏覽網站時，網站傳送給瀏覽器的一小段文字，可讓網站儲存您的瀏覽資訊，方便您下次瀏覽相同網站時套用同樣的設定，以及為您提供更實用的服務。
               {% endif %}
             </p>
@@ -101,9 +101,9 @@
           <p class="text-align-right no-margin">
             <cite>
               <a href="https://policies.google.com/technologies/cookies">
-                {% if language == "English": %}
+                {% if language == "en-US": %}
                   Google Privacy & Terms
-                {% elif language == "Traditional-Chinese": %}
+                {% elif language == "zh-TW": %}
                   Google 隱私權與條款
                 {% endif %}
               </a>
@@ -112,7 +112,7 @@
         </div>
         <div class="table-responsive">
           <table class="table">
-            {% if language == "English": %}
+            {% if language == "en-US": %}
               <caption>
                 Classification of cookies used by this website
               </caption>
@@ -155,7 +155,7 @@
                   <td>14 days</td>
                 </tr>
               </tbody>
-            {% elif language == "Traditional-Chinese": %}
+            {% elif language == "zh-TW": %}
               <caption>
                 此網站使用的 Cookie 的分類
               </caption>
@@ -204,18 +204,18 @@
         <div class="table-responsive">
           <table class="table">
             <caption>
-              {% if language == "English": %}
+              {% if language == "en-US": %}
                 Purpose of cookies used by this website
-              {% elif language == "Traditional-Chinese": %}
+              {% elif language == "zh-TW": %}
                 此網站使用的 Cookie 的目的
               {% endif %}
             </caption>
             <thead>
               <tr>
-                {% if language == "English": %}
+                {% if language == "en-US": %}
                   <th scope="col">Name</th>
                   <th scope="col">Purpose</th>
-                {% elif language == "Traditional-Chinese": %}
+                {% elif language == "zh-TW": %}
                   <th scope="col">名稱</th>
                   <th scope="col">目的</th>
                 {% endif %}
@@ -242,7 +242,7 @@
           </table>
         </div>
         <div class="policy-glossary">
-          {% if language == "English": %}
+          {% if language == "en-US": %}
             <h4>Glossary and Source</h4>
             <dl>
               <dt>
@@ -285,7 +285,7 @@
                 </dd>
               </dt>
             </dl>
-          {% elif language == "Traditional-Chinese": %}
+          {% elif language == "zh-TW": %}
             <h4>名詞解釋與來源</h4>
             <dl>
               <dt>
