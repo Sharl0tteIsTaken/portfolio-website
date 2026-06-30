@@ -57,9 +57,6 @@ const showActiveTheme = (theme, focus = false) => {
     element.setAttribute('aria-pressed', isSelected)
   })
 
-  const themeSelected = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-  themeSwitcher.setAttribute('aria-label', themeSelected.textContent.trim())
-
   if (focus) {
     themeSwitcher.focus()
   }

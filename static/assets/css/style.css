@@ -411,6 +411,19 @@ so a default value is provided here.
     background-color: var(--lower-contrast-background-color);
 }
 
+.theme-banner .float-dropdown-option {
+    display: flex;
+    align-items: center;
+}
+
+.theme-banner a.float-dropdown-option {
+    text-decoration: none;
+}
+
+.theme-banner .float-dropdown-option img {
+    margin-right: 5px;
+}
+
 .form-check-input {
     margin-top: 8.5px;
     cursor: pointer;

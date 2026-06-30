@@ -56,18 +56,6 @@
               </a>
             </div>
           </li>
-          <li class="nav-item hover-frame">
-            <div class="hover-frame-size" aria-hidden="true"  id="frame-size-4"></div>
-            <div class="hover-content">
-              <a href="{{ url_for('switch_language') }}" class="nav-link text-white focus-button" title="{{ current.navbar_switch.get(language) }}">
-                {% if language == "en-US": %}
-                  <img src="../static/assets/svg/lang-eng.svg" class="svg-whitened" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="30">
-                {% elif language == "zh-TW": %}
-                  <img src="../static/assets/svg/lang-zhtw.svg" class="svg-whitened" alt="a line draw image of google translation app, represents a button to switch the language from Traditional Chinese to English." height="30">
-                {% endif %}
-              </a>
-            </div>
-          </li>
         </ul>
       </div>
     </div>
@@ -208,16 +196,30 @@
     <!-- TODO: add `role`, `aria-label` for buttons on navbar -->
     <!-- FIXME: `button.active.disabled` shouldn't be able to be keyboard focusable -->
     <div class="btn-group dropup float-dropdown theme-banner" role="group" lang="{{ language }}">
-      <button type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false">
+      <button 
+        type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false"
         {% if language == "en-US": %}
-          <img src="../static/assets/svg/quill-draw-eng.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from English to Traditional Chinese." height="32">
+          aria-label="Toggle theme and switch language"
         {% elif language == "zh-TW": %}
-          <img src="../static/assets/svg/quill-draw-zhtw.svg" class="svg-color-by-theme" alt="a line draw image of google translation app, represents a button to switch the language from Traditional Chinese to English." height="32">
+          aria-label="切換主題與語言"
         {% endif %}
+      >
+      <img class="svg-color-by-theme" src="../static/assets/svg/quill-draw-{{ language }}.svg" alt="a line draw image of a quill and the English letter 'A'." height="32">
       </button>
       <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item float-dropdown-option" href="{{ url_for('switch_language') }}">
+            <img src="../static/assets/svg/lang-{{ language }}.svg" class="svg-color-by-theme" alt="a line draw image of google translation app." height="24">
+            {% if language == "en-US": %}
+              Switch language (Chinese)
+            {% elif language == "zh-TW": %}
+              變更語言 (英文)
+            {% endif %}
+          </a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="light">
-          <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme" alt="a line draw image of the sun.">
+          <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme" alt="a line draw image of the sun." height="24">
           {% if language == "en-US": %}
             Toggle theme (Light)
           {% elif language == "zh-TW": %}
@@ -225,7 +227,7 @@
           {% endif %}
         </button></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="dark">
-          <img src="../static/assets/svg/moon-stars-fill.svg" class="svg-color-by-theme" alt="a line draw image of the moon.">
+          <img src="../static/assets/svg/moon-stars-fill.svg" class="svg-color-by-theme" alt="a line draw image of the moon." height="24">
           {% if language == "en-US": %}
             Toggle theme (Dark)
           {% elif language == "zh-TW": %}
@@ -233,7 +235,7 @@
           {% endif %}
         </button></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="auto">
-          <img src="../static/assets/svg/sun-and-moon.svg" class="svg-color-by-theme" alt="a line draw image of sun and moon separated by a diagonal line.">
+          <img src="../static/assets/svg/sun-and-moon.svg" class="svg-color-by-theme" alt="a line draw image of sun and moon separated by a diagonal line." height="24">
           {% if language == "en-US": %}
             Toggle theme (Auto)
           {% elif language == "zh-TW": %}
