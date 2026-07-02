@@ -1080,7 +1080,7 @@ img.language-color-JavaScript {
 
 .tool-use-case {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     margin: 0px 0px 0px 3rem;
     color: var(--highest-contrast-text-color);
 }
@@ -1211,7 +1211,7 @@ th, td {
 
 }
 
-dt, dd {
+.policy-glossary dt, .policy-glossary dd {
     font-size: 16px;
     font-weight: var(--normal-font-weight);
 }

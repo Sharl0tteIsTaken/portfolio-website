@@ -1,19 +1,19 @@
-function fillDecorRule() {
-  const ruleWidth = document.body.offsetWidth;
+const fillDecorRule = () => {
+  const ruleWidth = document.body.offsetWidth
 
-  const sideUnit = 32;
-  const midUnit = 40;
-  const leftChar = "∼ · ";
-  const midChar = "∼ • ∽";
-  const rightChar = " · ∽";
+  const sideUnit = 32
+  const midUnit = 40
+  const leftChar = "∼ · "
+  const midChar = "∼ • ∽"
+  const rightChar = " · ∽"
 
-  var sideWidth = (ruleWidth - midUnit) / 2;
-  var count = Math.floor(sideWidth / sideUnit);
+  const sideWidth = (ruleWidth - midUnit) / 2
+  const count = Math.floor(sideWidth / sideUnit)
 
-  for (decorRule of document.getElementsByClassName('decor-rule')) {
-    decorRule.textContent = leftChar.repeat(count) + midChar + rightChar.repeat(count);
-  };
+  for (const decorRule of document.getElementsByClassName('decor-rule')) {
+    decorRule.textContent = leftChar.repeat(count) + midChar + rightChar.repeat(count)
+  }
 }
 
-window.addEventListener('load', fillDecorRule);
-window.addEventListener('resize', fillDecorRule);
+window.addEventListener('load', fillDecorRule)
+window.addEventListener('resize', fillDecorRule)

@@ -1,4 +1,3 @@
-'use strict'
 import { banners, cookieMap, cookieNameSetting, setCookie, getCookie } from './modules/common.mjs'
 
 const menubutton = bootstrap.Dropdown.getOrCreateInstance(

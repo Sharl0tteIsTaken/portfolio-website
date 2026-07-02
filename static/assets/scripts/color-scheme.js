@@ -10,8 +10,6 @@
 
 import { setCookie, getCookie, cookieNameSetting } from './modules/common.mjs'
 
-'use strict'
-
 const cookieName = "scheme"
 const allowTheme = ["light", "dark", "auto"]
 

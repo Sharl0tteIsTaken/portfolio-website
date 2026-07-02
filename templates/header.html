@@ -10,13 +10,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Delius&family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Noto+Sans+TC:wght@100..900&family=Pacifico&family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
-    <script src="../static/assets/scripts/preload-color-scheme.js" type="module"></script>
-    <script src="../static/assets/scripts/avatar.js"></script>
+    <script src="../static/assets/scripts/preload-color-scheme.js"></script>
   </head>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ language }}">
     <div class="container-fluid">
       <a class="navbar-brand d-flex" href="{{ url_for('home') }}" lang="en-US">
-        <img width="34" class="brand-image" src="https://avatars.githubusercontent.com/u/166942861?v=4" alt="@Sharl0tteIsTaken" onerror="useBackupBrandImage(this);"/>
+        <img width="34" class="brand-image" src="https://avatars.githubusercontent.com/u/166942861?v=4" alt="@Sharl0tteIsTaken" onerror="this.onerror=null; this.src='../static/assets/img/github-avatar.jfif';"/>
         <div class="header-text header-title-text">Sharl0tteIsTaken</div>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation"  onclick="syncFrameSize()">
