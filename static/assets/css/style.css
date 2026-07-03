@@ -274,7 +274,7 @@ strong {
 
 /* 
 In some cases (mostly due to internet connections),
-the width and height of hover-frame-size are not set by `hover.js`,
+the width and height of hover-frame-size are not set by `navbar-hover.js`,
 so a default value is provided here.
 */
 #frame-size-1 {

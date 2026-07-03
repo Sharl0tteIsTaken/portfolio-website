@@ -1,0 +1,241 @@
+body {
+    background: #141414; 
+    height: 85vh;
+    margin: 20px;
+    margin-top: 8px;
+  }
+  
+button {
+    background: #141414;
+    font-size: 30px;
+    vertical-align: text-top;
+}
+
+.center {
+    text-decoration: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.game-end-popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+  
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 70%;
+    position: relative;
+    transition: all 1.5s ease-in-out;
+}
+  
+.popup h2 {
+    margin-top: 0;
+  /*   color: #333; */
+}
+
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.popup .close:hover {
+    color: #06D85F;
+}
+
+  
+@media screen and (max-width: 700px){
+    .box{
+      width: 70%;
+    }
+    .popup{
+      width: 70%;
+    }
+}
+
+@media (max-width: 1600px) {
+    .textsize-float {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .textsize-float {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .textsize-float {
+        font-size: 15px;
+    }
+}
+
+.popup-text {
+    color: black;
+    width: auto;
+    height: auto;
+}
+
+.input-button {
+    background: #141414;
+    width: 0;
+    height: 0;
+    border: 0;
+    padding: 0;
+}
+
+.svg-whitened {
+    filter: invert(86%) sepia(7%) saturate(160%) hue-rotate(202deg) brightness(96%) contrast(89%);
+}
+
+/* will make #consoleInput-undefined have a indent of ~10 word space, temporary disabled */
+/* .content {
+    white-space: pre;
+} */
+  
+.terminal {
+    font-family: "IBM Plex Mono", monospace;
+    color: rgb(187, 187, 187);
+    font-size: 30px;
+    font-weight: 100;
+}
+  
+.terminal-input {
+    /* text-align: start; */
+    background: rgba(0, 0, 0, 0);
+    font-family: monospace;
+    color: transparent;
+    font-size: 30px;
+    outline: none;
+    border: none;
+    -webkit-text-fill-color: rgb(187, 187, 187);
+    width: fit-content;
+    /* height: 100%; */
+}
+
+.terminal-line {
+    height: auto;
+    width: auto;
+}
+
+.pwd {
+    width: max-content;
+    height: 45px;
+    display:inline-block;
+    /* margin-bottom: 45px; */
+}
+
+p {
+    height: min-content;
+    white-space: pre-wrap;
+}
+
+.input-sizer {
+    background-color: #141414;
+    display: inline-grid;
+    vertical-align: top;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.input-sizer::after 
+{   
+    content: attr(data-value) "  ";
+    visibility: hidden;
+    font-family: inherit;
+    font-size: inherit;
+    
+    /* causes white space to show despite `visibility: hidden` */
+    /* white-space: pre-wrap;  */
+}
+
+input {
+    background-color: #141414; 
+    caret-color: white;
+    color: white;
+    border: 0;
+    padding: 0;    
+}
+
+input:focus {
+    /* cite: https://stackoverflow.com/questions/16156594/how-to-change-border-color-of-textarea-on-focus */
+    outline: none !important;
+}
+  
+.console-carrot {
+    margin-left: -16px !important; /* make carrot stick to text*/
+    vertical-align: middle;
+    background: #fff;
+    height: 32px;
+    width: 17px;
+    display: inline-block;
+    animation: blink 1s step-start 0s infinite;
+    border-bottom: 2px solid white;
+}
+
+/* highlight text in input */
+::selection {
+    background-color: grey;
+    color: white;
+}
+
+.content {
+    background-color: #141414;
+    height: 7vh;
+    display:inline-block;
+}
+
+.terminal-purple {
+    color: #5050f2;
+}
+  
+.console-line {
+    color: rgb(0, 178, 0);
+}
+
+/* who's this */
+.login-line {
+    color: #fff;
+}
+  
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+  

@@ -3,7 +3,7 @@ The source code of the server.
 """
 import os
 import smtplib
-from resource.classes import (
+from resource.utilities import (
     COOKIE_PATH, HREF_HOME, AboutImage, AboutText, AllowedTitles, Base,
     ContactText, Current, Project, RouteRetVal, handle_lang_pref, get_scheme,
     set_cookies
@@ -120,7 +120,7 @@ def contact() -> RouteRetVal:
 @app.route("/policy")
 @set_cookies
 def policy() -> RouteRetVal:
-    # TODO: add docstring
+    """The policy page of website."""
     language = handle_lang_pref()
     scheme = get_scheme()
     body = render_template(
@@ -176,7 +176,7 @@ def demo_tic_tac_toe() -> str:
     is_winner = str(dk_showmaker.iswinner)
     player = int(dk_showmaker.current_player) + 1
     return render_template(
-        'demo-tic_tac_toe.html',
+        'demo-tic-tac-toe.html',
         terminal_lines=result,
         pwd=pwd,
         history=history,
@@ -222,7 +222,7 @@ def demo_morse_code_converter() -> str:
             user_input=enter
             ) + "\n"
     return render_template(
-        'demo-morse_code_converter.html',
+        'demo-morse-code-converter.html',
         terminal_lines=converter.history,
         )
 
@@ -231,7 +231,7 @@ def demo_morse_code_converter() -> str:
 def demo_morse_code_converter_input_receive() -> str:
     """The page to receive user input on morse code converter demo."""
     return render_template(
-        'demo-cz_terminal-morse_code_converter.html',
+        'demo-cz-terminal-morse-code-converter.html',
         terminal_lines=converter.history,
         )  # cz stands for customized
 

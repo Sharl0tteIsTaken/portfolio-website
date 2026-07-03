@@ -1,6 +1,5 @@
 """
-Some Python classes used by the server, including classes for database
-and a class used to record and store website information.
+Various utilities used by the server.
 """
 import json
 import os

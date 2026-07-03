@@ -1,0 +1,244 @@
+body {
+    background: #141414; 
+    height: 95%;
+    margin: 20px;
+    margin-top: 8px;
+    overflow-x: hidden;
+  }
+  
+button {
+    background: #141414;
+    font-size: 30px;
+    vertical-align: text-top;
+}
+
+.center {
+    text-decoration: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+}
+  
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 80%;
+    position: relative;
+    transition: all 1.5s ease-in-out;
+}
+  
+.popup h2 {
+    margin-top: 0;
+  /*   color: #333; */
+}
+
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.popup .close:hover {
+    color: #06D85F;
+}
+
+.popup-button {
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 1600px) {
+    .textsize-float {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .textsize-float {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 1250px) {
+    .textsize-float {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .textsize-float {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .textsize-float {
+        font-size: 15px;
+    }
+    .popup h2 {
+        font-size: smaller;
+    }
+}
+
+@media (max-width: 850px) {
+    .textsize-float {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 750px) {
+    .textsize-float {
+        font-size: 12px;
+    }
+    .popup h2 {
+        font-size: x-large;
+    }
+}
+
+@media (max-width: 680px) {
+    .textsize-float {
+        font-size: 10px;
+    }
+    .popup h2 {
+        font-size: large;
+    }
+}
+
+.popup-text {
+    color: black;
+    width: auto;
+    height: auto;
+    white-space: pre;
+}
+
+.input-button {
+    background: #141414;
+    width: 0;
+    height: 0;
+    border: 0;
+    padding: 0;
+}
+
+.svg-whitened {
+    filter: invert(86%) sepia(7%) saturate(160%) hue-rotate(202deg) brightness(96%) contrast(89%);
+}
+
+.terminal {
+    font-family: "IBM Plex Mono", monospace;
+    color: rgb(187, 187, 187);
+    font-size: 30px;
+    font-weight: 100;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.consoleInput-undefined {
+    flex-grow: 1;
+}
+
+form {
+    height: 100%;
+    margin: 0;
+}
+
+.terminal-line {
+    height: auto;
+    width: auto;
+}
+
+p {
+    height: min-content;
+    white-space: pre-wrap;
+    user-select: text !important; 
+}
+
+/* p::selection{
+    background-color: grey;
+    color: white;
+} */
+
+.input-sizer {
+    background-color: #141414;
+    display: inline-block;
+    vertical-align: top;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    font-family: inherit;
+    font-size: inherit;
+    height: 97%;
+    width: 97%;
+}
+
+.input-sizer::after 
+{   
+    content: attr(data-value) "  ";
+    visibility: hidden;
+    font-family: inherit;
+    font-size: inherit;
+    /* causes white space to show despite `visibility: hidden` */
+    /* white-space: pre-wrap;  */
+}
+
+textarea {
+    background-color: #141414; 
+    caret-color: white;
+    color: white;
+    border: 0;
+    padding: 0;
+    resize: none;
+    width: 100%;
+}
+
+textarea:focus {
+    /* cite: https://stackoverflow.com/questions/16156594/how-to-change-border-color-of-textarea-on-focus */
+    outline: none !important;
+}
+  
+
+/* highlight text in input */
+::selection {
+    background-color: grey;
+    color: white;
+}
+
+.console-line {
+    color: rgb(0, 178, 0);
+}
+  
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+  

@@ -111,4 +111,3 @@ document.querySelectorAll(banners).forEach(element => {
     })
   })
 })
-// TODO: rename JS files, switch -> cookie-banner, hover -> navbar-hover, tooltip -> cookie-banner-tooltip
