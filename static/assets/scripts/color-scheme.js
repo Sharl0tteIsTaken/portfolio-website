@@ -53,6 +53,7 @@ const showActiveTheme = (theme, focus = false) => {
     element.classList.toggle('active', isSelected)
     element.classList.toggle('disabled', isSelected)
     element.setAttribute('aria-pressed', isSelected)
+    element.setAttribute('tabindex', isSelected ? "-1" : "0")
   })
 
   if (focus) {
