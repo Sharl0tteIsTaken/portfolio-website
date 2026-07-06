@@ -14,7 +14,7 @@
   </head>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ language }}">
     <div class="container-fluid">
-      <a class="navbar-brand d-flex" href="{{ url_for('home') }}" lang="en-US">
+      <a class="navbar-brand d-flex" href="{{ url_for('home') }}" lang="en-US" aria-label="{{ current.navbar.get(language).get('title') }}">
         <img width="34" class="brand-image" src="https://avatars.githubusercontent.com/u/166942861?v=4" alt="@Sharl0tteIsTaken" onerror="this.onerror=null; this.src='../static/assets/img/github-avatar.jfif';"/>
         <div class="header-text header-title-text">Sharl0tteIsTaken</div>
       </a>
@@ -26,12 +26,12 @@
           <div class="nav-item dropdown hover-frame">
             <div class="hover-frame-size" aria-hidden="true" id="frame-size-1"></div>
             <div class="hover-content">
-              <button class="nav-link btn-secondary dropdown-toggle text-white about-button d-flex focus-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="nav-link btn-secondary dropdown-toggle text-white about-button d-flex focus-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ current.navbar.get(language).get('about') }}">
                 <img src="../static/assets/svg/person-vcard.svg" class="svg-whitened" alt="a line draw image of business card, represents a dropdown button to show all the about pages on website." height="30">
-                <div class="header-text header-button-text">{{ current.navbar_about.get(language) }}</div>
+                <div class="header-text header-button-text">{{ current.navbar.get(language).get('about') }}</div>
               </button>
               <ul class="dropdown-menu">
-                {% for text, href in current.navbar_about_dropdown.get(language).items(): %}
+                {% for text, href in current.navbar.get(language).get("dropdown").items(): %}
                   <li><a class="dropdown-item about-option" href="{{ href }}">{{ text }}</a></li>
                 {% endfor %}
               </ul>
@@ -40,16 +40,16 @@
           <li class="nav-item hover-frame">
             <div class="hover-frame-size" aria-hidden="true" id="frame-size-2"></div>
             <div class="hover-content">
-              <a href="{{ url_for('contact') }}" class="nav-link d-flex text-white focus-button">
+              <a href="{{ url_for('contact') }}" class="nav-link d-flex text-white focus-button" aria-label="{{ current.navbar.get(language).get('contact') }}">
                 <img src="../static/assets/svg/envelope-paper.svg" class="svg-whitened" alt="a line draw image of envelope, represents a button link to the contact page on website." height="30">
-                  <div class="header-text header-button-text">{{ current.navbar_contact.get(language) }}</div>
+                  <div class="header-text header-button-text">{{ current.navbar.get(language).get('contact') }}</div>
               </a>
             </div>
           </li>
           <li class="nav-item hover-frame">
             <div class="hover-frame-size" aria-hidden="true" id="frame-size-3"></div>
             <div class="hover-content">
-              <a href="https://github.com/Sharl0tteIsTaken" class="nav-link d-flex text-white focus-button">
+              <a href="https://github.com/Sharl0tteIsTaken" class="nav-link d-flex text-white focus-button" aria-label="{{ current.navbar.get(language).get('github') }}">
                 <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents a button link to websit owner's profile on github." height="30">
                   <div class="header-text header-button-text">Github</div>
               </a>
@@ -102,14 +102,10 @@
         {% endif %}
         <li class="dropdown-item float-dropdown-option-disabled">
           <div class="form-check form-switch">
-            <input class="form-check-input cookie-banner-preference" type="checkbox" role="switch" id="setting" disabled>
+            <input class="form-check-input cookie-banner-preference" type="checkbox" role="switch" id="setting" aria-label="{{ current.cookie_banner.get(language).get('setting') }}" disabled>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="setting">
-              {% if language == "en-US": %}
-                Cookie preferences
-              {% elif language == "zh-TW": %}
-                Cookie 偏好設定
-              {% endif %}
-              <span class="disabled-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('setting').get(language) }}" data-bs-custom-class="custom-tooltip-style">
+              {{ current.cookie_banner.get(language).get('setting') }}
+              <span class="disabled-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('setting_desc') }}" data-bs-custom-class="custom-tooltip-style">
                 <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" alt="an information icon." height="16">
               </span>
             </label>
@@ -117,40 +113,28 @@
         </li>
         <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="language" switch>
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="language" aria-label="{{ current.cookie_banner.get(language).get('language') }}" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="language">
-              {% if language == "en-US": %}
-                Preferred display language
-              {% elif language == "zh-TW": %}
-                偏好顯示語言
-              {% endif %}
-              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('language').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
+              {{ current.cookie_banner.get(language).get('language') }}
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('language_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
         <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="endpoint" switch>
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="endpoint" aria-label="{{ current.cookie_banner.get(language).get('endpoint') }}" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="endpoint">
-              {% if language == "en-US": %}
-                Last webpage visited
-              {% elif language == "zh-TW": %}
-                瀏覽的最後一個網頁
-              {% endif %}
-              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('endpoint').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
+              {{ current.cookie_banner.get(language).get('endpoint') }}
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('endpoint_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
         <li class="dropdown-item float-dropdown-option cookie-banner-switch-container">
           <div class="form-check form-switch">
-            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="scheme" switch>
+            <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="scheme" aria-label="{{ current.cookie_banner.get(language).get('scheme') }}" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="scheme">
-              {% if language == "en-US": %}
-                Preferred color scheme
-              {% elif language == "zh-TW": %}
-                偏好顯示模式
-              {% endif %}
-              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner_description.get('scheme').get(language) }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
+              {{ current.cookie_banner.get(language).get('scheme') }}
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('scheme_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="an information icon." height="16">
             </label>
           </div>
         </li>
@@ -192,14 +176,13 @@
         </li>
       </ul>
     </div>
-    <!-- TODO: add `role`, `aria-label` for buttons on navbar -->
     <!-- FIXME: `button.active.disabled` shouldn't be able to be keyboard focusable -->
     <div class="btn-group dropup float-dropdown theme-banner" role="group" lang="{{ language }}">
       <button 
         type="button" id="theme-switcher" class="btn dropdown-toggle float-dropdown-menubutton focus-button" data-bs-toggle="dropdown" aria-expanded="false"
-        {% if language == "en-US": %}
+        {% if language == 'en-US': %}
           aria-label="Toggle theme and switch language"
-        {% elif language == "zh-TW": %}
+        {% elif language == 'zh-TW': %}
           aria-label="切換主題與語言"
         {% endif %}
       >
@@ -207,39 +190,23 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a class="dropdown-item float-dropdown-option" href="{{ url_for('switch_language') }}">
+          <a class="dropdown-item float-dropdown-option" href="{{ url_for('switch_language') }}" aria-label="{{ current.theme_switcher.get(language).get('language') }}">
             <img src="../static/assets/svg/lang-{{ language }}.svg" class="svg-color-by-theme" alt="a line draw image of google translation app." height="24">
-            {% if language == "en-US": %}
-              Switch language (Chinese)
-            {% elif language == "zh-TW": %}
-              變更語言 (英文)
-            {% endif %}
+            {{ current.theme_switcher.get(language).get("language") }}
           </a>
         </li>
         <li><hr class="dropdown-divider"></li>
-        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="light">
+        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="light" aria-label="{{ current.theme_switcher.get(language).get('ligt') }}">
           <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme" alt="a line draw image of the sun." height="24">
-          {% if language == "en-US": %}
-            Toggle theme (Light)
-          {% elif language == "zh-TW": %}
-            切換主題 (淺色)
-          {% endif %}
+          {{ current.theme_switcher.get(language).get("ligt") }}
         </button></li>
-        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="dark">
+        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="dark" aria-label="{{ current.theme_switcher.get(language).get('dark') }}">
           <img src="../static/assets/svg/moon-stars-fill.svg" class="svg-color-by-theme" alt="a line draw image of the moon." height="24">
-          {% if language == "en-US": %}
-            Toggle theme (Dark)
-          {% elif language == "zh-TW": %}
-            切換主題 (深色)
-          {% endif %}
+          {{ current.theme_switcher.get(language).get("dark") }}
         </button></li>
-        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="auto">
+        <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="auto" aria-label="{{ current.theme_switcher.get(language).get('auto') }}">
           <img src="../static/assets/svg/sun-and-moon.svg" class="svg-color-by-theme" alt="a line draw image of sun and moon separated by a diagonal line." height="24">
-          {% if language == "en-US": %}
-            Toggle theme (Auto)
-          {% elif language == "zh-TW": %}
-            依照瀏覽器主題
-          {% endif %}
+          {{ current.theme_switcher.get(language).get("auto") }}
           <!-- TODO: remove image of ... in alt text, see: https://accessibility.huit.harvard.edu/describe-content-images -->
         </button></li>
       </ul>

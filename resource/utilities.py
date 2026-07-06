@@ -22,7 +22,6 @@ Languages: TypeAlias = Literal["en-US", "zh-TW"]
 Desc: TypeAlias = dict[Languages, str]
 Items: TypeAlias = dict[Languages, list[str]]
 CookieKeys: TypeAlias = Literal["setting", "language", "endpoint", "scheme"]
-BannerDesc: TypeAlias = Literal[CookieKeys, "accept", "reject"]
 
 AllowedTitles: TypeAlias = Literal["website", "author", "tools"]
 RouteRetVal: TypeAlias = tuple[str | RedirectResponse, Languages, ColorScheme]
@@ -119,75 +118,94 @@ class Current():
     """
     path_lang_byte: Path = PATH
 
-    navbar_about: dict[Languages, str] = {
-        LANG_EN_US: "About",
-        LANG_ZH_TW: "關於"
-    }
-    navbar_about_dropdown: dict[Languages, dict[str, str]] = {
-            LANG_EN_US: {
+    navbar: dict[Languages, dict[str, str | dict[str, str]]] = {
+        LANG_EN_US: {
+            "title": "Homepage",
+            "about": "About",
+            "dropdown": {
                 "The Website": HREF_WEBSITE,
                 "The Author": HREF_AUTHOR,
                 "The Tools": HREF_TOOLS,
-                },
-            LANG_ZH_TW: {
+            },
+            "contact": "Contact",
+            "github": "The author's GitHub page",
+        },
+        LANG_ZH_TW: {
+            "title": "首頁",
+            "about": "關於",
+            "dropdown": {
                 "網站簡介": HREF_WEBSITE,
                 "我": HREF_AUTHOR,
                 "使用工具": HREF_TOOLS,
-                }
+            },
+            "contact": "聯絡方式",
+            "github": "作者的GitHub",
         }
-    navbar_contact: dict[Languages, str] = {
-        LANG_EN_US: "Contact",
-        LANG_ZH_TW: "聯絡方式"
-    }
-    navbar_switch: dict[Languages, str] = {
-        LANG_EN_US: "Switch display language to Traditional Chinese",
-        LANG_ZH_TW: "變更顯示語言為英文\nSwitch display language to English",
     }
 
-    cookie_banner_description: dict[BannerDesc, dict[Languages, str]] = {
-        COOKIE_SETTING: {
-            LANG_EN_US: (
+    cookie_banner: dict[Languages, dict[str, str]] = {
+        LANG_EN_US: {
+            COOKIE_SETTING: "Cookie preferences",
+            COOKIE_SETTING + "_desc": (
                 "This setting is used to record your privacy settings on this "
                 "website.\nYou accept this setting by interacting with the "
                 'Privacy Settings Panel.\nYou reject by clicking "Remove All '
                 'Cookie" in the lower left corner of the panel.'
-                ),
-            LANG_ZH_TW: (
-                "這個設定用於記錄您在本網站的所有其他隱私設定。\n"
-                "操作隱私設定控制台將同意這項設定，"
-                '透過控制台左下角的「刪除全部 Cookie」拒絕。'
-                )
-        },
-        COOKIE_LANG: {
-            LANG_EN_US: (
+            ),
+            COOKIE_LANG: "Preferred display language",
+            COOKIE_LANG + "_desc": (
                 "This setting allows you to switch languages."
                 "\nWithout it, you will not be able to switch languages."
-                ),
-            LANG_ZH_TW: (
-                "同意這項設定以切換語言，拒絕此設定則無法切換語言。"
-                )
-        },
-        COOKIE_PATH: {
-            LANG_EN_US: (
+            ),
+            COOKIE_PATH: "Last webpage visited",
+            COOKIE_PATH + "_desc": (
                 "This setting allows you to return to the webpage previously "
                 "browsing after switching languages.\nWithout it, you will be "
                 "redirected to the website homepage after switching languages."
-                ),
-            LANG_ZH_TW: (
-                "同意這項設定以在切換語言後返回之前瀏覽的網頁，\n"
-                "拒絕此設定則會在切換語言後回到網站首頁。"
-                )
-        },
-        COOKIE_SCHEME: {
-            LANG_EN_US: (
+            ),
+            COOKIE_SCHEME: "Preferred color scheme",
+            COOKIE_SCHEME + "_desc": (
                 "This setting allows you to maintain the selected theme after "
                 "navigating to different webpages or switching languages."
                 "\nWithout it, the theme set by the browser will be used."
-                ),
-            LANG_ZH_TW: (
+            ),
+        },
+        LANG_ZH_TW: {
+            COOKIE_SETTING: "Cookie 偏好設定",
+            COOKIE_SETTING + "_desc": (
+                "這個設定用於記錄您在本網站的所有其他隱私設定。\n"
+                "操作隱私設定控制台將同意這項設定，"
+                '透過控制台左下角的「刪除全部 Cookie」拒絕。'
+            ),
+            COOKIE_LANG: "偏好顯示語言",
+            COOKIE_LANG + "_desc": (
+                "同意這項設定以切換語言，拒絕此設定則無法切換語言。"
+            ),
+            COOKIE_PATH: "瀏覽的最後一個網頁",
+            COOKIE_PATH + "_desc": (
+                "同意這項設定以在切換語言後返回之前瀏覽的網頁，\n"
+                "拒絕此設定則會在切換語言後回到網站首頁。"
+            ),
+            COOKIE_SCHEME: "偏好顯示模式",
+            COOKIE_SCHEME + "_desc": (
                 "同意這項設定以在瀏覽不同網頁時或切換語言後維持設定的顯示模式，\n"
                 "拒絕此設定則會顯示瀏覽器設定的顯示模式。"
-                )
+            ),
+        }
+    }
+
+    theme_switcher: dict[Languages, dict[str, str]] = {
+        LANG_EN_US: {
+            "language": "Switch language (Chinese)",
+            "ligt": "Toggle theme (Light)",
+            "dark": "Toggle theme (Dark)",
+            "auto": "Toggle theme (Auto)",
+        },
+        LANG_ZH_TW: {
+            "language": "變更語言 (英文)",
+            "ligt": "切換主題 (淺色)",
+            "dark": "切換主題 (深色)",
+            "auto": "依照瀏覽器主題",
         }
     }
 
