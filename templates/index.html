@@ -21,7 +21,7 @@
                 </a>
                 {% endif %}
                 <a class="btn btn-outline-secondary btn-lg" target="_blank" lang="Not-Applicable" title="{{ current.gh_title.get(language) }}" href="{{ project.gh_link }}">
-                  <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="a line draw image of github, represents link to the project on github." height="30">
+                  <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="The GitHub logo, this is a link to the demo's repository." height="30">
                 </a>
                </div>
             </div>
@@ -71,11 +71,11 @@
                     <div class="carousel-inner">
                       {% if first_loc != "": %}
                         <div class="carousel-item active" data-bs-interval="6000">
-                          <img src="{{ first_loc[project.info_id] }}" class="d-block w-100" alt="a image of preview code.">
+                          <img src="{{ first_loc[project.info_id] }}" class="d-block w-100" alt="The source code preview.">
                         </div>
                         {% for loc in image_locs[project.info_id] %}
                           <div class="carousel-item" data-bs-interval="6000">
-                            <img src="{{ loc }}" class="d-block w-100" alt="a image of preview code.">
+                            <img src="{{ loc }}" class="d-block w-100" alt="The source code preview.">
                           </div>
                         {% endfor %}
                       {% endif %}
