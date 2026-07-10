@@ -1,0 +1,7 @@
+{% set svg_zhtw = "<img src='/static/assets/svg/lang-Zh-TW.svg' width='18' alt='The Google translation app with Traditional Chinese represent letter on top.'>" %}
+
+{% if language == "en-US": %}
+  The icon I created {{ svg_zhtw | safe }} were optimized using this website.
+{% elif language == "zh-TW": %}
+  自行建立的圖示 {{ svg_zhtw | safe }} 是透過此網站優化的。
+{% endif %}

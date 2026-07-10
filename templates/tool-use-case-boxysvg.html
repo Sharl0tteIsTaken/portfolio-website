@@ -1,0 +1,10 @@
+{% set svg_enus = "<img src='/static/assets/svg/lang-En-US.svg' width='18' alt='The Google translation app with English represent letter on top.'>" %}
+{% set svg_zhtw = "<img src='/static/assets/svg/lang-Zh-TW.svg' width='18' alt='The Google translation app with Traditional Chinese represent letter on top.'>" %}
+
+{% if language == "en-US": %}
+  The Switch Language button has two versions
+  {{ svg_enus | safe }} and {{ svg_zhtw | safe }},
+  the latter was created using this website.
+{% elif language == "zh-TW": %}
+  切換語言按鈕有兩個版本 {{ svg_enus | safe }} and {{ svg_zhtw | safe }}，後者是透過此網站建立的。
+{% endif %}

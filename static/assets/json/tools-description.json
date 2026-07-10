@@ -88,10 +88,7 @@
                     "en-US": "Free, high quality, open source icon library with over 2,000 icons.",
                     "zh-TW": "免費、高品質，包含超過 2000 個圖示的開源圖示網站。"
                 },
-                "use-case": {
-                    "en-US": "The following icons are from this website: <img src='/static/assets/svg/arrow-left.svg' width='18' alt='A circle containing an arrow pointing to the left.'> <img src='/static/assets/svg/arrow-right.svg' width='18' alt='A circle containing an arrow pointing to the right.'> <img src='/static/assets/svg/eraser.svg' width='18' alt='A eraser.'> <img src='/static/assets/svg/lang-En-US.svg' width='18' alt='The logo of Google translation.'> <img src='/static/assets/svg/github.svg' width='18' alt='The GitHub logo.'> <img src='/static/assets/svg/clock-history.svg' width='18' alt='A ticking clock'> <img src='/static/assets/svg/envelope-paper.svg' width='18' alt='An opened envelope.'> <img src='/static/assets/svg/info.svg' width='18' alt='A box containing the letter I, this is an information icon.'> <img src='/static/assets/svg/person-vcard.svg' width='18' alt='A business card.'>",
-                    "zh-TW": "以下圖示均取自此網站： <img src='/static/assets/svg/arrow-left.svg' width='18' alt='A circle containing an arrow pointing to the left.'> <img src='/static/assets/svg/arrow-right.svg' width='18' alt='A circle containing an arrow pointing to the right.'> <img src='/static/assets/svg/eraser.svg' width='18' alt='A eraser.'> <img src='/static/assets/svg/lang-En-US.svg' width='18' alt='The logo of Google translation.'> <img src='/static/assets/svg/github.svg' width='18' alt='The GitHub logo.'> <img src='/static/assets/svg/clock-history.svg' width='18' alt='A ticking clock'> <img src='/static/assets/svg/envelope-paper.svg' width='18' alt='An opened envelope.'> <img src='/static/assets/svg/info.svg' width='18' alt='A box containing the letter I, this is an information icon.'> <img src='/static/assets/svg/person-vcard.svg' width='18' alt='A business card.'>"
-                }
+                "example-html-id": "bootstrap"
             },
             {
                 "title": "SVG Repo",
@@ -100,10 +97,7 @@
                     "en-US": "Search, explore and edit the best-fitting free icons or vectors for your projects using a wide variety vector library.",
                     "zh-TW": "使用種類繁多的向量圖形來搜尋、瀏覽和編輯最適合您專案的免費圖示或向量圖。"
                 },
-                "use-case": {
-                    "en-US": "The following icons are from this website: <img src='/static/assets/svg/magic-cross.svg' width='18' alt='A twinkling four-pointed star.'> <img src='/static/assets/svg/magic-star.svg' width='18' alt='A twinkling five-pointed star.'> <img src='/static/assets/svg/return-home.svg' width='18' alt='A box containing an arrow pointing to the left.'>",
-                    "zh-TW": "以下圖示均取自此網站： <img src='/static/assets/svg/magic-cross.svg' width='18' alt='A twinkling four-pointed star.'> <img src='/static/assets/svg/magic-star.svg' width='18' alt='A twinkling five-pointed star.'> <img src='/static/assets/svg/return-home.svg' width='18' alt='A box containing an arrow pointing to the left.'>"
-                }
+                "example-html-id": "svgrepo"
             },
             {
                 "title": "Font Awesome",
@@ -118,12 +112,9 @@
                 "href": "https://www.flaticon.com/",
                 "description": {
                     "en-US": "Download Free Icons and Stickers for your projects. Resources made by and for designers.",
-                    "zh-TW": "下載免費圖示和貼紙用於您的專案。資源由設計師製作，為設計師設計。"
+                    "zh-TW": "下載免費圖示和貼紙用於您的專案。資源由設計師製作，專為設計師設計。"
                 },
-                "use-case": {
-                    "en-US": "The website icon <img src='/static/assets/ico/favicon.ico' width='18' alt='A quill drawing a line.'> are from here, <a href='https://www.flaticon.com/free-icons/feather' title='feather icons'>created by Freepik - Flaticon</a>.",
-                    "zh-TW": "網站圖示 <img src='/static/assets/ico/favicon.ico' width='18' alt='A quill drawing a line.'> 來自此網頁，<a href='https://www.flaticon.com/free-icons/feather' title='羽毛圖示'>由 Freepik - Flaticon 製作</a>。"
-                }
+                "example-html-id": "flaticon"
             }
         ]
     },
@@ -144,10 +135,7 @@
                     "en-US": "Boxy is a vector drawing software that allows you to work efficiently with the vector format using many suitable tools.",
                     "zh-TW": "Boxy 是一款向量繪圖軟體，它提供了許多合適的工具，讓您能夠有效率地處理向量格式的圖形。"
                 },
-                "use-case": {
-                    "en-US": "The Switch Language button has two versions <img src='/static/assets/svg/lang-En-US.svg' width='18' alt='The Google translation app with English represent letter on top.'> and <img src='/static/assets/svg/lang-Zh-TW.svg' width='18' alt='The Google translation app with Traditional Chinese represent letter on top.'>, the latter was created using this website.",
-                    "zh-TW": "切換語言按鈕有兩個版本 <img src='/static/assets/svg/lang-En-US.svg' width='18' alt='The Google translation app with English represent letter on top.'> 和 <img src='/static/assets/svg/lang-Zh-TW.svg' width='18' alt='The Google translation app with Traditional Chinese represent letter on top.'>，後者是透過此網站建立的。"
-                }
+                "example-html-id": "boxysvg"
             },
             {
                 "title": "SVG Viewer",
@@ -156,10 +144,7 @@
                     "en-US": "SVG Viewer is an online tool to view, edit and optimize SVGs.",
                     "zh-TW": "SVG Viewer 是一款用於檢視、編輯和優化 SVG 的線上工具。"
                 },
-                "use-case": {
-                    "en-US": "The icon I created <img src='/static/assets/svg/lang-Zh-TW.svg' width='18' alt='The Google translation app with Traditional Chinese represent letter on top.'> were optimized using this website.",
-                    "zh-TW": "自行建立的圖示 <img src='/static/assets/svg/lang-Zh-TW.svg' width='18' alt='The Google translation app with Traditional Chinese represent letter on top.'> 是透過此網站優化的。"
-                }
+                "example-html-id": "svgviewer"
             },
             {
                 "title": "CSS Color Filter Generator | ClampCSS",

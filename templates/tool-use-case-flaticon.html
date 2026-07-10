@@ -1,0 +1,9 @@
+{% set svg_icon = "<img src='/static/assets/ico/favicon.ico' width='18' alt='A quill drawing a line.'>" %}
+{% set svg_feather_tag_opening = "<a href='https://www.flaticon.com/free-icons/feather'>" %}
+{% set svg_feather_tag_closing = "</a>" %}
+
+{% if language == "en-US": %}
+  The website icon {{ svg_icon | safe }} are from here, {{ svg_feather_tag_opening | safe }}created by Freepik - Flaticon{{ svg_feather_tag_closing | safe }}.
+{% elif language == "zh-TW": %}
+  網站圖示 {{ svg_icon | safe }} 取自此網站，{{ svg_feather_tag_opening | safe }}由 Freepik - Flaticon 製作{{ svg_feather_tag_closing | safe }}。
+{% endif %}
