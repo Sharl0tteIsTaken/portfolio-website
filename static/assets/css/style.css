@@ -201,6 +201,26 @@ strong {
     filter: invert(86%) sepia(7%) saturate(160%) hue-rotate(202deg) brightness(96%) contrast(89%);
 }
 
+.svg-size-navbar {
+    height: 30px;
+}
+
+.svg-size-tool {
+    height: 20px;
+}
+
+.svg-size-large {
+    height: 32px;
+}
+
+.svg-size-medium {
+    height: 24px;
+}
+
+.svg-size-small {
+    height: 16px;
+}
+
 
 /* ============================== header.html ============================== */
 .navbar {
@@ -321,6 +341,7 @@ so a default value is provided here.
 }
 
 .brand-image {
+    width: 34px;
     border-radius: 50%;
 }
 

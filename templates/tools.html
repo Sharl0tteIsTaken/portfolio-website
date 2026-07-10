@@ -10,9 +10,9 @@
       <dt class="tool-title">
         <a href="{{ tool.get('href') }}" class="tool-href">
           {% if tool.get('favicon'): %}
-            <img class="tool-favicon" src="{{ tool.get('favicon') }}" width="20" alt="The website icon.">
+            <img class="tool-favicon svg-size-tool" src="{{ tool.get('favicon') }}" alt="The website icon.">
           {% else: %}
-            <img class="tool-favicon" src="http://www.google.com/s2/favicons?sz=48&domain={{ tool.get('href') }}" width="20" alt="The website icon.">
+            <img class="tool-favicon svg-size-tool" src="http://www.google.com/s2/favicons?sz=48&domain={{ tool.get('href') }}" alt="The website icon.">
           {% endif %}
           
           {{ tool.get('title') }}

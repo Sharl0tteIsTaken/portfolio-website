@@ -15,7 +15,7 @@
   <nav class="navbar navbar-expand-md navbar-dark bg-dark" lang="{{ language }}">
     <div class="container-fluid">
       <a class="navbar-brand d-flex" href="{{ url_for('home') }}" lang="en-US" aria-label="{{ current.navbar.get(language).get('title') }}">
-        <img width="34" class="brand-image" src="https://avatars.githubusercontent.com/u/166942861?v=4" alt="The author's avatar on GitHub." onerror="this.onerror=null; this.src='../static/assets/img/github-avatar.jfif';"/>
+        <img class="brand-image" src="https://avatars.githubusercontent.com/u/166942861?v=4" alt="The author's avatar on GitHub." onerror="this.onerror=null; this.src='../static/assets/img/github-avatar.jfif';"/>
         <div class="header-text header-title-text">Sharl0tteIsTaken</div>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation"  onclick="syncFrameSize()">
@@ -27,7 +27,7 @@
             <div class="hover-frame-size" aria-hidden="true" id="frame-size-1"></div>
             <div class="hover-content">
               <button class="nav-link btn-secondary dropdown-toggle text-white about-button d-flex focus-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="{{ current.navbar.get(language).get('about') }}">
-                <img src="../static/assets/svg/person-vcard.svg" class="svg-whitened" alt="A business card, this is a dropdown button to show all the about pages on website." height="30">
+                <img src="../static/assets/svg/person-vcard.svg" class="svg-whitened svg-size-navbar" alt="A business card, this is a dropdown button to show all the about pages on website.">
                 <div class="header-text header-button-text">{{ current.navbar.get(language).get('about') }}</div>
               </button>
               <ul class="dropdown-menu">
@@ -41,7 +41,7 @@
             <div class="hover-frame-size" aria-hidden="true" id="frame-size-2"></div>
             <div class="hover-content">
               <a href="{{ url_for('contact') }}" class="nav-link d-flex text-white focus-button" aria-label="{{ current.navbar.get(language).get('contact') }}">
-                <img src="../static/assets/svg/envelope-paper.svg" class="svg-whitened" alt="An opened envelope." height="30">
+                <img src="../static/assets/svg/envelope-paper.svg" class="svg-whitened svg-size-navbar" alt="An opened envelope.">
                   <div class="header-text header-button-text">{{ current.navbar.get(language).get('contact') }}</div>
               </a>
             </div>
@@ -50,7 +50,7 @@
             <div class="hover-frame-size" aria-hidden="true" id="frame-size-3"></div>
             <div class="hover-content">
               <a href="https://github.com/Sharl0tteIsTaken" class="nav-link d-flex text-white focus-button" aria-label="{{ current.navbar.get(language).get('github') }}">
-                <img src="../static/assets/svg/github.svg" class="svg-whitened" alt="The GitHub logo." height="30">
+                <img src="../static/assets/svg/github.svg" class="svg-whitened svg-size-navbar" alt="The GitHub logo.">
                   <div class="header-text header-button-text">GitHub</div>
               </a>
             </div>
@@ -70,7 +70,7 @@
           aria-label="隱私設定"
         {% endif %}
         >
-        <img src="../static/assets/svg/record-preference.svg" class="svg-color-by-theme" alt="A quill drawing a fingerprint on a file." height="32">
+        <img src="../static/assets/svg/record-preference.svg" class="svg-color-by-theme svg-size-large" alt="A quill drawing a fingerprint on a file.">
       </button>
       <ul class="dropdown-menu cookie-banner-menu">
         <button type="button" class="btn-close" id="close-cookie-banner" aria-label="Close"></button>
@@ -80,7 +80,7 @@
           <p class="cookie-banner-description">
             By
             <u class="text-with-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="Only click buttons and accept/reject settings, others are excluded." data-bs-custom-class="custom-tooltip-style custom-text-tooltip-style"
-             >interacting<img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" alt="A box containing the letter I, this is an information icon." height="16"></u>
+             >interacting<img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme svg-size-small" alt="A box containing the letter I, this is an information icon."></u>
             with this panel, a cookie is stored on your device to remember your cookie setting preferences.
           </p>
           <ul>
@@ -92,7 +92,7 @@
           <p>設定及管理此網站使用的 Cookie。</p>
           <p class="cookie-banner-description">
             <u class="text-with-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="只有點擊按鈕和同意/拒絕設定，其他行為不算。" data-bs-custom-class="custom-tooltip-style custom-text-tooltip-style"
-             >操作<img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" alt="A box containing the letter I, this is an information icon." height="16"></u>
+             >操作<img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme svg-size-small" alt="A box containing the letter I, this is an information icon."></u>
             本控制台將儲存一個 Cookie 在您的裝置上，以記住您的設定。
           </p>
           <ul>
@@ -106,7 +106,7 @@
             <label class="form-check-label d-flex justify-content-between align-items-center" for="setting">
               {{ current.cookie_banner.get(language).get('setting') }}
               <span class="disabled-tooltip" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('setting_desc') }}" data-bs-custom-class="custom-tooltip-style">
-                <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" alt="A box containing the letter I, this is an information icon." height="16">
+                <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme svg-size-small" alt="A box containing the letter I, this is an information icon.">
               </span>
             </label>
           </div>
@@ -116,7 +116,7 @@
             <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="language" aria-label="{{ current.cookie_banner.get(language).get('language') }}" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="language">
               {{ current.cookie_banner.get(language).get('language') }}
-              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('language_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="A box containing the letter I, this is an information icon." height="16">
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme svg-size-small" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('language_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="A box containing the letter I, this is an information icon.">
             </label>
           </div>
         </li>
@@ -125,7 +125,7 @@
             <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="endpoint" aria-label="{{ current.cookie_banner.get(language).get('endpoint') }}" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="endpoint">
               {{ current.cookie_banner.get(language).get('endpoint') }}
-              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('endpoint_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="A box containing the letter I, this is an information icon." height="16">
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme svg-size-small" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('endpoint_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="A box containing the letter I, this is an information icon.">
             </label>
           </div>
         </li>
@@ -134,7 +134,7 @@
             <input class="form-check-input cookie-banner-switch" type="checkbox" role="switch" id="scheme" aria-label="{{ current.cookie_banner.get(language).get('scheme') }}" switch>
             <label class="form-check-label d-flex justify-content-between align-items-center" for="scheme">
               {{ current.cookie_banner.get(language).get('scheme') }}
-              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('scheme_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="A box containing the letter I, this is an information icon." height="16">
+              <img src="../static/assets/svg/info.svg" class="tooltip-img svg-color-by-theme svg-size-small" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ current.cookie_banner.get(language).get('scheme_desc') }}" data-bs-custom-class="custom-tooltip-style" alt="A box containing the letter I, this is an information icon.">
             </label>
           </div>
         </li>
@@ -185,26 +185,26 @@
           aria-label="切換主題與語言"
         {% endif %}
       >
-      <img class="svg-color-by-theme" src="../static/assets/svg/quill-draw-{{ language }}.svg" alt="A quill and the English letter 'A'." height="32">
+      <img class="svg-color-by-theme svg-size-large" src="../static/assets/svg/quill-draw-{{ language }}.svg" alt="A quill and the English letter 'A'.">
       </button>
       <ul class="dropdown-menu">
         <li>
           <a class="dropdown-item float-dropdown-option" href="{{ url_for('switch_language') }}" aria-label="{{ current.theme_switcher.get(language).get('language') }}">
-            <img src="../static/assets/svg/lang-{{ language }}.svg" class="svg-color-by-theme" alt="The logo of Google translation." height="24">
+            <img src="../static/assets/svg/lang-{{ language }}.svg" class="svg-color-by-theme svg-size-medium" alt="The logo of Google translation.">
             {{ current.theme_switcher.get(language).get("language") }}
           </a>
         </li>
         <li><hr class="dropdown-divider"></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="light" aria-label="{{ current.theme_switcher.get(language).get('ligt') }}">
-          <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme" alt="A radiant sun." height="24">
+          <img src="../static/assets/svg/sun-fill.svg" class="svg-color-by-theme svg-size-medium" alt="A radiant sun.">
           {{ current.theme_switcher.get(language).get("ligt") }}
         </button></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="dark" aria-label="{{ current.theme_switcher.get(language).get('dark') }}">
-          <img src="../static/assets/svg/moon-stars-fill.svg" class="svg-color-by-theme" alt="The moon and shining stars." height="24">
+          <img src="../static/assets/svg/moon-stars-fill.svg" class="svg-color-by-theme svg-size-medium" alt="The moon and shining stars.">
           {{ current.theme_switcher.get(language).get("dark") }}
         </button></li>
         <li><button class="dropdown-item float-dropdown-option" data-bs-theme-value="auto" aria-label="{{ current.theme_switcher.get(language).get('auto') }}">
-          <img src="../static/assets/svg/sun-and-moon.svg" class="svg-color-by-theme" alt="A sun cradled by a crescent moon." height="24">
+          <img src="../static/assets/svg/sun-and-moon.svg" class="svg-color-by-theme svg-size-medium" alt="A sun cradled by a crescent moon.">
           {{ current.theme_switcher.get(language).get("auto") }}
         </button></li>
       </ul>
