@@ -13,7 +13,7 @@
   </div>
   {% if is_winner == "True": %}
     <div class="textsize-float">
-      player {{ player }} wins this round!
+      player {{ 2 if player == 1 else 1 }} wins this round!
       Enter any position to start a new game!
     </div>
   {% elif is_winner == "draw": %}
