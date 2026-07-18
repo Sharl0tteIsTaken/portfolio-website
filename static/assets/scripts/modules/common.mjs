@@ -10,13 +10,13 @@ const cookieExpire = "Thu, 01 Jan 1970 00:00:00 UTC"
 
 const cookieMap = {
   get [cookieNameLanguage]() {
-    return document.documentElement.getAttribute("lang")
+    return $("html").attr("lang")
   },
   get [cookieNameEndpoint]() {
     return window.location.pathname
   },
   get [cookieNameScheme]() {
-    return document.documentElement.getAttribute("data-bs-theme")
+    return $("html").attr("data-bs-theme")
   },
 }
 
@@ -34,6 +34,11 @@ const getCookie = (cookieKey) => {
     .split("; ")
     .find((row) => row.startsWith(cookieKey + "="))
     ?.split("=")[1] ?? null
+}
+
+// custom jQuery utility method
+$.fn.exists = function() {
+    return this.length !== 0
 }
 
 export { banners, cookieMap, cookieNameSetting, setCookie, getCookie }

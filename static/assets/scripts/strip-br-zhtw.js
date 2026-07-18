@@ -1,8 +1,8 @@
 // remove line breaks from text to better fit the table format
-(() => {
-  if (document.documentElement.getAttribute("lang") === "zh-TW") {
-    document.querySelectorAll('[data-format="strip-br-zhtw"]').forEach(element => {
-      element.textContent = element.textContent.replaceAll('\n', '')
+$(document).ready(() => {
+  if ($('html').attr('lang') === "zh-TW") {
+    $('[data-format="strip-br-zhtw"]').each(function() {
+      this.textContent = this.textContent.replaceAll('\n', '')
     })
   }
-})()
+})

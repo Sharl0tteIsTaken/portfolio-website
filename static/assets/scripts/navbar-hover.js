@@ -1,24 +1,31 @@
-(() => {
-  document.getElementById("hover-container").onmousemove = event => {
-    for (const frame of document.getElementsByClassName("hover-frame")) {
-      const rect = frame.getBoundingClientRect()
+$(document).ready(() => {
+  const frame = $('.hover-frame')
+
+  $("#hover-container").on('mousemove', (event) => {
+    frame.each(function() {
+      const rect = this.getBoundingClientRect()
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
 
-      frame.style.setProperty("--mouse-x", `${x}px`)
-      frame.style.setProperty("--mouse-y", `${y}px`)
-    }
-  }
-})()
+      // may have better performance than jQuery syntax
+      this.style.setProperty("--mouse-x", `${x}px`)
+      this.style.setProperty("--mouse-y", `${y}px`)
+    })
+  })
 
-const syncFrameSize = () => {
-  for (const frame of document.getElementsByClassName('hover-frame')) {
-    const content = frame.querySelector('.hover-content').children[0]
-    const sizeHolder = frame.querySelector('.hover-frame-size');
-    sizeHolder.style.width = `${content.offsetWidth}px`;
-    sizeHolder.style.height = `${content.offsetHeight}px`;
-  }
-}
+  const syncFrameSize = () => {
+    frame.each(function() {
+      const frame = $(this)
+      const content = frame.find('.hover-content').children().first()
+      const sizeHolder = frame.find('.hover-frame-size')
 
-window.addEventListener('load', syncFrameSize);
-window.addEventListener('resize', syncFrameSize);
+      sizeHolder.css({
+        "width": `${content.outerWidth()}px`,
+        "height": `${content.outerHeight()}px`,
+      })
+    })
+  }
+
+  syncFrameSize()
+  $(window).on('resize', syncFrameSize)
+})

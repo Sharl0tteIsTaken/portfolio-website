@@ -163,13 +163,12 @@ def gate_tic_tac_toe() -> Response:
 
 
 @app.route("/demo/tic-tac-toe", methods=['GET', 'POST'])
-def demo_tic_tac_toe() -> str:
+def demo_tic_tac_toe() -> str | Response:
     """The page with tic tac toe demo."""
     if request.method == "POST":
         enter = request.form.get('user_input') or ""
-        dk_showmaker.player_input(
-            user_input=enter
-            )
+        dk_showmaker.player_input(user_input=enter)
+        return Response(status=204)
     result = dk_showmaker.output
     pwd = dk_showmaker.pwd
     history = dk_showmaker.history
@@ -194,7 +193,7 @@ def demo_tic_tac_toe_input_receive() -> str:
     is_winner = str(dk_showmaker.iswinner)
     player = int(dk_showmaker.current_player) + 1
     return render_template(
-        'demo-cz_terminal-tic_tac_toe.html',
+        'demo-cz-terminal-tic-tac-toe.html',
         terminal_lines=result,
         pwd=pwd, history=history,
         is_winner=is_winner,
@@ -213,21 +212,20 @@ def gate_morse_code_converter() -> Response:
 
 
 @app.route('/demo/morse-code-converter', methods=['GET', 'POST'])
-def demo_morse_code_converter() -> str:
+def demo_morse_code_converter() -> str | Response:
     """The page with morse code converter demo."""
     if request.method == "POST":
         enter = request.form.get('user_input') or ""
         converter.history += enter + "\n"
-        converter.history += converter.convert(
-            user_input=enter
-            ) + "\n"
+        converter.history += converter.convert(user_input=enter) + "\n"
+        return Response(status=204)
     return render_template(
         'demo-morse-code-converter.html',
         terminal_lines=converter.history,
         )
 
 
-@app.route('/demo/morse-code-converter/input-recieve')
+@app.route('/demo/morse-code-converter/input-receive')
 def demo_morse_code_converter_input_receive() -> str:
     """The page to receive user input on morse code converter demo."""
     return render_template(

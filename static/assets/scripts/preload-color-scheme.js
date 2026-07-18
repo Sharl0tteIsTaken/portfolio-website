@@ -19,9 +19,8 @@
   }
 
   const setTheme = theme => {
-    document.documentElement.setAttribute('data-bs-theme', theme)
+    $('html').attr('data-bs-theme', theme)
   }
 
   setTheme(getTheme())
 })()
-
