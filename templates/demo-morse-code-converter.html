@@ -113,18 +113,16 @@ spaces(seven) in between two word(test and msg) is `medium gap`
             <label class="input-sizer" data-value="">
               <!-- autofocus cite: https://stackoverflow.com/questions/26790990/html-input-always-in-focus -->
               <textarea 
-              name="user_input" 
-              id="user_input"
-              type="text" 
-              oninput="this.parentNode.dataset.value = this.value" 
-              autocomplete="off" 
-              autocorrect="off" 
-              autocapitalize="off" 
-              spellcheck="false" 
-              size="1" 
-              rows="5"
-              value="" 
-              autofocus
+                name="user_input"
+                id="user_input"
+                oninput="this.parentNode.dataset.value = this.value"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                size="1"
+                rows="5"
+                autofocus
               ></textarea>
             </label>
             <input type="submit" value="" class="input-button">

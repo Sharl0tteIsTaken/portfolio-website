@@ -1,43 +1,26 @@
-$(document).ready(function() {
-    const InputForm = document.getElementById("input-form")
-    const Terminal = document.getElementById("terminal-history")
-    InputForm.onsubmit = function(event) {
-        event.preventDefault();
-        fetch("/demo/morse-code-converter", {
-        method: "GET"
-        })
-        .then(() => {
-        fetch("/demo/morse-code-converter/input-recieve", {
-            method: "GET"
-        })
-        .then(response => {
-            return response.text();
-        })
-        .then(html =>{
-            Terminal.innerHTML = html;
-        })
-        .then(InputForm.reset())
-        })
-    }
-});
+$(document).ready(() => {
+  const inputForm = $("#input-form")
+  const terminal = $("#terminal-history")
 
-$(document).ready(function() {
-    $('form').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '/demo/morse-code-converter',
-            data: $('form').serialize(),
-            success: function() {
-            $('user_input').val('');
-            }
-        });
-    });
-});
+  inputForm.on('submit', event => {
+    event.preventDefault()
+    $.ajax({
+      type: 'POST',
+      url: '/demo/morse-code-converter',
+      data: inputForm.serialize(),
+      success: () => {
+        $.get("/demo/morse-code-converter/input-receive", html => {
+          terminal.html(html)
+          inputForm[0].reset()
+        })
+      }
+    })
+  })
 
-$("#user_input").keypress(function (e) {
-    if(e.which === 13 && !e.shiftKey) {
-        e.preventDefault();
-        $(this).closest("form").submit();
+  $("#user_input").on('keydown', function(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      $(this).closest("form").submit()
     }
-});
+  })
+})
