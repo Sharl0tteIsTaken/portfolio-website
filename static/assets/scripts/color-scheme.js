@@ -35,25 +35,27 @@ const getTheme = () => {
 }
 
 const setTheme = theme => {
-  document.documentElement.setAttribute('data-bs-theme', theme)
+  $('html').attr('data-bs-theme', theme)
 }
 
 setTheme(getTheme())
 // duplication end
 
 const showActiveTheme = (theme, focus = false) => {
-  const themeSwitcher = document.getElementById("theme-switcher")
+  const themeSwitcher = $('#theme-switcher')
 
-  if (!themeSwitcher) {
+  if (!themeSwitcher.exists()) {
     return
   }
 
-  document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-    const isSelected = element.getAttribute("data-bs-theme-value") === theme
-    element.classList.toggle('active', isSelected)
-    element.classList.toggle('disabled', isSelected)
-    element.setAttribute('aria-pressed', isSelected)
-    element.setAttribute('tabindex', isSelected ? "-1" : "0")
+  $('[data-bs-theme-value]').each(function() {
+    const element = $(this)
+    const isSelected = element.attr("data-bs-theme-value") === theme
+
+    element.toggleClass('active', isSelected)
+           .toggleClass('disabled', isSelected)
+           .attr('aria-pressed', isSelected)
+           .attr('tabindex', isSelected ? "-1" : "0")
   })
 
   if (focus) {
@@ -65,16 +67,13 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () 
   setTheme(getTheme())
 })
 
-window.addEventListener('DOMContentLoaded', () => {
+$(document).ready(() => {
   showActiveTheme(getTheme())
 
-  document.querySelectorAll('[data-bs-theme-value]')
-    .forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        const theme = toggle.getAttribute('data-bs-theme-value')
-        storeTheme(theme)
-        setTheme(theme)
-        showActiveTheme(theme, true)
-      })
-    })
+  $('[data-bs-theme-value]').on('click', function() {
+    const theme = $(this).attr('data-bs-theme-value')
+    storeTheme(theme)
+    setTheme(theme)
+    showActiveTheme(theme, true)
+  })
 })

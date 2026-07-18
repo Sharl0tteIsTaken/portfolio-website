@@ -8,7 +8,7 @@ const cookiePrefCheckbox = ".cookie-banner-preference"
 const settingSwitch = document.querySelector(cookiePrefCheckbox)
 
 const switchCheckbox = ".cookie-banner-switch"
-const allSwitches = document.querySelectorAll(switchCheckbox)
+const allSwitches = $(switchCheckbox)
 
 const switchExcludeElement = ["INPUT", "LABEL", "IMG"]
 
@@ -24,55 +24,46 @@ if (settingValue) {
     const element = document.getElementById(setting.id)
     if (element) {
       element.checked = setting.checked
-      element.dispatchEvent(new Event('change'))
+      $(element).change()
     }
   })
 } else {
   menubutton.show()
 }
 
-document.querySelector("#close-cookie-banner").addEventListener('click', () => {
+$("#close-cookie-banner").on('click', () => {
   toggleCookiePref(true)
   menubutton.hide()
 })
 
 // switch accessibility
-document.querySelectorAll(".cookie-banner ul .cookie-banner-switch-container")
+$(".cookie-banner ul .cookie-banner-switch-container").on('click', function(event) {
   // parent container toggleable
-  .forEach(element => {
-    element.addEventListener('click', event => {
-      if (!switchExcludeElement.includes(event.target.tagName)) {
-        const checkbox = element.querySelector(switchCheckbox)
-        checkbox.click()
-        return null
-      }
-      if (event.target.tagName === "INPUT") {
-        toggleCookiePref(true)
-      }
-    })
-  })
+  if (!switchExcludeElement.includes(event.target.tagName)) {
+    const checkbox = $(this).find(switchCheckbox)
+    checkbox.click()
+  } else if (event.target.tagName === "INPUT") {
+    toggleCookiePref(true)
+  }
+})
 
-allSwitches.forEach(element => {
+allSwitches.on('keydown', function(event) {
   // extra keyboard support
-  element.addEventListener('keydown', event => {
-    if (event.key === "Enter") {
-      element.click()
-    }
-  })
+  if (event.key === "Enter") {
+    $(this).click()
+  }
 })
 
 const toggleAllSwitch = state => {
-  allSwitches.forEach(element => {
-    element.checked = state
-    element.dispatchEvent(new Event('change'))
+  allSwitches.each(function() {
+    this.checked = state
+    $(this).change()
   })
 }
 
-document.querySelectorAll('[data-action="toggle-all"]').forEach(element => {
-  element.addEventListener('click', () => {
-    toggleAllSwitch(element.dataset.state === "true")
-    toggleCookiePref(true)
-  })
+$('[data-action="toggle-all"]').on('click', function() {
+  toggleAllSwitch($(this).data('state') === true)
+  toggleCookiePref(true)
 })
 
 const removeAllCookie = () => {
@@ -91,23 +82,21 @@ const handleKeydown = event => {
   } 
 }
 
-const removeLink = document.querySelector('[data-action="remove-all"]')
-removeLink.addEventListener('click', removeAllCookie)
-removeLink.addEventListener('keydown', event => handleKeydown(event))
+const removeLink = $('[data-action="remove-all"]')
+removeLink.on('click', removeAllCookie)
+removeLink.on('keydown', event => handleKeydown(event))
 
 // sync user setting
-document.querySelectorAll(banners).forEach(element => {
-  element.addEventListener("hidden.bs.dropdown", () => {
-    const setting = Array.from(allSwitches).map(({ id, checked }) => ({id, checked}))
+$(banners.join(", ")).on("hidden.bs.dropdown", () => {
+  const setting = allSwitches.toArray().map(({ id, checked }) => ({ id, checked }))
 
-    if (settingSwitch.checked) {
-      setCookie(cookieNameSetting, JSON.stringify(setting))
-    }
+  if (settingSwitch.checked) {
+    setCookie(cookieNameSetting, JSON.stringify(setting))
+  }
 
-    setting.forEach(rule => {
-      const value = rule.checked ? cookieMap[rule.id] : ""
-      const remove = rule.checked ? false : true
-      setCookie(rule.id, value, remove)
-    })
+  setting.forEach(rule => {
+    const value = rule.checked ? cookieMap[rule.id] : ""
+    const remove = rule.checked ? false : true
+    setCookie(rule.id, value, remove)
   })
 })
