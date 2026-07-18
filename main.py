@@ -193,7 +193,7 @@ def demo_tic_tac_toe_input_receive() -> str:
     is_winner = str(dk_showmaker.iswinner)
     player = int(dk_showmaker.current_player) + 1
     return render_template(
-        'demo-cz_terminal-tic_tac_toe.html',
+        'demo-cz-terminal-tic-tac-toe.html',
         terminal_lines=result,
         pwd=pwd, history=history,
         is_winner=is_winner,
