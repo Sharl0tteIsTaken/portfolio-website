@@ -41,9 +41,9 @@
           <p class="text-align-right no-margin">
             <!-- TODO: remember: update the date as well -->
             {% if language == "en-US": %}
-              Last updated on 2026/07/10 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">full update history</a>)
+              Last updated on 2026/07/20 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">full update history</a>)
             {% elif language == "zh-TW": %}
-              最後更新於 2026/07/10 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">完整更新記錄</a>)
+              最後更新於 2026/07/20 (<a href="https://github.com/Sharl0tteIsTaken/portfolio-website/blame/main/templates/policy.html">完整更新記錄</a>)
             {% endif %}
           </p>
         </div>
@@ -224,20 +224,19 @@
             <tbody>
               <tr>
                 <th scope="row">setting</th>
-                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('setting')}}</td>
-                <!-- FIXME: wrong textContent -->
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('setting_desc')}}</td>
               </tr>
               <tr>
                 <th scope="row">language</th>
-                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('language')}}</td>
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('language_desc')}}</td>
               </tr>
               <tr>
                 <th scope="row">endpoint</th>
-                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('endpoint')}}</td>
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('endpoint_desc')}}</td>
               </tr>
               <tr>
                 <th scope="row">scheme</th>
-                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('scheme')}}</td>
+                <td data-format="strip-br-zhtw">{{ current.cookie_banner.get(language).get('scheme_desc')}}</td>
               </tr>
             </tbody>
           </table>
